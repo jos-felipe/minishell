@@ -15,7 +15,7 @@ This shell has the following features:
 
 + Handle ' (single quote) which should prevent the shell from interpreting the metacharacters in the quoted sequence.
 
-+ Handle ' (double quote) which should prevent the shell from interpreting the metacharacters in the quoted sequence except for $ (dollar sign).
++ Handle " (double quote) which should prevent the shell from interpreting the metacharacters in the quoted sequence except for $ (dollar sign).
 
 + Implement **redirections**:
 
