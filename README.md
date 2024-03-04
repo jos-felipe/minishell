@@ -1,4 +1,9 @@
 # push_swap
-This project involves sorting data on a stack, with a limited set of instructions, and the smallest number of moves. To make this happen, you will have to manipulate various sorting algorithms and choose the most appropriate solution(s) for optimized data sorting.
+The objective of this project is to create a simple shell, takeing bash as a reference.
 
-Algorithm inspired by [Mia Combeau's implementation](https://github.com/mcombeau/push_swap)
+References:
+
+1. 42 Network (2023). Minishell - As beautiful as a shell, Version 7.1 [PDF file]. https://projects.intra.42.fr/projects/42cursus-minishell
+
+2. Free Software Foundation (2022). GNU Bash manual. https://www.gnu.org/savannah-checkouts/gnu/bash/manual/. (Accessed March 4, 2024)
+
