@@ -19,10 +19,10 @@ This shell has the following features:
 
 + Implement **redirections**:
 
-	* < should redirect input.
-	* > should redirect output.
-	* << should be given a delimiter, then read the input until a line containing the delimiter is seen. However, it doesn't have to update the history!
-	* >> should redict output in append mode.
+	* '<' should redirect input.
+	* '>' should redirect output.
+	* '<<' should be given a delimiter, then read the input until a line containing the delimiter is seen. However, it doesn't have to update the history!
+	* '>>' should redict output in append mode.
 
 + Implement **pipes** (| character). The output of each command in the pipeline is connected to the input of the next command via a pipe.
 
