@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   07_cheapest_move.c                                 :+:      :+:    :+:   */
+/*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 15:05:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/02/26 09:27:34 by gfantoni         ###   ########.fr       */
+/*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
+/*   Updated: 2024/03/05 10:41:07 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#ifndef MINI_SHELL_H
+# define MINI_SHELL_H
 
-void	push_cheapest_move(t_list_push *b, int *rotations)
-{
-	int			total_cost;
+# include "../lib/includes/libft.h"
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-	total_cost = INT_MAX;
-	while (b)
-	{
-		if (push_abs(b->cost_a) + push_abs(b->cost_b) < total_cost)
-		{
-			rotations[0] = b->cost_a;
-			rotations[1] = b->cost_b;
-			total_cost = push_abs(b->cost_a) + push_abs(b->cost_b);
-		}
-		b = b->next;
-	}
-}
+#endif
