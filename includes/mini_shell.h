@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/05 10:41:07 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/05 11:25:55 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 # define MINI_SHELL_H
 
 # include "../lib/includes/libft.h"
+
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <signal.h>
 
 #endif
