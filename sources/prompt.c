@@ -5,16 +5,19 @@ void sig_handler(int signum)
 	if (signum == SIGINT)
 		printf("\nprompt > ");
 	if (signum == SIGQUIT)
-		;
+		printf("\naqui > ");;
 }
 
 void	mini_prompt(void)
 {
 	char	*line;
-
 	struct sigaction sa;
+	struct sigaction sa_quit;
+
     sa.sa_handler = sig_handler;
+    sa_quit.sa_handler = SIG_IGN;
     sigemptyset(&sa.sa_mask);
+    sigemptyset(&sa_quit.sa_mask);
     sa.sa_flags = 0;
 
 	line = NULL;
@@ -25,7 +28,7 @@ void	mini_prompt(void)
         	perror("sigaction");
         	exit(EXIT_FAILURE);
 		}
-		if (sigaction(SIGQUIT, &sa, NULL) == -1) 
+		if (sigaction(SIGQUIT, &sa_quit, NULL) == -1) 
 		{
         	perror("sigaction");
         	exit(EXIT_FAILURE);
