@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+         #
+#    By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:03:46 by josfelip          #+#    #+#              #
-#    Updated: 2024/03/05 10:45:53 by gfantoni         ###   ########.fr        #
+#    Updated: 2024/03/05 12:42:27 by josfelip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = mini_shell
-DEBUG_NAME = push_swap_debug
+NAME = minishell
+DEBUG_NAME = minishell_debug
 CFLAGS = -Wall -Wextra -Werror
 DFLAGS = -g3
 
@@ -27,13 +27,13 @@ WHITE = "\033[37;1;4m"
 COLOR_LIMITER = "\033[0m"
 
 # Paths definitions
-HEADER_PATH = ./includes/
-HEADER = $(HEADER_PATH)mini_shell.h
+HEADER_PATH = ./include/
+HEADER_FILE = $(shell find $(HEADER_PATH) -name "*.h" | cut -d '/' -f3)
+HEADER = $(addprefix $(HEADER_PATH), $(HEADER_FILE))
 OBJ_PATH = ./obj/
 DEBUG_OBJ_PATH = ./obj_debug/
-SOURCES_PATH = ./sources/
-SOURCES = 	*.c
-			
+SOURCES_PATH = ./src/
+SOURCES = $(shell find $(SOURCES_PATH) -name "*.c" | cut -d '/' -f3)
 MANDATORY_SOURCES = $(addprefix $(SOURCES_PATH), $(SOURCES))
 
 ifdef WITH_DEBUG
@@ -58,7 +58,7 @@ $(OBJ_PATH):
 $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) -L $(LIB_PATH) -lft -lreadline
 	@echo $(CYAN)" ----------------------------------------------"$(COLOR_LIMITER)
-	@echo $(CYAN)"| PUSH_SWAP executable was created successfully!! |"$(COLOR_LIMITER)
+	@echo $(CYAN)"| MINISHELL executable was created successfully!! |"$(COLOR_LIMITER)
 	@echo $(CYAN)"----------------------------------------------"$(COLOR_LIMITER)
 	@echo " "
 
@@ -81,4 +81,7 @@ fclean: clean
 re: fclean
 	@make --no-print-directory
 
-.PHONY: all clean fclean re libft debug
+rec: clean
+	@make --no-print-directory
+
+.PHONY: all clean fclean re libft debug rec

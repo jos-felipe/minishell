@@ -35,7 +35,7 @@
 *.i*86
 *.x86_64
 *.hex
-push_swap
+minishell
 
 # Debug files
 *.dSYM/
@@ -59,7 +59,6 @@ dkms.conf
 __pycache__/
 *.pyc
 
-# Environment
+# Environment files
 .vscode
 
-checker_linux
