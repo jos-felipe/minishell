@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_ctrl_signal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:42:04 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/05 17:50:20 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/03/07 20:11:55 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,19 @@
 
 void	mini_ctrl_signal(void)
 {
-	struct	sigaction sa;
-	struct	sigaction sa_quit;
+	struct	sigaction int_action;
+	struct	sigaction old_int_action;
+	struct	sigaction quit_action;
 
-    sa.sa_handler = sig_handler;
-    sa_quit.sa_handler = SIG_IGN;
-    sigemptyset(&sa.sa_mask);
-    sigemptyset(&sa_quit.sa_mask);
-    sa.sa_flags = 0;
-	mini_signal_installer(SIGINT, &sa);
-	mini_signal_installer(SIGQUIT, &sa_quit);
-	
-}
-
-void	mini_signal_installer(int signum, struct sigaction *act)
-{
-	if (sigaction(signum, act, NULL) == -1) 
-	{
-		perror("sigaction");
-		exit(EXIT_FAILURE);
-	}
+    int_action.sa_handler = sig_handler;
+    sigemptyset(&int_action.sa_mask);
+    int_action.sa_flags = 0;
+	sigaction(SIGINT, NULL, &old_int_action);
+	if (old_int_action.sa_handler != SIG_IGN)
+		sigaction(SIGINT, &int_action, NULL);
+    quit_action.sa_handler = SIG_IGN;
+    sigemptyset(&quit_action.sa_mask);
+	sigaction(SIGQUIT, &quit_action, NULL);
 }
 
 void	sig_handler(int signum) 
