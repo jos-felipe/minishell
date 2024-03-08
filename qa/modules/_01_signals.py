@@ -12,6 +12,7 @@ import subprocess
 import signal
 
 def signals(colours, exit_status):
+
 	# Start the C program as a subprocess.
 	process = subprocess.Popen(["../minishell"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
@@ -26,17 +27,17 @@ def signals(colours, exit_status):
 	sigint_out = []
 	sigint_out_ref = ["prompt >^C", "prompt >"]
 
-	process.stdin.write("melvin\n")
-	process.stdin.flush()
-	sigint_out.append(process.stdout.readline())
-	process.send_signal(signal.SIGINT)
-	sigint_out.append(process.stdout.readline())
-	process.stdin.write("melvin\n")
-	process.stdin.flush()
-	sigint_out.append(process.stdout.readline())
-	sigint_out.append(process.stdout.readline())
-	sigint_out.append(process.stdout.readline())
-	print(sigint_out)
+	# process.stdin.write("melvin\n")
+	# process.stdin.flush()
+	# sigint_out.append(process.stdout.readline())
+	# process.send_signal(signal.SIGINT)
+	# sigint_out.append(process.stdout.readline())
+	# process.stdin.write("melvin\n")
+	# process.stdin.flush()
+	# sigint_out.append(process.stdout.readline())
+	# sigint_out.append(process.stdout.readline())
+	# sigint_out.append(process.stdout.readline())
+	# print(sigint_out)
 
 	# Sigquit_out
 	# sigquit_out = []
@@ -47,22 +48,16 @@ def signals(colours, exit_status):
 	# print(sigquit_out)
 
 	# CTRL+D exit_out
-	# exit_out = ""
-	# exit_out_ref = "prompt > exit"
+	exit_output_ref = "prompt > exit\n"
+	process.stdin.close()
+	exit_output = process.stdout.readline()
 
-	# process.stdin.close()
-	# exit_out = process.stdout.readline()
-	# print(exit_out)
-
-	# # Print the output
-	# i = 1
-	# for output, ref in zip(output_list, output_ref):
-	# 	if (output == ref):
-	# 		print(f"{colours[0]}{i}/{len(input_data)}.	OK  {colours[2]}")
-	# 	else:
-	# 		print(f"{colours[1]}{i}/{len(input_data)}.	KO  {colours[2]}")
-	# 		exit_status = 1
-	# 	i = i + 1
+	# Print the output
+	if (exit_output == exit_output_ref):
+		print(f"{colours[0]}1/1.	OK  {colours[2]}")
+	else:
+		print(f"{colours[1]}1/1.	KO  {colours[2]}")
+		exit_status = 1
 
 	# Kill minishel process.
 	unused_trash = subprocess.run('pkill minishell', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
