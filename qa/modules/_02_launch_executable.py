@@ -1,8 +1,9 @@
 import subprocess
 
-def launch_executable(colours, exit_status):
+def launch_executable(command, colours, exit_status):
+	
 	# Start the C program as a subprocess.
-	process = subprocess.Popen(["../minishell"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+	process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	# Inputs.
 	input_data = ["echo 1\n", "echo 2\n", "echo 3\n"]
@@ -22,6 +23,10 @@ def launch_executable(colours, exit_status):
 		output = process.stdout.readline()
 		output_list.append(output)
 
+	# Close process and get valgrind error
+	process.stdin.close()
+	valgrind_output = process.stderr.readline()
+
 	# Print the output
 	i = 1
 	for output, ref in zip(output_list, output_ref):
@@ -30,6 +35,10 @@ def launch_executable(colours, exit_status):
 		else:
 			print(f"{colours[1]}{i}/{len(input_data)}.	KO  {colours[2]}")
 			exit_status = 1
+		if valgrind_output != '':
+			print(f"{colours[1]}	MKO{colours[2]}")
+		else:
+			print(f"{colours[0]}	MOK{colours[2]}")
 		i = i + 1
 
 	# Kill minishel process.

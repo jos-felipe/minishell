@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:42:04 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/07 20:11:55 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:35:20 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	mini_ctrl_signal(void)
 	struct	sigaction old_int_action;
 	struct	sigaction quit_action;
 
+    int_action.sa_flags = 0;
+    old_int_action.sa_flags = 0;
+    quit_action.sa_flags = 0;
     int_action.sa_handler = sig_handler;
     sigemptyset(&int_action.sa_mask);
-    int_action.sa_flags = 0;
 	sigaction(SIGINT, NULL, &old_int_action);
 	if (old_int_action.sa_handler != SIG_IGN)
 		sigaction(SIGINT, &int_action, NULL);

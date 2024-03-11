@@ -14,6 +14,9 @@ subprocess.run(clean, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 make = ["make", "-C", "../"]
 subprocess.run(make, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
+# Command
+command = "valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=../readline.supp -q ../minishell"
+
 # Colours
 GREEN = "\033[32;1m"
 RED = "\033[31;1m"
@@ -22,17 +25,17 @@ colours = [GREEN, RED, COLOR_LIMITER]
 
 # Parrot prompt
 print("Parrot prompt")
-exit_status = _00_parrot.parrot(colours, exit_status)
+exit_status = _00_parrot.parrot(command, colours, exit_status)
 print("\n")
 
 # Signals
 print("Signals")
-exit_status = _01_signals.signals(colours, exit_status)
+exit_status = _01_signals.signals(command, colours, exit_status)
 print("\n")
 
 # Search and launch executable
 print("Launch executable")
-exit_status = _02_launch_executable.launch_executable(colours, exit_status)
+exit_status = _02_launch_executable.launch_executable(command, colours, exit_status)
 print("\n")
 
 subprocess.run(clean, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
