@@ -27,6 +27,9 @@ def launch_executable(command, colours, exit_status):
 	process.stdin.close()
 	valgrind_output = process.stderr.readline()
 
+	#
+	print(output_list)
+
 	# Print the output
 	i = 1
 	for output, ref in zip(output_list, output_ref):

@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:34 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/11 18:03:21 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:18:52 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ void	mini_prompt(t_pipex *mini)
 			printf("exit\n");
 			mini_safe_exit(mini);
 		}
-		// printf("%s", mini->pathname);
 		mini_execute(mini);
 		waitpid(mini->pid1, NULL, 0);
-		printf("\n");
 		mini_free_split(mini->split_cmd_line);
 		free(mini->cmd_line);
 	}
