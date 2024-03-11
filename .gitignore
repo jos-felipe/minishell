@@ -61,4 +61,5 @@ __pycache__/
 
 # Environment files
 .vscode
-
+*~
+outfile

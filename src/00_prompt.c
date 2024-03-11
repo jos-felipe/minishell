@@ -1,34 +1,39 @@
 #include "../include/minishell.h"
+#include "../include/pipex.h"
 
-void	mini_safe_exit(int status, char *line)
+void	mini_safe_exit(t_pipex *mini)
 {
-	if (line)
-		free(line);
-	exit(status);
+	mini_trashman(mini->lst_memory);
+	exit(mini->status);
 }
 
-void	mini_prompt(void)
+void	mini_prompt(t_pipex *mini)
 {
-	char	*line;
-	
 	mini_ctrl_signal();
-	line = NULL;
+	mini->cmd_line = NULL;
 	while (1)
 	{
-		line = readline("prompt > ");
-		if (line == NULL)
+		mini->cmd_line = readline("prompt > ");
+		mini_parse_readline(mini);
+		if (mini->cmd_line == NULL)
 		{
 			printf("exit\n");
-			mini_safe_exit(EXIT_SUCCESS, line);
+			mini_safe_exit(mini);
 		}
-		printf("%s", line);
+		printf("%s", mini->pathname);
 		printf("\n");
-		free(line);
+		mini_free_split(mini->split_cmd_line);
+		free(mini->cmd_line);
 	}
 }
 
-int main(void)
+int main(int argc, char *argv[], char *envp[])
 {
-	mini_prompt();
-	return (0);
+	t_pipex	mini;
+
+	argc = 0;
+	argv = NULL;
+	mini_process_envp(&mini, envp);
+	mini_prompt(&mini);
+	mini_safe_exit(&mini);
 }
