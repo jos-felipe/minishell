@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   98_utils.c                                         :+:      :+:    :+:   */
+/*   00_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 17:12:28 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/11 17:12:33 by gfantoni         ###   ########.fr       */
+/*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
+/*   Updated: 2024/03/11 17:09:28 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include "../include/pipex.h"
 
-void	sig_handler(int signum) 
+int main(int argc, char *argv[], char *envp[])
 {
-	if (signum == SIGINT)
-		printf("\nprompt > ");
+	t_pipex	mini;
+
+	argc = 0;
+	argv = NULL;
+	mini_init(&mini);
+	mini_process_envp(&mini, envp);
+	mini_prompt(&mini);
+	mini_safe_exit(&mini);
 }
