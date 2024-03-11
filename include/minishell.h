@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/11 13:27:58 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:23:57 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,17 @@
 #include <stdlib.h>
 #include <signal.h>
 
-// 00_prompt.c
+// 01_prompt.c
 void	mini_init(t_pipex *mini);
 void	mini_safe_exit(t_pipex *mini);
 void	mini_prompt(t_pipex *mini);
 int		main(int argc, char *argv[], char *envp[]);
 
-// 01_ctrl_signal.c
+// 02_ctrl_signal.c
 void	mini_ctrl_signal(void);
 void	sig_handler(int signum);
+
+// 03_launch_executable.c
+void	mini_execute(t_pipex *mini);
 
 #endif

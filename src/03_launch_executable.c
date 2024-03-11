@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_launch_executable.c                             :+:      :+:    :+:   */
+/*   03_launch_executable.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 20:11:53 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/11 13:01:47 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:48:44 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,15 @@ void	mini_process_envp(t_pipex *mini, char *envp[])
 		mini->status = EXIT_FAILURE;
 		mini_safe_exit(mini);
 	}
+}
+
+void	mini_execute(t_pipex *mini)
+{
+	if (!mini->pathname)
+		return ;
+	mini->pid1 = fork();
+	if (mini->pid1 < 0)
+			mini_safe_exit(mini);
+	if (mini->pid1 == 0)
+		execve(mini->pathname, mini->split_cmd_line, NULL);	
 }
