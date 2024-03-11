@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/11 13:03:44 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:27:58 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <signal.h>
 
 // 00_prompt.c
+void	mini_init(t_pipex *mini);
 void	mini_safe_exit(t_pipex *mini);
 void	mini_prompt(t_pipex *mini);
 int		main(int argc, char *argv[], char *envp[]);

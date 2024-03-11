@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:04:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/11 13:02:00 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:26:03 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct s_pipex
 	char	*infile;
 	char	*cmd1;
 	char	*cmd2;
-	char	*cmd_line;
 	char	*outfile;
 	int		fd_in;
 	int		fd_out;
@@ -34,13 +33,14 @@ typedef struct s_pipex
 	int		pid2;
 	char	*path;
 	char	**argv1;
-	char	**split_cmd_line;
 	char	**argv2;
 	char	*fn1;
-	char	*pathname;
 	char	*fn2;
 	t_list	*lst_memory;
 	int		status;
+	char	*cmd_line;
+	char	**split_cmd_line;
+	char	*pathname;
 }				t_pipex;
 
 //  02_launch_executable.c
