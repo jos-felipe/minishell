@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:34 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/11 18:18:52 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:39:17 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	mini_prompt(t_pipex *mini)
 	while (1)
 	{
 		mini->cmd_line = readline("prompt > ");
+		add_history(mini->cmd_line);
 		mini_parse_readline(mini);
 		if (mini->cmd_line == NULL)
 		{

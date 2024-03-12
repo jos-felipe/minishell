@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:40 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/11 17:11:07 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:38:57 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	mini_init(t_pipex *pipex)
 }
 void	mini_safe_exit(t_pipex *mini)
 {
+	clear_history();
 	mini_trashman(mini->lst_memory);
 	exit(mini->status);
 }
