@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
 import subprocess
-from modules import _00_parrot
-from modules import _01_signals
-from modules import _02_launch_executable
+from modules import _02_signals
+from modules import _03_launch_executable
 
 # Exit Status
 exit_status = 0
@@ -23,19 +22,14 @@ RED = "\033[31;1m"
 COLOR_LIMITER = "\033[0m"
 colours = [GREEN, RED, COLOR_LIMITER]
 
-# Parrot prompt
-print("Parrot prompt")
-exit_status = _00_parrot.parrot(command, colours, exit_status)
-print("\n")
-
 # Signals
 print("Signals")
-exit_status = _01_signals.signals(command, colours, exit_status)
+exit_status = _02_signals.signals(command, colours, exit_status)
 print("\n")
 
 # Search and launch executable
 print("Launch executable")
-exit_status = _02_launch_executable.launch_executable(command, colours, exit_status)
+exit_status = _03_launch_executable.launch_executable(command, colours, exit_status)
 print("\n")
 
 subprocess.run(clean, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)

@@ -1,12 +1,12 @@
 import subprocess
 
-def parrot(command, colours, exit_status):
+def launch_executable(command, colours, exit_status):
 	
 	# Start the C program as a subprocess.
 	process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	# Inputs.
-	input_data = ["1\n", "2\n", "3\n"]
+	input_data = ["echo 1\n", "echo 2\n", "echo 3\n"]
 	output_ref = ["1\n", "2\n", "3\n"]
 
 	# lists for colection of outputs.
@@ -39,7 +39,6 @@ def parrot(command, colours, exit_status):
 			print(f"{colours[1]}	MKO{colours[2]}")
 		else:
 			print(f"{colours[0]}	MOK{colours[2]}")
-			exit_status = 1
 		i = i + 1
 
 	# Kill minishel process.
