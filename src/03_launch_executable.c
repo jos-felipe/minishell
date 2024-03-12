@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 20:11:53 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/11 17:48:44 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:19:00 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 
 void	mini_parse_readline(t_pipex *mini)
 {
+	mini->pathname = NULL;
 	if (mini->cmd_line)
 	{
+		if (mini->cmd_line[0] == '\0')
+			return ;
 		mini->split_cmd_line = ft_split(mini->cmd_line, ' ');
-		if (mini->split_cmd_line == NULL || mini->split_cmd_line[0] == NULL)
+		if (mini->split_cmd_line == NULL)
 		{
 			mini->status = EXIT_FAILURE;
 			ft_printf("Memory allocation failed for command line.\n");
@@ -31,8 +34,6 @@ void	mini_parse_readline(t_pipex *mini)
 		else
 			ft_lstadd_back(&mini->lst_memory, ft_lstnew(mini->pathname));
 	}
-	else
-		mini->pathname = NULL;
 }
 void	mini_process_envp(t_pipex *mini, char *envp[])
 {
