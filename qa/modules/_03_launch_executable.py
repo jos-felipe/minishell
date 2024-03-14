@@ -43,5 +43,5 @@ def launch_executable(command, colours, exit_status):
 
 	# Kill minishel process.
 	unused_trash = subprocess.run('pkill minishell', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-
+	
 	return (exit_status)

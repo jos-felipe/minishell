@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/11 17:23:57 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:19:59 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,10 @@ void	sig_handler(int signum);
 
 // 03_launch_executable.c
 void	mini_execute(t_pipex *mini);
+
+// 04_special_parameter.c
+void	mini_special_parameter(t_pipex *mini);
+char	*mini_expand(char c, t_pipex *mini);
+int		ft_get_exit_status(int exit_status);
 
 #endif

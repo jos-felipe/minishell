@@ -19,6 +19,7 @@ def signals(command, colours, exit_status):
 	ctrl_c_status = subprocess.run('./ctrl-c.sh', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	# Assert the C-c output
+	print("	CTRL-C")
 	if (ctrl_c_status.stdout == '0\n'):
 		print(f"{colours[0]}1/3.	OK  {colours[2]}")
 	else:
@@ -55,10 +56,10 @@ def signals(command, colours, exit_status):
 	else:
 		print(f"{colours[1]}3/3.	KO  {colours[2]}")
 		exit_status = 1
-	if valgrind_output != '':
-		print(f"{colours[1]}	MKO{colours[2]}")
+	if valgrind_output == '':
+		print(f"{colours[0]}	MKO{colours[2]}")
 	else:
-		print(f"{colours[0]}	MOK{colours[2]}")
+		print(f"{colours[1]}	MOK{colours[2]}")
 		exit_status = 1
 
 	# Kill minishel process.

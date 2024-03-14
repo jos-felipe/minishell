@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_launch_executable.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 20:11:53 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/12 16:19:00 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:51:02 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	mini_parse_readline(t_pipex *mini)
 			ft_printf("Command not found: %s\n", mini->split_cmd_line[0]);
 		else
 			ft_lstadd_back(&mini->lst_memory, ft_lstnew(mini->pathname));
+		mini_special_parameter(mini);
 	}
 }
 void	mini_process_envp(t_pipex *mini, char *envp[])
@@ -59,7 +60,7 @@ void	mini_execute(t_pipex *mini)
 		return ;
 	mini->pid1 = fork();
 	if (mini->pid1 < 0)
-			mini_safe_exit(mini);
+		mini_safe_exit(mini);
 	if (mini->pid1 == 0)
-		execve(mini->pathname, mini->split_cmd_line, NULL);	
+		execve(mini->pathname, mini->split_cmd_line, NULL);
 }
