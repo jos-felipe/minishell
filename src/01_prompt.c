@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:34 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/12 16:22:52 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/14 12:45:08 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	mini_prompt(t_pipex *mini)
 		mini_execute(mini);
 		mini_free_split(mini->split_cmd_line);
 		free(mini->cmd_line);
-		waitpid(mini->pid1, NULL, 0);
+		waitpid(mini->pid1, &mini->status, 0);
+		mini->status = ft_get_exit_status(mini->status);
 	}
 }
