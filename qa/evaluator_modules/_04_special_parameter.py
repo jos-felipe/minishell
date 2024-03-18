@@ -21,7 +21,7 @@ def dolar_sign(command, colours, exit_status):
 	valgrind_status = subprocess.run('./04_valgrind.sh', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	# Check for leaks
-	if (dollar_sign_status.stdout == '0\n'):
+	if (valgrind_status.stdout == '0\n'):
 		print(f"{colours[0]}	MOK  {colours[2]}")
 	else:
 		print(f"{colours[1]}	MKO  {colours[2]}")
