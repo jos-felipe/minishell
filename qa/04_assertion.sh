@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STATUS=0
-../minishell < 08_input > outfile
+../minishell < 04_input > outfile
 cat outfile | grep 0 > /dev/null
 GREP_STATUS=$(echo $?)
 if [ "$GREP_STATUS" != "0" ]; then
