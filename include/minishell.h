@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/19 14:39:03 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:31:48 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,15 @@ int		ft_get_exit_status(int exit_status);
 
 // 05_analysis.c
 void	mini_analysis(t_pipex *mini);
-char	**mini_get_in_and_output(char **analysis_list, t_analysis *analysis);
+t_list *mini_fill_analysis_list(char **split_cmd_line);
+void	mini_get_in_and_output(t_list **analysis_list, t_analysis *analysis);
 int		search_redirect(char *analysis_str);
 void	handle_redirect(t_analysis *analysis, char *analysis_str, int redirect_type);
 
 // 05_utils.c
+void	mini_lstdelone(t_list *lst);
 void	debug_print_split(char **analysis_list); // FOR DEBUG ONLY
+void	debug_print_list(t_list **head); // FOR DEBUG ONLY
+
 
 #endif

@@ -6,19 +6,42 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:47 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/19 14:13:39 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:31:25 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 #include "../include/minishell.h"
 
-void	debug_print_split(char **analysis_list) // FOR DEBUG ONLY
+void	mini_lstdelone(t_list *lst)
 {
-	while (*analysis_list)
+	if (lst && lst->content)
 	{
-		printf("%s | ", *analysis_list);
-		analysis_list++;
+		free(lst->content);
+		free(lst);
+	}
+}
+
+void	debug_print_split(char **str) // FOR DEBUG ONLY
+{
+	while (*str)
+	{
+		printf("%s | ", *str);
+		str++;
 	}
 	printf("\n");
+}
+
+void	debug_print_list(t_list **head) // FOR DEBUG ONLY
+{
+	t_list *node;
+
+	node = *head;
+	while (node)
+	{
+		printf("%s | ", (char *)node->content);
+		node = node->next;
+	}
+	printf("\n");
+	
 }
