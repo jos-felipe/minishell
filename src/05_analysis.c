@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/19 16:38:23 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:05:33 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,47 @@
 
 void	mini_analysis(t_pipex *mini)
 {
-	t_list	*analysis_list;
+	t_cmd_line_list	*analysis_list;
 	
 	analysis_list = mini_fill_analysis_list(mini->split_cmd_line);
 
 	debug_print_list(&analysis_list); // FOR DEBUG ONLY
 	mini_get_in_and_output(&analysis_list, mini->analysis);
 	debug_print_list(&analysis_list); // FOR DEBUG ONLY
-	// analysis_list = mini_get_cmd_and_arg(analysis_list, mini->analysis);
+	//analysis_list = mini_get_cmd_and_arg(analysis_list, mini->analysis);
 }
 
-t_list *mini_fill_analysis_list(char **split_cmd_line)
+t_cmd_line_list *mini_fill_analysis_list(char **split_cmd_line)
 {
-	t_list	*analysis_list;
+	t_cmd_line_list	*analysis_list;
 
 	analysis_list = NULL;
 	while (*split_cmd_line)
 	{
 		if (analysis_list)
-			ft_lstadd_back(&analysis_list, ft_lstnew(*split_cmd_line));
+			mini_lstadd_back(&analysis_list, mini_lstnew(*split_cmd_line));
 		else
-			analysis_list = ft_lstnew(*split_cmd_line);
+			analysis_list = mini_lstnew(*split_cmd_line);
 		split_cmd_line++;
 	}
 	return (analysis_list);
 }
 
-void	mini_get_in_and_output(t_list **analysis_list, t_analysis *analysis)
+void	mini_get_in_and_output(t_cmd_line_list **analysis_list, t_analysis *analysis)
 {
-	int		redirect_type;
-	t_list  *temp;
+	int				redirect_type;
+	t_cmd_line_list  *temp;
 	
 	temp = *analysis_list;
 	while (temp)
 	{
 		redirect_type = search_redirect(temp->content);
 		if (redirect_type)
+		{
 			handle_redirect(analysis, temp->next->content, redirect_type);
+			temp->is_valid = 0;
+			temp->next->is_valid = 0;
+		}
 		temp = temp->next;
 	}
 }

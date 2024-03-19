@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/19 16:31:48 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:56:01 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <signal.h>
+
+typedef struct s_cmd_line_list
+{
+	void					*content;
+	int						is_valid;
+	struct s_cmd_line_list	*next;
+}			t_cmd_line_list;
 
 // 00_main.c
 int			main(int argc, char *argv[], char *envp[]);
@@ -49,15 +56,18 @@ int		ft_get_exit_status(int exit_status);
 
 // 05_analysis.c
 void	mini_analysis(t_pipex *mini);
-t_list *mini_fill_analysis_list(char **split_cmd_line);
-void	mini_get_in_and_output(t_list **analysis_list, t_analysis *analysis);
+t_cmd_line_list *mini_fill_analysis_list(char **split_cmd_line);
+void	mini_get_in_and_output(t_cmd_line_list **analysis_list, t_analysis *analysis);
 int		search_redirect(char *analysis_str);
 void	handle_redirect(t_analysis *analysis, char *analysis_str, int redirect_type);
 
 // 05_utils.c
-void	mini_lstdelone(t_list *lst);
-void	debug_print_split(char **analysis_list); // FOR DEBUG ONLY
-void	debug_print_list(t_list **head); // FOR DEBUG ONLY
+void			mini_lstdelone(t_cmd_line_list *lst);
+t_cmd_line_list	*mini_lstnew(void *content);
+void			mini_lstadd_back(t_cmd_line_list **lst, t_cmd_line_list *new);
+t_cmd_line_list	*mini_lstlast(t_cmd_line_list *lst);
+void			debug_print_split(char **analysis_list); // FOR DEBUG ONLY
+void			debug_print_list(t_cmd_line_list **head); // FOR DEBUG ONLY
 
 
 #endif
