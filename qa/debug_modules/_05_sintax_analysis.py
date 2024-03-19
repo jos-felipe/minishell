@@ -23,16 +23,16 @@ def sintax_analysis(command, colours, exit_status):
 			input_redirect_alone_no_space]
 
 	# Outputs references:
-	command_alone_ref = "command:echo|arguments:(null)|input_fd:0|output_fd:1|append:0"
-	command_with_arguments_ref = "command:echo|arguments:-nMephis|input_fd:0|output_fd:1|append:0"
-	redirect_command_output_ref = "command:echo|arguments:-nMephis|input_fd:0|output_fd:3|append:0"
-	redirect_command_output_append_ref = "command:echo|arguments:-nMephis|input_fd:0|output_fd:3|append:1"
-	redirect_command_input_ref = "command:cat|arguments:-e|input_fd:3|output_fd:1|append:0"
-	redirect_command_output_and_input_ref = "command:cat|arguments:-e|input_fd:3|output_fd:4|append:0"
-	output_redirect_alone_with_space_ref = "command:(null)|arguments:(null)|input_fd:0|output_fd:3|append:0"
-	output_redirect_alone_no_space_ref = "command:(null)|arguments:(null)|input_fd:0|output_fd:3|append:0"
-	input_redirect_alone_with_space_ref = "command:(null)|arguments:(null)|input_fd:3|output_fd:1|append:0"
-	input_redirect_alone_no_space_ref = "command:(null)|arguments:(null)|input_fd:3|output_fd:1|append:0"
+	command_alone_ref = "echo\ncommand:echo|arguments:(null)|input_fd:0|output_fd:1|append:0\nprompt > exit\n"
+	command_with_arguments_ref = "echo -n Mephis\ncommand:echo|arguments:-nMephis|input_fd:0|output_fd:1|append:0\nprompt > exit\n"
+	redirect_command_output_ref = "echo -n Mephis > outfile\ncommand:echo|arguments:-nMephis|input_fd:0|output_fd:3|append:0\nprompt > exit\n"
+	redirect_command_output_append_ref = "echo -n Mephis >> outfile\ncommand:echo|arguments:-nMephis|input_fd:0|output_fd:3|append:1\nprompt > exit\n"
+	redirect_command_input_ref = "cat -e < infile\ncommand:cat|arguments:-e|input_fd:3|output_fd:1|append:0\nprompt > exit\n"
+	redirect_command_output_and_input_ref = "> outfile cat -e < infile\ncommand:cat|arguments:-e|input_fd:3|output_fd:4|append:0\nprompt > exit\n"
+	output_redirect_alone_with_space_ref = "> outfile\ncommand:(null)|arguments:(null)|input_fd:0|output_fd:3|append:0\nprompt > exit\n"
+	output_redirect_alone_no_space_ref = ">outfile\ncommand:(null)|arguments:(null)|input_fd:0|output_fd:3|append:0\nprompt > exit\n"
+	input_redirect_alone_with_space_ref = "< infile\ncommand:(null)|arguments:(null)|input_fd:3|output_fd:1|append:0\nprompt > exit\n"
+	input_redirect_alone_no_space_ref = "<infile\ncommand:(null)|arguments:(null)|input_fd:3|output_fd:1|append:0\nprompt > exit\n"
 	output_ref_list = [command_alone_ref, command_with_arguments_ref, redirect_command_output_ref, \
 			redirect_command_output_append_ref, redirect_command_input_ref, \
 			redirect_command_output_and_input_ref, output_redirect_alone_with_space_ref, \
