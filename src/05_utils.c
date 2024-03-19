@@ -1,19 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   98_utils.c                                         :+:      :+:    :+:   */
+/*   05_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 17:12:28 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/11 17:12:33 by gfantoni         ###   ########.fr       */
+/*   Created: 2024/03/19 10:18:47 by gfantoni          #+#    #+#             */
+/*   Updated: 2024/03/19 10:19:05 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/pipex.h"
 #include "../include/minishell.h"
-
-void	sig_handler(int signum) 
-{
-	if (signum == SIGINT)
-		printf("\nprompt > ");
-}

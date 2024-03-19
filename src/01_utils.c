@@ -1,17 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   99_utils.c                                         :+:      :+:    :+:   */
+/*   01_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:40 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/12 11:38:57 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/19 13:05:17 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/pipex.h"
+
+t_analysis	*init_analysis(void)
+{
+	t_analysis	*analysis;
+
+	analysis = (t_analysis *)malloc(sizeof(t_analysis));
+	analysis->command = NULL;
+	analysis->arguments = NULL;
+	analysis->input_fd = -1;
+	analysis->output_fd = -1;
+	analysis->append = -1;
+	return (analysis);
+}
 
 void	mini_init(t_pipex *pipex)
 {
@@ -35,6 +48,7 @@ void	mini_init(t_pipex *pipex)
 	pipex->cmd_line = NULL;
 	pipex->split_cmd_line = NULL;
 	pipex->pathname = NULL;
+	pipex->analysis = init_analysis();
 }
 void	mini_safe_exit(t_pipex *mini)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_launch_executable.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 20:11:53 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/14 14:51:02 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/03/19 12:30:26 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ void	mini_parse_readline(t_pipex *mini)
 			mini_free_split(mini->split_cmd_line);
 			mini_safe_exit(mini);
 		}
-		mini->pathname = mini_whereis(mini->split_cmd_line[0], mini->path);
-		if (mini->pathname == NULL)
-			ft_printf("Command not found: %s\n", mini->split_cmd_line[0]);
-		else
-			ft_lstadd_back(&mini->lst_memory, ft_lstnew(mini->pathname));
+		mini_analysis(mini);
+		// mini->pathname = mini_whereis(mini->split_cmd_line[0], mini->path); TEMP COMMENT.
+		// if (mini->pathname == NULL)
+		// 	ft_printf("Command not found: %s\n", mini->split_cmd_line[0]);
+		// else
+		// 	ft_lstadd_back(&mini->lst_memory, ft_lstnew(mini->pathname));
 		mini_special_parameter(mini);
 	}
 }

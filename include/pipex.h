@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:04:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/11 13:26:03 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/03/19 12:09:29 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/wait.h>
+
+typedef struct s_analysis
+{
+	char 	*command;
+	char 	**arguments;
+	int		input_fd;
+	int		output_fd;
+	int		append;
+}	t_analysis;
 
 typedef struct s_pipex
 {
@@ -41,16 +50,24 @@ typedef struct s_pipex
 	char	*cmd_line;
 	char	**split_cmd_line;
 	char	*pathname;
+	t_analysis	*analysis;
 }				t_pipex;
-
-//  02_launch_executable.c
-void	mini_process_envp(t_pipex *pipex, char *envp[]);
-void	mini_parse_readline(t_pipex *pipex);
 
 //  main.c functions prototype
 int		main(int argc, char *argv[], char *envp[]);
 void	ft_init(t_pipex *pipex);
 void	ft_connect_fds(t_pipex *pipex);
+
+//  02_launch_executable.c
+void	mini_process_envp(t_pipex *pipex, char *envp[]);
+void	mini_parse_readline(t_pipex *pipex);
+
+// 02_utils.c
+char	*mini_get_path(char *envp[]);
+void	mini_trashman(t_list *lst_memory);
+void	free_heap(t_list *lst_memory);
+void	mini_free_split(char **split);
+char	*mini_whereis(char *cmd, char *path);
 
 //  safety.c functions prototype
 void	ft_validate_user_inputs(int argc, char *argv[], char *envp[], \
@@ -62,12 +79,5 @@ void	ft_safe_exit(t_pipex *pipex);
 void	ft_tty1(t_pipex *pipex, char *envp[]);
 void	ft_tty2(t_pipex *pipex, char *envp[]);
 int		ft_get_exit_status(int exit_status);
-
-// 98_utils.c
-char	*mini_get_path(char *envp[]);
-void	mini_trashman(t_list *lst_memory);
-void	free_heap(t_list *lst_memory);
-void	mini_free_split(char **split);
-char	*mini_whereis(char *cmd, char *path);
 
 #endif
