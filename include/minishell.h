@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/19 13:00:59 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:39:03 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,17 @@
 #include <stdlib.h>
 #include <signal.h>
 
+// 00_main.c
+int			main(int argc, char *argv[], char *envp[]);
+
 // 01_prompt.c
-void	mini_init(t_pipex *pipex);
-t_analysis	*init_analysis(void);
-void	mini_safe_exit(t_pipex *mini);
-void	mini_prompt(t_pipex *mini);
-int		main(int argc, char *argv[], char *envp[]);
+void		mini_prompt(t_pipex *mini);
+
+// 01_utils.c
+t_analysis	*init_analysis(t_list **list_memory);
+void		mini_init(t_pipex *pipex);
+void		mini_trashman_collector(t_list **list_memory, void *trash);
+void		mini_safe_exit(t_pipex *mini);
 
 // 02_ctrl_signal.c
 void	mini_ctrl_signal(void);
@@ -47,4 +52,8 @@ void	mini_analysis(t_pipex *mini);
 char	**mini_get_in_and_output(char **analysis_list, t_analysis *analysis);
 int		search_redirect(char *analysis_str);
 void	handle_redirect(t_analysis *analysis, char *analysis_str, int redirect_type);
+
+// 05_utils.c
+void	debug_print_split(char **analysis_list); // FOR DEBUG ONLY
+
 #endif

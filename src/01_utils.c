@@ -6,25 +6,12 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:40 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/19 13:05:17 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:40:09 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/pipex.h"
-
-t_analysis	*init_analysis(void)
-{
-	t_analysis	*analysis;
-
-	analysis = (t_analysis *)malloc(sizeof(t_analysis));
-	analysis->command = NULL;
-	analysis->arguments = NULL;
-	analysis->input_fd = -1;
-	analysis->output_fd = -1;
-	analysis->append = -1;
-	return (analysis);
-}
 
 void	mini_init(t_pipex *pipex)
 {
@@ -48,8 +35,30 @@ void	mini_init(t_pipex *pipex)
 	pipex->cmd_line = NULL;
 	pipex->split_cmd_line = NULL;
 	pipex->pathname = NULL;
-	pipex->analysis = init_analysis();
+	pipex->analysis = init_analysis(&pipex->lst_memory);
 }
+t_analysis	*init_analysis(t_list **list_memory)
+{
+	t_analysis	*analysis;
+
+	analysis = (t_analysis *)malloc(sizeof(t_analysis));
+	mini_trashman_collector(list_memory, analysis);
+	analysis->command = NULL;
+	analysis->arguments = NULL;
+	analysis->input_fd = -1;
+	analysis->output_fd = -1;
+	analysis->append = -1;
+	return (analysis);
+}
+
+void	mini_trashman_collector(t_list **list_memory, void *trash)
+{
+	if (list_memory)
+		ft_lstadd_back(list_memory, ft_lstnew(trash));
+	else
+		*list_memory = ft_lstnew(trash);
+}
+
 void	mini_safe_exit(t_pipex *mini)
 {
 	clear_history();

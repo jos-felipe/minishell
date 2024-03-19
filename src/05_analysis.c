@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/19 13:05:59 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:38:51 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,40 @@
 
 void	mini_analysis(t_pipex *mini)
 {
-	char	**analysis_list;
+	t_list	*analysis_list;
+	
+	analysis_list = mini_fill_analysis_list(mini->split_cmd_line);
 
-	analysis_list = mini->split_cmd_line;
-	printf("%s | %s| %s | %s | %s | %s\n", analysis_list[0], analysis_list[1], analysis_list[2], analysis_list[3], analysis_list[4], analysis_list[5]);
-	analysis_list = mini_get_in_and_output(analysis_list, mini->analysis);
-	printf("%s | %s\n", analysis_list[0], analysis_list[1]);
+	debug_print_split(analysis_list); // FOR DEBUG ONLY
+	mini_get_in_and_output(analysis_list, mini->analysis);
+	debug_print_split(analysis_list); // FOR DEBUG ONLY
 	//analysis_list = mini_get_cmd_and_arg(analysis_list, mini->analysis);
 }
 
-char	**mini_get_in_and_output(char **analysis_list, t_analysis *analysis)
+t_list *mini_fill_analysis_list(char **split_cmd_line)
+{
+	t_list	*analysis_list;
+
+	analysis_list = NULL;
+	while (*split_cmd_line)
+	{
+		if (analysis_list)
+			ft_lstadd_back(&analysis_list, *split_cmd_line);
+		else
+			analysis_list = ft_lstnew(analysis_list);
+		split_cmd_line++;
+	}
+	return (analysis_list);
+}
+
+char	**mini_get_in_and_output(t_list *analysis_list, t_analysis *analysis)
 {
 	char	**new_analysis_line_split;
 	char	*new_analysis_line;
 	int		redirect_type;
 
 	new_analysis_line = NULL;
-	while (*analysis_list)
+	while (analysis_list)
 	{
 		redirect_type = search_redirect(*analysis_list);
 		if (redirect_type)
@@ -46,7 +63,7 @@ char	**mini_get_in_and_output(char **analysis_list, t_analysis *analysis)
 			else
 				new_analysis_line = ft_strdup(*analysis_list);
 		}
-		analysis_list++;
+		analysis_list = analysis_list
 	}
 	new_analysis_line_split = ft_split(new_analysis_line, ' ');
 	return (new_analysis_line_split);
@@ -78,3 +95,4 @@ void	handle_redirect(t_analysis *analysis, char *analysis_str, int redirect_type
 	else if (redirect_type == 3)
 		analysis->append = 3;
 }
+
