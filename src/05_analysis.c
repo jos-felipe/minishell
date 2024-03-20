@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/19 17:32:48 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:38:04 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,97 +15,51 @@
 
 void	mini_analysis(t_pipex *mini)
 {
-	t_cmd_line_list	*analysis_list;
-	
-	analysis_list = mini_fill_analysis_list(mini->split_cmd_line);
+	automaton(mini->cmd_line, &mini->token_list, 0, 0);
 
-	debug_print_list(&analysis_list); // FOR DEBUG ONLY
-	mini_get_in_and_output(&analysis_list, mini->analysis);
-	debug_print_list(&analysis_list); // FOR DEBUG ONLY
-	// mini_get_cmd_and_arg(analysis_list, mini->analysis);
 }
 
-t_cmd_line_list *mini_fill_analysis_list(char **split_cmd_line)
+void	automaton(char *str, t_token **token_list, int start, int state)
 {
-	t_cmd_line_list	*analysis_list;
+	int		i;
+	char	*value;
+	int		size;
 
-	analysis_list = NULL;
-	while (*split_cmd_line)
+	i = 0;
+	size = ft_strlen(str) + 1;
+	while (i < size)
 	{
-		if (analysis_list)
-			mini_lstadd_back(&analysis_list, mini_lstnew(*split_cmd_line));
-		else
-			analysis_list = mini_lstnew(*split_cmd_line);
-		split_cmd_line++;
-	}
-	return (analysis_list);
-}
-
-void	mini_get_in_and_output(t_cmd_line_list **analysis_list, t_analysis *analysis)
-{
-	int					redirect_type;
-	t_cmd_line_list		*temp;
-	
-	temp = *analysis_list;
-	while (temp)
-	{
-		redirect_type = search_redirect(temp->content);
-		if (redirect_type)
+		if (state == 0)
+			start = i;
+		state = get_next_state(state, get_column(str[i]));
+		if (is_end_state(state) && state != NULL_CHAR)
 		{
-			handle_redirect(analysis, temp->next->content, redirect_type);
-			temp->is_valid = 0;
-			if (temp->next)
-				temp->next->is_valid = 0;
+			if (is_back_state(state))
+				i--;
+			if (is_weird_state(state))
+			{
+				state = WORD;
+				i -= 2;
+			}
+			value = ft_substr(str, start, (i - start) + 1);
+			ft_lstadd_back_token(token_list, ft_lstnew_token(value, state));
+			state = 0;
 		}
-		temp = temp->next;
+		i++;
 	}
 }
 
-int	search_redirect(char *analysis_content)
+int	get_next_state(int state, int column)
 {
-	int redirect_type;
-	
-	redirect_type = 0;
-	if (analysis_content[0] == '>')
-		redirect_type = 1;
-	else if (analysis_content[0] == '<')
-		redirect_type = 2;
-	else if (analysis_content[0] == '>' && analysis_content[1] == '>')
-		redirect_type = 3;
-	return (redirect_type);
-	
+	static int true_table[6][8] = {
+									{1, 2,   3,   4,   5,   105, 0,   666},
+									{1, 100, 100, 100, 100, 100, 100, 100},
+									{101, 101, 201, 201, 201, 201, 201, 201, 201, 201, 201},
+									{103, 203, 102, 203, 203, 203, 203, 203, 203, 203, 203},
+									{4, 202, 202, 8, 202, 202, 202, 202, 202, 7, 5},
+									{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4},
+								  };
+	return (true_table[state][column]);
 }
 
-void	handle_redirect(t_analysis *analysis, char* analysis_str, int redirect_type)
-{
-	analysis_str = NULL;
-	
-	if (redirect_type == 1)
-		analysis->output_fd = 3;
-	else if (redirect_type == 2)
-		analysis->input_fd = 3;
-	else if (redirect_type == 3)
-		analysis->append = 3;
-}
-
-// void	mini_get_cmd_and_arg(t_cmd_line_list *analysis_list, t_analysis *analysis)
-// {
-// 	int					redirect_type;
-// 	t_cmd_line_list		*temp;
-	
-// 	temp = *analysis_list;
-// 	while (temp)
-// 	{
-// 		redirect_type = search_redirect(temp->content);
-// 		if (redirect_type)
-// 		{
-// 			handle_redirect(analysis, temp->next->content, redirect_type);
-// 			temp->is_valid = 0;
-// 			if (temp->next)
-// 				temp->next->is_valid = 0;
-// 		}
-// 		temp = temp->next;
-// 	}
-	
-}
 

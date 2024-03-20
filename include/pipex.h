@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:04:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/19 12:09:29 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:19:03 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@
 # include <unistd.h>
 # include <sys/wait.h>
 
-typedef struct s_analysis
+typedef struct s_token
 {
-	char 	*command;
-	char 	**arguments;
-	int		input_fd;
-	int		output_fd;
-	int		append;
-}	t_analysis;
+	char 	*token;
+	struct s_token *next;
+}	t_token;
 
 typedef struct s_pipex
 {
@@ -50,7 +47,7 @@ typedef struct s_pipex
 	char	*cmd_line;
 	char	**split_cmd_line;
 	char	*pathname;
-	t_analysis	*analysis;
+	t_token	*token_list;
 }				t_pipex;
 
 //  main.c functions prototype

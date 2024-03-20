@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:40 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/19 14:40:09 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:22:34 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,22 @@ void	mini_init(t_pipex *pipex)
 	pipex->cmd_line = NULL;
 	pipex->split_cmd_line = NULL;
 	pipex->pathname = NULL;
-	pipex->analysis = init_analysis(&pipex->lst_memory);
+	// pipex->token_list = init_analysis(&pipex->lst_memory);
+	pipex->token_list = NULL;
 }
-t_analysis	*init_analysis(t_list **list_memory)
-{
-	t_analysis	*analysis;
+// t_analysis	*init_analysis(t_list **list_memory)
+// {
+// 	t_analysis	*analysis;
 
-	analysis = (t_analysis *)malloc(sizeof(t_analysis));
-	mini_trashman_collector(list_memory, analysis);
-	analysis->command = NULL;
-	analysis->arguments = NULL;
-	analysis->input_fd = -1;
-	analysis->output_fd = -1;
-	analysis->append = -1;
-	return (analysis);
-}
+// 	analysis = (t_analysis *)malloc(sizeof(t_analysis));
+// 	mini_trashman_collector(list_memory, analysis);
+// 	analysis->command = NULL;
+// 	analysis->arguments = NULL;
+// 	analysis->input_fd = -1;
+// 	analysis->output_fd = -1;
+// 	analysis->append = -1;
+// 	return (analysis);
+// }
 
 void	mini_trashman_collector(t_list **list_memory, void *trash)
 {
