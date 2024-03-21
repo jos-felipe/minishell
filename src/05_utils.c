@@ -6,11 +6,10 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:47 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/21 16:48:18 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:28:13 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
 #include "../include/minishell.h"
 
 void	mini_lstdelone(t_token *lst)
@@ -56,6 +55,20 @@ t_token	*mini_lstlast(t_token *lst)
 	return (lst);
 }
 
+void	mini_free_token_list(t_token **lst_memory)
+{
+	t_token	*next;
+
+	while (*lst_memory)
+	{
+		next = (*lst_memory)->next;
+		free((*lst_memory)->token);
+		free(*lst_memory);
+		*lst_memory = next;
+	}
+	*lst_memory = NULL;
+}
+
 void	debug_print_split(char **str) // FOR DEBUG ONLY
 {
 	while (*str)
@@ -79,15 +92,3 @@ void	debug_print_list(t_token **head) // FOR DEBUG ONLY
 	printf("\n");
 }
 
-void	mini_free_token_list(t_token **lst_memory)
-{
-	t_token	*next;
-
-	while (*lst_memory)
-	{
-		next = (*lst_memory)->next;
-		free((*lst_memory)->token);
-		free(*lst_memory);
-		*lst_memory = next;
-	}
-}

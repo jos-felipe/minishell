@@ -6,12 +6,11 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:19:25 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/19 12:21:47 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:25:41 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include "../include/pipex.h"
 
 char	*mini_get_path(char *envp[])
 {

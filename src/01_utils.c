@@ -6,12 +6,11 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:40 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/21 13:24:49 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:23:23 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include "../include/pipex.h"
 
 void	mini_init(t_mini *pipex)
 {
@@ -33,7 +32,6 @@ void	mini_init(t_mini *pipex)
 	pipex->lst_memory = NULL;
 	pipex->status = 0;
 	pipex->cmd_line = NULL;
-	pipex->split_cmd_line = NULL;
 	pipex->pathname = NULL;
 	pipex->token_list = NULL;
 }

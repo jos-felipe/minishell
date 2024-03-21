@@ -1,42 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_launch_executable.c                             :+:      :+:    :+:   */
+/*   03_process_envp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 20:11:53 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/21 16:54:46 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:25:28 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
 #include "../include/minishell.h"
 
-void	mini_parse_readline(t_mini *mini)
-{
-	mini->pathname = NULL;
-	if (mini->cmd_line)
-	{
-		if (mini->cmd_line[0] == '\0')
-			return ;
-		mini->split_cmd_line = ft_split(mini->cmd_line, ' ');
-		if (mini->split_cmd_line == NULL)
-		{
-			mini->status = EXIT_FAILURE;
-			ft_printf("Memory allocation failed for command line.\n");
-			mini_free_split(mini->split_cmd_line);
-			mini_safe_exit(mini);
-		}
-		mini_analysis(mini);
-		// mini->pathname = mini_whereis(mini->split_cmd_line[0], mini->path); TEMP COMMENT.
-		// if (mini->pathname == NULL)
-		// 	ft_printf("Command not found: %s\n", mini->split_cmd_line[0]);
-		// else
-		// 	ft_lstadd_back(&mini->lst_memory, ft_lstnew(mini->pathname));
-		// mini_special_parameter(mini);
-	}
-}
 void	mini_process_envp(t_mini *mini, char *envp[])
 {
 	mini->path = mini_get_path(envp);
@@ -55,13 +30,13 @@ void	mini_process_envp(t_mini *mini, char *envp[])
 	}
 }
 
-void	mini_execute(t_mini *mini)
-{
-	if (!mini->pathname)
-		return ;
-	mini->pid1 = fork();
-	if (mini->pid1 < 0)
-		mini_safe_exit(mini);
-	if (mini->pid1 == 0)
-		execve(mini->pathname, mini->split_cmd_line, NULL);
-}
+// void	mini_execute(t_mini *mini)
+// {
+// 	if (!mini->pathname)
+// 		return ;
+// 	mini->pid1 = fork();
+// 	if (mini->pid1 < 0)
+// 		mini_safe_exit(mini);
+// 	if (mini->pid1 == 0)
+// 		execve(mini->pathname, mini->split_cmd_line, NULL);
+// }

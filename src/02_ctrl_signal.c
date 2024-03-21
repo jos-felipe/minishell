@@ -6,12 +6,11 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:42:04 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/19 12:21:36 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:18:38 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include "../include/pipex.h"
 
 void	mini_ctrl_signal(void)
 {

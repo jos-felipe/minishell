@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/21 16:54:39 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:33:23 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_mini
 	t_list	*lst_memory;
 	int		status;
 	char	*cmd_line;
-	char	**split_cmd_line;
 	char	*pathname;
 	t_token	*token_list;
 }				t_mini;
@@ -69,9 +68,8 @@ void		mini_safe_exit(t_mini *mini);
 void	mini_ctrl_signal(void);
 void	sig_handler(int signum);
 
-// 03_launch_executable.c
+// 03_process_envp.c
 void	mini_process_envp(t_mini *pipex, char *envp[]);
-void	mini_parse_readline(t_mini *pipex);
 void	mini_execute(t_mini *mini);
 
 // 03_utils
@@ -87,7 +85,7 @@ char	*mini_expand(char c, t_mini *mini);
 int		ft_get_exit_status(int exit_status);
 
 // 05_analysis.c
-void	mini_analysis(t_mini *mini);
+void	mini_tokenizer(t_mini *mini);
 void	mini_automaton(char *str, t_token **token_list, int start, int state);
 int		mini_get_next_state(int state, int column);
 int		mini_get_column(char c);

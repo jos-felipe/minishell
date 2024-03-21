@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   05_analysis.c                                      :+:      :+:    :+:   */
+/*   05_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/21 16:45:37 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:25:18 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
 #include "../include/minishell.h"
+
 #define NULL_CHAR 106
 
-void	mini_analysis(t_mini *mini)
+void	mini_tokenizer(t_mini *mini)
 {
-	mini_automaton(mini->cmd_line, &mini->token_list, 0, 0);
-	debug_print_list(&mini->token_list);
-
+	mini->pathname = NULL;
+	if (mini->cmd_line)
+	{
+		if (mini->cmd_line[0] == '\0')
+			return ;
+		mini_automaton(mini->cmd_line, &mini->token_list, 0, 0);
+		debug_print_list(&mini->token_list);
+		// mini->pathname = mini_whereis(mini->split_cmd_line[0], mini->path); TEMP COMMENT.
+		// if (mini->pathname == NULL)
+		// 	ft_printf("Command not found: %s\n", mini->split_cmd_line[0]);
+		// else
+		// 	ft_lstadd_back(&mini->lst_memory, ft_lstnew(mini->pathname));
+		// mini_special_parameter(mini);
+	}
 }
 
 void	mini_automaton(char *str, t_token **token_list, int start, int state)

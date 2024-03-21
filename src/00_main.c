@@ -6,12 +6,11 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/19 12:58:28 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:16:29 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include "../include/pipex.h"
 
 int main(int argc, char *argv[], char *envp[])
 {
