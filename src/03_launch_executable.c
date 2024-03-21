@@ -13,7 +13,7 @@
 #include "../include/pipex.h"
 #include "../include/minishell.h"
 
-void	mini_parse_readline(t_pipex *mini)
+void	mini_parse_readline(t_mini *mini)
 {
 	mini->pathname = NULL;
 	if (mini->cmd_line)
@@ -37,7 +37,7 @@ void	mini_parse_readline(t_pipex *mini)
 		mini_special_parameter(mini);
 	}
 }
-void	mini_process_envp(t_pipex *mini, char *envp[])
+void	mini_process_envp(t_mini *mini, char *envp[])
 {
 	mini->path = mini_get_path(envp);
 	if (mini->path == NULL)
@@ -55,7 +55,7 @@ void	mini_process_envp(t_pipex *mini, char *envp[])
 	}
 }
 
-void	mini_execute(t_pipex *mini)
+void	mini_execute(t_mini *mini)
 {
 	if (!mini->pathname)
 		return ;

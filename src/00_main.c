@@ -15,7 +15,7 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-	t_pipex	mini;
+	t_mini	mini;
 
 	argc = 0;
 	argv = NULL;

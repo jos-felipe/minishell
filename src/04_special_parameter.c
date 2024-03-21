@@ -13,7 +13,7 @@
 #include "../include/pipex.h"
 #include "../include/minishell.h"
 
-void	mini_special_parameter(t_pipex *mini)
+void	mini_special_parameter(t_mini *mini)
 {
 	int		i;
 	char	**token;
@@ -36,7 +36,7 @@ void	mini_special_parameter(t_pipex *mini)
 	}
 }
 
-char	*mini_expand(char c, t_pipex *mini)
+char	*mini_expand(char c, t_mini *mini)
 {
 	char	*expansion;
 

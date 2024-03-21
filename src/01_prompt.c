@@ -13,7 +13,7 @@
 #include "../include/minishell.h"
 #include "../include/pipex.h"
 
-void	mini_prompt(t_pipex *mini)
+void	mini_prompt(t_mini *mini)
 {
 	mini_ctrl_signal();
 	mini->cmd_line = NULL;

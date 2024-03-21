@@ -14,7 +14,7 @@
 #include "../include/minishell.h"
 #define NULL_CHAR 106
 
-void	mini_analysis(t_pipex *mini)
+void	mini_analysis(t_mini *mini)
 {
 	automaton(mini->cmd_line, &mini->token_list, 0, 0);
 	debug_print_list(&mini->token_list);

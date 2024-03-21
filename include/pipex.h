@@ -26,7 +26,7 @@
 // 	struct s_token *next;
 // }	t_token;
 
-// typedef struct s_pipex
+// typedef struct s_mini
 // {
 // 	char	*infile;
 // 	char	*cmd1;
@@ -48,16 +48,16 @@
 // 	char	**split_cmd_line;
 // 	char	*pathname;
 // 	t_token	*token_list;
-// }				t_pipex;
+// }				t_mini;
 
 // //  main.c functions prototype
 // int		main(int argc, char *argv[], char *envp[]);
-// void	ft_init(t_pipex *pipex);
-// void	ft_connect_fds(t_pipex *pipex);
+// void	ft_init(t_mini *pipex);
+// void	ft_connect_fds(t_mini *pipex);
 
 // //  02_launch_executable.c
-// void	mini_process_envp(t_pipex *pipex, char *envp[]);
-// void	mini_parse_readline(t_pipex *pipex);
+// void	mini_process_envp(t_mini *pipex, char *envp[]);
+// void	mini_parse_readline(t_mini *pipex);
 
 // // 02_utils.c
 // char	*mini_get_path(char *envp[]);
@@ -68,13 +68,13 @@
 
 // //  safety.c functions prototype
 // void	ft_validate_user_inputs(int argc, char *argv[], char *envp[], \
-// t_pipex *pipex);
+// t_mini *pipex);
 // char	*ft_hacker_protection(char *cmd);
-// void	ft_safe_exit(t_pipex *pipex);
+// void	ft_safe_exit(t_mini *pipex);
 
 // //  shell.c functions prototype
-// void	ft_tty1(t_pipex *pipex, char *envp[]);
-// void	ft_tty2(t_pipex *pipex, char *envp[]);
+// void	ft_tty1(t_mini *pipex, char *envp[]);
+// void	ft_tty2(t_mini *pipex, char *envp[]);
 // int		ft_get_exit_status(int exit_status);
 
 // #endif

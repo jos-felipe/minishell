@@ -30,7 +30,7 @@ typedef struct s_token
 	struct s_token *next;
 }	t_token;
 
-typedef struct s_pipex
+typedef struct s_mini
 {
 	char	*infile;
 	char	*cmd1;
@@ -52,27 +52,27 @@ typedef struct s_pipex
 	char	**split_cmd_line;
 	char	*pathname;
 	t_token	*token_list;
-}				t_pipex;
+}				t_mini;
 
 // 00_main.c
 int			main(int argc, char *argv[], char *envp[]);
 
 // 01_prompt.c
-void		mini_prompt(t_pipex *mini);
+void		mini_prompt(t_mini *mini);
 
 // 01_utils.c
-void		mini_init(t_pipex *pipex);
+void		mini_init(t_mini *pipex);
 void		mini_trashman_collector(t_list **list_memory, void *trash);
-void		mini_safe_exit(t_pipex *mini);
+void		mini_safe_exit(t_mini *mini);
 
 // 02_ctrl_signal.c
 void	mini_ctrl_signal(void);
 void	sig_handler(int signum);
 
 // 03_launch_executable.c
-void	mini_process_envp(t_pipex *pipex, char *envp[]);
-void	mini_parse_readline(t_pipex *pipex);
-void	mini_execute(t_pipex *mini);
+void	mini_process_envp(t_mini *pipex, char *envp[]);
+void	mini_parse_readline(t_mini *pipex);
+void	mini_execute(t_mini *mini);
 
 // 03_utils
 char	*mini_get_path(char *envp[]);
@@ -82,12 +82,12 @@ char	*mini_whereis(char *cmd, char *path);
 void	mini_trashman(t_list *lst_memory);
 
 // 04_special_parameter.c
-void	mini_special_parameter(t_pipex *mini);
-char	*mini_expand(char c, t_pipex *mini);
+void	mini_special_parameter(t_mini *mini);
+char	*mini_expand(char c, t_mini *mini);
 int		ft_get_exit_status(int exit_status);
 
 // 05_analysis.c
-void	mini_analysis(t_pipex *mini);
+void	mini_analysis(t_mini *mini);
 void	automaton(char *str, t_token **token_list, int start, int state);
 int		get_next_state(int state, int column);
 int	get_column(char c);

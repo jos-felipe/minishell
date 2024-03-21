@@ -13,7 +13,7 @@
 #include "../include/minishell.h"
 #include "../include/pipex.h"
 
-void	mini_init(t_pipex *pipex)
+void	mini_init(t_mini *pipex)
 {
 	pipex->infile = NULL;
 	pipex->cmd1 = NULL;
@@ -60,7 +60,7 @@ void	mini_trashman_collector(t_list **list_memory, void *trash)
 		*list_memory = ft_lstnew(trash);
 }
 
-void	mini_safe_exit(t_pipex *mini)
+void	mini_safe_exit(t_mini *mini)
 {
 	clear_history();
 	mini_trashman(mini->lst_memory);
