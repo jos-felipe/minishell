@@ -6,38 +6,37 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:47 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/20 17:14:01 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:54:07 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 #include "../include/minishell.h"
 
-void	mini_lstdelone(t_cmd_line_list *lst)
+void	mini_lstdelone(t_token *lst)
 {
-	if (lst && lst->content)
+	if (lst && lst->token)
 	{
-		free(lst->content);
+		free(lst->token);
 		free(lst);
 	}
 }
 
-t_cmd_line_list	*mini_lstnew(void *content)
+t_token	*mini_lstnew(void *token)
 {
-	t_cmd_line_list	*new_node;
+	t_token	*new_node;
 
-	new_node = malloc(sizeof(t_cmd_line_list));
+	new_node = malloc(sizeof(t_token));
 	if (new_node == NULL)
 		return (NULL);
-	new_node->content = content;
-	new_node->is_valid = 1;
+	new_node->token = token;
 	new_node->next = NULL;
 	return (new_node);
 }
 
-void	mini_lstadd_back(t_cmd_line_list **lst, t_cmd_line_list *new)
+void	mini_lstadd_back(t_token **lst, t_token *new)
 {
-	t_cmd_line_list	*last_node;
+	t_token	*last_node;
 
 	if (*lst == NULL)
 	{
@@ -48,7 +47,7 @@ void	mini_lstadd_back(t_cmd_line_list **lst, t_cmd_line_list *new)
 	last_node->next = new;
 }
 
-t_cmd_line_list	*mini_lstlast(t_cmd_line_list *lst)
+t_token	*mini_lstlast(t_token *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -67,14 +66,14 @@ void	debug_print_split(char **str) // FOR DEBUG ONLY
 	printf("\n");
 }
 
-void	debug_print_list(t_cmd_line_list **head) // FOR DEBUG ONLY
+void	debug_print_list(t_token **head) // FOR DEBUG ONLY
 {
-	t_cmd_line_list *node;
+	t_token *node;
 
 	node = *head;
 	while (node)
 	{
-		printf("%s, %d | ", (char *)node->content, node->is_valid);
+		printf("%s\n", (char *)node->token);
 		node = node->next;
 	}
 	printf("\n");

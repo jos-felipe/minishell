@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/19 16:56:01 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:52:12 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			main(int argc, char *argv[], char *envp[]);
 void		mini_prompt(t_pipex *mini);
 
 // 01_utils.c
-t_analysis	*init_analysis(t_list **list_memory);
+//t_analysis	*init_analysis(t_list **list_memory);
 void		mini_init(t_pipex *pipex);
 void		mini_trashman_collector(t_list **list_memory, void *trash);
 void		mini_safe_exit(t_pipex *mini);
@@ -56,18 +56,33 @@ int		ft_get_exit_status(int exit_status);
 
 // 05_analysis.c
 void	mini_analysis(t_pipex *mini);
-t_cmd_line_list *mini_fill_analysis_list(char **split_cmd_line);
-void	mini_get_in_and_output(t_cmd_line_list **analysis_list, t_analysis *analysis);
-int		search_redirect(char *analysis_str);
-void	handle_redirect(t_analysis *analysis, char *analysis_str, int redirect_type);
+void	automaton(char *str, t_token **token_list, int start, int state);
+int		get_next_state(int state, int column);
+int	get_column(char c);
+int	is_end_state(int num);
+int	is_back_state(int num);
+int	is_error_state(int num);
+
+// t_cmd_line_list *mini_fill_analysis_list(char **split_cmd_line);
+// void	mini_get_in_and_output(t_cmd_line_list **analysis_list, t_analysis *analysis);
+// int		search_redirect(char *analysis_str);
+// void	handle_redirect(t_analysis *analysis, char *analysis_str, int redirect_type);
 
 // 05_utils.c
-void			mini_lstdelone(t_cmd_line_list *lst);
-t_cmd_line_list	*mini_lstnew(void *content);
-void			mini_lstadd_back(t_cmd_line_list **lst, t_cmd_line_list *new);
-t_cmd_line_list	*mini_lstlast(t_cmd_line_list *lst);
-void			debug_print_split(char **analysis_list); // FOR DEBUG ONLY
-void			debug_print_list(t_cmd_line_list **head); // FOR DEBUG ONLY
+void	mini_lstdelone(t_token *lst);
+t_token	*mini_lstnew(void *token);
+void	mini_lstadd_back(t_token **lst, t_token *new);
+t_token	*mini_lstlast(t_token *lst);
+void	debug_print_split(char **str); // FOR DEBUG ONLY
+void	debug_print_list(t_token **head); // FOR DEBUG ONLY
+
+
+// void			mini_lstdelone(t_cmd_line_list *lst);
+// t_cmd_line_list	*mini_lstnew(void *content);
+// void			mini_lstadd_back(t_cmd_line_list **lst, t_cmd_line_list *new);
+// t_cmd_line_list	*mini_lstlast(t_cmd_line_list *lst);
+// void			debug_print_split(char **analysis_list); // FOR DEBUG ONLY
+// void			debug_print_list(t_cmd_line_list **head); // FOR DEBUG ONLY
 
 
 #endif
