@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 20:11:53 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/19 15:25:14 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 13:33:37 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	mini_parse_readline(t_mini *mini)
 		// 	ft_printf("Command not found: %s\n", mini->split_cmd_line[0]);
 		// else
 		// 	ft_lstadd_back(&mini->lst_memory, ft_lstnew(mini->pathname));
+		mini_free_token_list(mini->token_list);
 		mini_special_parameter(mini);
 	}
 }

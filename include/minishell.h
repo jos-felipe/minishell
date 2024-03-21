@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/21 12:13:29 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 13:29:02 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	mini_lstdelone(t_token *lst);
 t_token	*mini_lstnew(void *token);
 void	mini_lstadd_back(t_token **lst, t_token *new);
 t_token	*mini_lstlast(t_token *lst);
+void	mini_free_token_list(t_token *lst_memory);
 void	debug_print_split(char **str); // FOR DEBUG ONLY
 void	debug_print_list(t_token **head); // FOR DEBUG ONLY
 
