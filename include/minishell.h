@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/21 13:29:02 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:54:39 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,19 +88,19 @@ int		ft_get_exit_status(int exit_status);
 
 // 05_analysis.c
 void	mini_analysis(t_mini *mini);
-void	automaton(char *str, t_token **token_list, int start, int state);
-int		get_next_state(int state, int column);
-int	get_column(char c);
-int	is_end_state(int num);
-int	is_back_state(int num);
-int	is_error_state(int num);
+void	mini_automaton(char *str, t_token **token_list, int start, int state);
+int		mini_get_next_state(int state, int column);
+int		mini_get_column(char c);
+int		mini_is_back_state(int num);
+int		mini_is_error_state(int num);
+int		mini_is_end_state(int num);
 
 // 05_utils.c
 void	mini_lstdelone(t_token *lst);
 t_token	*mini_lstnew(void *token);
 void	mini_lstadd_back(t_token **lst, t_token *new);
 t_token	*mini_lstlast(t_token *lst);
-void	mini_free_token_list(t_token *lst_memory);
+void	mini_free_token_list(t_token **lst_memory);
 void	debug_print_split(char **str); // FOR DEBUG ONLY
 void	debug_print_list(t_token **head); // FOR DEBUG ONLY
 

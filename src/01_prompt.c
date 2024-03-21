@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:34 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/19 10:04:04 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:44:47 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	mini_prompt(t_mini *mini)
 		mini->split_cmd_line = NULL;
 		mini_parse_readline(mini);
 		// mini_execute(mini); TEMP COMMENT.
+		mini_free_token_list(&mini->token_list);
+		//mini_free_token_list(mini->token_list);
 		mini_free_split(mini->split_cmd_line);
 		free(mini->cmd_line);
 		// waitpid(mini->pid1, &mini->status, 0); TEMP COMMENT.

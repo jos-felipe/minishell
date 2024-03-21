@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:47 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/21 13:27:11 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:48:18 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,15 @@ void	debug_print_list(t_token **head) // FOR DEBUG ONLY
 	printf("\n");
 }
 
-void	mini_free_token_list(t_token *lst_memory)
+void	mini_free_token_list(t_token **lst_memory)
 {
-	t_token	*tmp;
+	t_token	*next;
 
-	while (lst_memory)
+	while (*lst_memory)
 	{
-		tmp = lst_memory;
-		lst_memory = lst_memory->next;
-		free(tmp->token);
-		free(tmp);
+		next = (*lst_memory)->next;
+		free((*lst_memory)->token);
+		free(*lst_memory);
+		*lst_memory = next;
 	}
 }

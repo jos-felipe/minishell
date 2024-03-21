@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/21 13:24:23 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:45:37 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 
 void	mini_analysis(t_mini *mini)
 {
-	automaton(mini->cmd_line, &mini->token_list, 0, 0);
+	mini_automaton(mini->cmd_line, &mini->token_list, 0, 0);
 	debug_print_list(&mini->token_list);
 
 }
 
-void	automaton(char *str, t_token **token_list, int start, int state)
+void	mini_automaton(char *str, t_token **token_list, int start, int state)
 {
 	int		i;
 	char	*value;
@@ -33,12 +33,12 @@ void	automaton(char *str, t_token **token_list, int start, int state)
 	{
 		if (state == 0)
 			start = i;
-		state = get_next_state(state, get_column(str[i]));
-		if (is_end_state(state) && state != NULL_CHAR)
+		state = mini_get_next_state(state, mini_get_column(str[i]));
+		if (mini_is_end_state(state) && state != NULL_CHAR)
 		{
-			if (is_back_state(state))
+			if (mini_is_back_state(state))
 				i--;
-			if (is_error_state(state))
+			if (mini_is_error_state(state))
 			{
 				
 				break;
@@ -51,7 +51,7 @@ void	automaton(char *str, t_token **token_list, int start, int state)
 	}
 }
 
-int	get_next_state(int state, int column)
+int	mini_get_next_state(int state, int column)
 {
 	static int truth_table[6][8] = {
 									{1,   2,   3,   4,   5,   105, 0,   666},
@@ -64,7 +64,7 @@ int	get_next_state(int state, int column)
 	return (truth_table[state][column]);
 }
 
-int	get_column(char c)
+int	mini_get_column(char c)
 {
 	if (c == '>')
 		return (1);
@@ -83,20 +83,20 @@ int	get_column(char c)
 	return (0); // word
 }
 
-int	is_end_state(int num)
+int	mini_is_end_state(int num)
 {
 	if (num >= 100)
 		return (1);
 	return (0);
 }
 
-int	is_back_state(int num)
+int	mini_is_back_state(int num)
 {
 	if (num == 100 || num == 101 || num == 103)
 		return (1);
 	return (0);
 }
-int	is_error_state(int num)
+int	mini_is_error_state(int num)
 {
 	if (num == 106)
 		return (1);
