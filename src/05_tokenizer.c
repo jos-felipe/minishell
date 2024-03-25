@@ -6,13 +6,13 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/21 19:25:18 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:46:15 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-#define NULL_CHAR 106
+#define NULL_CHAR 666
 
 void	mini_tokenizer(t_mini *mini)
 {
@@ -51,8 +51,8 @@ void	mini_automaton(char *str, t_token **token_list, int start, int state)
 				i--;
 			if (mini_is_error_state(state))
 			{
-				
-				break;
+				ft_printf("\nError: string was not closed properly.\n");
+				return ;
 			}
 			value = ft_substr(str, start, (i - start) + 1);
 			mini_lstadd_back(token_list, mini_lstnew(value));
