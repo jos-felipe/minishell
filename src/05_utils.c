@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:47 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/21 19:28:13 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:24:40 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	mini_lstdelone(t_token *lst)
 	}
 }
 
-t_token	*mini_lstnew(void *token)
+t_token	*mini_token_lstnew(void *token, int state)
 {
 	t_token	*new_node;
 
@@ -29,11 +29,13 @@ t_token	*mini_lstnew(void *token)
 	if (new_node == NULL)
 		return (NULL);
 	new_node->token = token;
+	mini_get_token_gender(state, new_node);
+	mini_get_token_specie(state, new_node);
 	new_node->next = NULL;
 	return (new_node);
 }
 
-void	mini_lstadd_back(t_token **lst, t_token *new)
+void	mini_token_lstadd_back(t_token **lst, t_token *new)
 {
 	t_token	*last_node;
 
@@ -86,9 +88,31 @@ void	debug_print_list(t_token **head) // FOR DEBUG ONLY
 	node = *head;
 	while (node)
 	{
-		printf("%s\n", (char *)node->token);
+		printf("token: %s, gender: %d, specie: %d\n", (char *)node->token, node->gender, node->specie);
 		node = node->next;
 	}
 	printf("\n");
 }
 
+void	mini_get_token_gender(int state, t_token *token)
+{
+	token->gender = OPERATOR;
+	if (state == 100)
+		token->gender = WORD;
+}
+
+void	mini_get_token_specie(int state, t_token *token)
+{
+	if (state == 100)
+		token->specie = UNDEFINED;
+	else if (state == 101)
+		token->specie = OUT_REDIRECT;
+	else if (state == 102)
+		token->specie = APPEND;
+	else if (state == 103)
+		token->specie = IN_REDIRECT;
+	else if (state == 104)
+		token->specie = HERE_DOC;
+	else if (state == 105)
+		token->specie = PIPE;
+}

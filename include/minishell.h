@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/21 19:33:23 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:25:37 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,39 @@
 
 # include "../lib/includes/libft.h"
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <signal.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <signal.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 
+enum e_token_gender
+{
+	WORD,
+	OPERATOR
+};
+
+enum e_token_specie
+{
+	UNDEFINED = -1,
+	OUT_REDIRECT,
+	APPEND,
+	IN_REDIRECT,
+	HERE_DOC,
+	DOUBLE_QUOTE,
+	SINGLE_QUOTE,
+	PIPE
+};
+
 typedef struct s_token
 {
-	char 	*token;
-	struct s_token *next;
+	char 					*token;
+	enum e_token_gender		gender;
+	enum e_token_specie		specie;
+	struct s_token 			*next;
 }	t_token;
 
 typedef struct s_mini
@@ -95,10 +115,12 @@ int		mini_is_end_state(int num);
 
 // 05_utils.c
 void	mini_lstdelone(t_token *lst);
-t_token	*mini_lstnew(void *token);
-void	mini_lstadd_back(t_token **lst, t_token *new);
+t_token	*mini_token_lstnew(void *token, int state);
+void	mini_token_lstadd_back(t_token **lst, t_token *new);
 t_token	*mini_lstlast(t_token *lst);
 void	mini_free_token_list(t_token **lst_memory);
+void	mini_get_token_gender(int state, t_token *token);
+void	mini_get_token_specie(int state, t_token *token);
 void	debug_print_split(char **str); // FOR DEBUG ONLY
 void	debug_print_list(t_token **head); // FOR DEBUG ONLY
 
