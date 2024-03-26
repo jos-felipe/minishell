@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+         #
+#    By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:03:46 by josfelip          #+#    #+#              #
-#    Updated: 2024/03/25 17:24:40 by gfantoni         ###   ########.fr        #
+#    Updated: 2024/03/26 11:43:38 by josfelip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = tokenizer
-# DEBUG_NAME = minishell_debug
-# CFLAGS = -Wall -Wextra -Werror
+DEBUG_NAME = tokenizer_debug
+CFLAGS = -g3
 DFLAGS = -g3
 
 # Paths for libraries
-LIB_PATH = ../../../lib
+LIB_PATH = ./lib
 LIB_NAME = libft.a
 
 # Colors Definition 
@@ -27,14 +27,14 @@ WHITE = "\033[37;1;4m"
 COLOR_LIMITER = "\033[0m"
 
 # Paths definitions
-HEADER_PATH = ../../../include/
+HEADER_PATH = ./include/
 HEADER_FILE = $(shell find $(HEADER_PATH) -name "*.h" | cut -d '/' -f3)
 HEADER = $(addprefix $(HEADER_PATH), $(HEADER_FILE))
 OBJ_PATH = ./obj/
-# DEBUG_OBJ_PATH = ./obj_debug/
-# SOURCES_PATH = ./src/
-SOURCES = ./main.c ../../../src/05_tokenizer.c
-# MANDATORY_SOURCES = $(addprefix $(SOURCES_PATH), $(SOURCES))
+DEBUG_OBJ_PATH = ./obj_debug/
+SOURCES_PATH = ./src/
+SOURCES = $(shell find $(SOURCES_PATH) -name "*.c" | cut -d '/' -f3)
+MANDATORY_SOURCES = $(addprefix $(SOURCES_PATH), $(SOURCES))
 
 ifdef WITH_DEBUG
   NAME = $(DEBUG_NAME)
@@ -42,15 +42,15 @@ ifdef WITH_DEBUG
   OBJ_PATH = ./obj_debug/
 endif
 
-OBJECTS = $(OBJ_PATH)main.c $(OBJ_PATH)05_tokenizer.c
+OBJECTS = $(addprefix $(OBJ_PATH), $(SOURCES:%.c=%.o))
 
 all: libft $(OBJ_PATH) $(NAME)
 
 libft:
 	@make --directory=$(LIB_PATH) --no-print-directory
 
-#debug:
-#	@make WITH_DEBUG=TRUE --no-print-directory
+debug:
+	@make WITH_DEBUG=TRUE --no-print-directory
 
 $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)
@@ -58,11 +58,11 @@ $(OBJ_PATH):
 $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) -L $(LIB_PATH) -lft -lreadline
 	@echo $(CYAN)" ----------------------------------------------"$(COLOR_LIMITER)
-	@echo $(CYAN)"| TOKENIZER executable was created successfully!! |"$(COLOR_LIMITER)
+	@echo $(CYAN)"| tokenizer executable was created successfully!! |"$(COLOR_LIMITER)
 	@echo $(CYAN)"----------------------------------------------"$(COLOR_LIMITER)
 	@echo " "
 
-$(OBJ_PATH)%.o: $(SOURCES) $(HEADER)
+$(OBJ_PATH)%.o: $(SOURCES_PATH)%.c $(HEADER)
 	@echo $(GREEN)[Compiling]$(COLOR_LIMITER) $(WHITE)$(notdir $(<))...$(COLOR_LIMITER)
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER_PATH)
 	@echo " "
