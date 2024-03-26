@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/26 15:31:58 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:08:50 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	unit_print_token_list(t_token *node)
 {
 	while (node)
 	{
-		printf("%s;%d;%d\n", node->token, node->gender, node->specie);
+		printf("%s;", node->token);
 		node = node->next;
 	}
 }
