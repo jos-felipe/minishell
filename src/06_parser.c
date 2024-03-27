@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:29:13 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/27 15:03:29 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:45:55 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 void	mini_parser(t_mini *mini)
 {
-	char 	*commands;
 	int		nbr_cmds;
 
 	nbr_cmds = 0;
 	if (mini->token_list)
 	{
 		nbr_cmds = mini_count_nbr_pipes(mini->token_list) + 1;
-		commands = malloc(sizeof(t_token *) * nbr_cmds + 1);
-		//mini_fill_cmd_array(mini, commands);
+		mini->commands = (t_token **)malloc(sizeof(t_token *) * nbr_cmds + 1);
+		mini_fill_cmd_array(mini);
+		debug_print_array_list(mini); // FOR DEBUG ONLY
 	}
-	printf("%d\n", nbr_cmds);
 }
 
 int	mini_count_nbr_pipes(t_token *token_list)
@@ -43,10 +42,21 @@ int	mini_count_nbr_pipes(t_token *token_list)
 	return (nbr_pipes);
 }
 
-// void	mini_fill_cmd_array(t_mini  *mini, char *commands)
-// {
-// 	t_token *temp;
+void	mini_fill_cmd_array(t_mini  *mini)
+{
+	t_token *temp;
+	int		i;
 
-// 	temp = mini->
-	
-// }
+	i = 0;
+	temp = mini->token_list;
+	mini->commands[i++] = temp;
+	while (temp)
+	{
+		if (temp->token[0] == '|')
+		{
+			mini->commands[i++] = temp->next;	
+			temp->prev->next = NULL;
+		}
+		temp = temp->next;
+	}
+}

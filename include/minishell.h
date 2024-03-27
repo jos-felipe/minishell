@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/27 15:05:24 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:39:14 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_token
 	enum e_token_gender		gender;
 	enum e_token_specie		specie;
 	struct s_token 			*next;
+	struct s_token 			*prev;
 }	t_token;
 
 typedef struct s_mini
@@ -58,6 +59,7 @@ typedef struct s_mini
 	char	*cmd_line;
 	char	*pathname;
 	t_token	*token_list;
+	t_token	**commands;
 }				t_mini;
 
 // 00_main.c
@@ -113,7 +115,11 @@ void	debug_print_list(t_token **head); // FOR DEBUG ONLY
 
 // 06_parser.c
 void	mini_parser(t_mini *mini);
-int	mini_count_nbr_pipes(t_token *token_list);
+int		mini_count_nbr_pipes(t_token *token_list);
+void	mini_fill_cmd_array(t_mini  *mini);
+
+// 06_utils.c
+void	debug_print_array_list(t_mini *mini); // FOR DEBUG ONLY
 
 
 
