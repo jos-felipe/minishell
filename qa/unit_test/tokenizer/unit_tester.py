@@ -14,20 +14,20 @@ colours = [GREEN, RED, COLOR_LIMITER]
 trash = subprocess.run("make", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 # Input Samples:
-input_data_list = ["echo"]
-input_data_list.append("echo -n Mephis")
-input_data_list.append("echo -n Mephis > outfile")
-input_data_list.append("echo -n Mephis >> outfile")
-input_data_list.append("cat -e < infile")
-input_data_list.append("> outfile cat -e < infile")
-input_data_list.append("> outfile")
-input_data_list.append(">outfile")
-input_data_list.append("< infile")
-input_data_list.append("<infile")
-input_data_list.append("echo 'Mephis e Fausto'")
-input_data_list.append("echo \'Mephis e Fausto\'")
-input_data_list.append("<< echo")
-input_data_list.append("cat -n infile | grep 'pattern'")
+input_data_list = ["\"echo\""]
+input_data_list.append("\"echo -n Mephis\"")
+input_data_list.append("\"echo -n Mephis > outfile\"")
+input_data_list.append("\"echo -n Mephis >> outfile\"")
+input_data_list.append("\"cat -e < infile\"")
+input_data_list.append("\"> outfile cat -e < infile\"")
+input_data_list.append("\"> outfile\"")
+input_data_list.append("\">outfile\"")
+input_data_list.append("\"< infile\"")
+input_data_list.append("\"<infile\"")
+input_data_list.append("\"<< echo\"")
+input_data_list.append("\"cat -n infile | grep 'pattern'\"")
+input_data_list.append("\"echo 'Mephis e Fausto'\"")
+input_data_list.append("'echo \"Mephis e Fausto\"'")
 
 # Outputs references:
 output_data_list = [f'echo;']
@@ -40,14 +40,14 @@ output_data_list.append(f'>;outfile;')
 output_data_list.append(f'>;outfile;')
 output_data_list.append(f'<;infile;')
 output_data_list.append(f'<;infile;')
-output_data_list.append(f"echo;'Mephis e Fausto';")
-output_data_list.append(f'echo;\'Mephis e Fausto\';')
 output_data_list.append(f'<<;echo;')
 output_data_list.append(f'cat;-n;infile;|;grep;\'pattern\';')
+output_data_list.append(f"echo;'Mephis e Fausto';")
+output_data_list.append(f'echo;"Mephis e Fausto";')
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
-	output = subprocess.run(f"{valgrind} ./tokenizer \"{input_data}\"", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	output = subprocess.run(f"{valgrind} ./tokenizer {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile_content = output.stdout
 	if outfile_content == output_ref:
 		print(f"{colours[0]}{i}/{len(input_data_list)}.	OK  {colours[2]}")
