@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:34 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/21 19:17:54 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:30:19 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	mini_prompt(t_mini *mini)
 		}
 		add_history(mini->cmd_line);
 		mini_tokenizer(mini);
+		mini_parser(mini);
 		// mini_execute(mini); TEMP COMMENT.
 		mini_free_token_list(&mini->token_list);
 		free(mini->cmd_line);

@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/25 16:25:37 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:05:24 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,7 @@ typedef struct s_token
 
 typedef struct s_mini
 {
-	char	*infile;
-	char	*cmd1;
-	char	*cmd2;
-	char	*outfile;
-	int		fd_in;
-	int		fd_out;
-	int		fd_pipe[2];
-	int		pid1;
-	int		pid2;
 	char	*path;
-	char	**argv1;
-	char	**argv2;
-	char	*fn1;
-	char	*fn2;
 	t_list	*lst_memory;
 	int		status;
 	char	*cmd_line;
@@ -123,6 +110,11 @@ void	mini_get_token_gender(int state, t_token *token);
 void	mini_get_token_specie(int state, t_token *token);
 void	debug_print_split(char **str); // FOR DEBUG ONLY
 void	debug_print_list(t_token **head); // FOR DEBUG ONLY
+
+// 06_parser.c
+void	mini_parser(t_mini *mini);
+int	mini_count_nbr_pipes(t_token *token_list);
+
 
 
 #endif

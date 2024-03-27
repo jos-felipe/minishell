@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:40 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/21 19:23:23 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:04:43 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,8 @@
 
 void	mini_init(t_mini *pipex)
 {
-	pipex->infile = NULL;
-	pipex->cmd1 = NULL;
-	pipex->cmd2 = NULL;
-	pipex->outfile = NULL;
-	pipex->fd_in = -1;
-	pipex->fd_out = -1;
-	pipex->fd_pipe[0] = -1;
-	pipex->fd_pipe[1] = -1;
-	pipex->pid1 = -1;
-	pipex->pid2 = -1;
+
 	pipex->path = NULL;
-	pipex->argv1 = NULL;
-	pipex->argv2 = NULL;
-	pipex->fn1 = NULL;
-	pipex->fn2 = NULL;
 	pipex->lst_memory = NULL;
 	pipex->status = 0;
 	pipex->cmd_line = NULL;
