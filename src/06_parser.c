@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:29:13 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/29 15:57:53 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:16:33 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,17 @@ void	mini_fill_cmd_array(t_mini  *mini)
 	int		i;
 
 	i = 0;
-	temp = mini->token_list;
-	mini->commands[i++] = temp;
-	while (temp)
+	mini->commands[i++] = mini->token_list;
+	while (mini->token_list)
 	{
+		temp = mini->token_list;
 		if (temp->token[0] == '|')
 		{
-			mini->commands[i++] = temp->next;	
+			mini->commands[i++] = temp->next;
+			mini->token_list = mini->token_list->next;
 			temp->prev->next = NULL;
 		}
-		temp = temp->next;
+		else
+			mini->token_list = mini->token_list->next;
 	}
 }
