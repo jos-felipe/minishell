@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:34 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/29 15:57:16 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:59:17 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	mini_prompt(t_mini *mini)
 		}
 		add_history(mini->cmd_line);
 		mini_tokenizer(mini);
-		mini_parser(mini);
+		// if (mini->state < 200 && mini->token_list->token[0] != '|')
+		// 	mini_parser(mini);
 		mini_free_trashman(get_mem_address());
 		// mini_trashman(get_mem_address());
 		// mini_execute(mini); TEMP COMMENT.

@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/29 15:57:09 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/29 18:22:06 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	mini_tokenizer(t_mini *mini)
 	{
 		if (mini->cmd_line[0] == '\0')
 			return ;
-		mini_automaton(mini->cmd_line, &mini->token_list, 0, 0);
-		// debug_print_list(&mini->token_list);
+		mini->state = mini_automaton(mini->cmd_line, &mini->token_list, 0, 0);
+		//debug_print_list(&mini->token_list);
 		// mini->pathname = mini_whereis(mini->split_cmd_line[0], mini->path); TEMP COMMENT.
 		// if (mini->pathname == NULL)
 		// 	ft_printf("Command not found: %s\n", mini->split_cmd_line[0]);
@@ -32,7 +32,7 @@ void	mini_tokenizer(t_mini *mini)
 	}
 }
 
-void	mini_automaton(char *str, t_token **token_list, int start, int state)
+int	mini_automaton(char *str, t_token **token_list, int start, int state)
 {
 	int		i;
 	char	*value;
@@ -51,8 +51,8 @@ void	mini_automaton(char *str, t_token **token_list, int start, int state)
 				i--;
 			if (mini_is_error_state(state))
 			{
-				ft_printf("\nError: string was not closed properly.\n");
-				return ;
+				mini_print_sintax_error_message(state);
+				return (state);
 			}
 			value = ft_substr(str, start, (i - start) + 1);
 			collect_mem(value);
@@ -61,17 +61,19 @@ void	mini_automaton(char *str, t_token **token_list, int start, int state)
 		}
 		i++;
 	}
+	return (0);
 }
 
 int	mini_get_next_state(int state, int column)
 {
-	static int truth_table[6][8] = {
-									{1,   2,   3,   4,   5,   105, 0,   666},
+	static int truth_table[7][8] = {
+									{1,   2,   3,   4,   5,   6,   0,   666},
 									{1,   100, 100, 100, 100, 100, 100, 100},
 									{101, 102, 101, 101, 101, 101, 101, 101},
 									{103, 103, 104, 103, 103, 103, 103, 103},
-									{4,   4,   4,   107, 4,   4,   4,   106},
-									{5,   5,   5,   5,   108, 5,   5,   106},
+									{4,   4,   4,   107, 4,   4,   4,   200},
+									{5,   5,   5,   5,   108, 5,   5,   200},
+									{105, 105, 105, 105, 105, 202, 105, 201}
 								  };
 	return (truth_table[state][column]);
 }
@@ -104,14 +106,24 @@ int	mini_is_end_state(int num)
 
 int	mini_is_back_state(int num)
 {
-	if (num == 100 || num == 101 || num == 103)
+	if (num == 100 || num == 101 || num == 103 || num == 105)
 		return (1);
 	return (0);
 }
 int	mini_is_error_state(int num)
 {
-	if (num == 106)
+	if (num >= 200)
 		return (1);
 	return (0);
+}
+
+void	mini_print_sintax_error_message(int state)
+{
+	if (state == 200)
+		ft_printf("error: quote was not closed properly");
+	else if (state == 201)
+		ft_printf("bash: syntax error near unexpected token '|'");
+	else if (state == 202)
+		ft_printf("error: not a bonus project '||'");
 }
 

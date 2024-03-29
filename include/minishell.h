@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/29 15:58:20 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:51:29 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_mini
 	char	*pathname;
 	t_token	*token_list;
 	t_token	**commands;
+	int		state;
 }				t_mini;
 
 // trashman.c
@@ -99,14 +100,15 @@ void	mini_special_parameter(t_mini *mini);
 char	*mini_expand(char c, t_mini *mini);
 int		ft_get_exit_status(int exit_status);
 
-// 05_analysis.c
+// 05_tokenizer.c
 void	mini_tokenizer(t_mini *mini);
-void	mini_automaton(char *str, t_token **token_list, int start, int state);
+int		mini_automaton(char *str, t_token **token_list, int start, int state);
 int		mini_get_next_state(int state, int column);
 int		mini_get_column(char c);
 int		mini_is_back_state(int num);
 int		mini_is_error_state(int num);
 int		mini_is_end_state(int num);
+void	mini_print_sintax_error_message(int state);
 
 // 05_utils.c
 void	mini_lstdelone(t_token *lst);
