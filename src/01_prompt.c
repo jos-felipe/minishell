@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:34 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/27 14:30:19 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:57:16 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	mini_prompt(t_mini *mini)
 	mini->cmd_line = NULL;
 	while (1)
 	{
+		mini_init(mini);
 		mini->cmd_line = readline("prompt > ");
+		collect_mem(mini->cmd_line);
 		if (mini->cmd_line == NULL)
 		{
 			printf("exit\n");
@@ -27,9 +29,11 @@ void	mini_prompt(t_mini *mini)
 		add_history(mini->cmd_line);
 		mini_tokenizer(mini);
 		mini_parser(mini);
+		mini_free_trashman(get_mem_address());
+		// mini_trashman(get_mem_address());
 		// mini_execute(mini); TEMP COMMENT.
-		mini_free_token_list(&mini->token_list);
-		free(mini->cmd_line);
+		// mini_free_token_list(&mini->token_list);
+		//free(mini->cmd_line);
 		// waitpid(mini->pid1, &mini->status, 0); TEMP COMMENT.
 		mini->status = ft_get_exit_status(mini->status);
 	}

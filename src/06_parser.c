@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:29:13 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/27 16:45:55 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:57:53 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	mini_parser(t_mini *mini)
 	{
 		nbr_cmds = mini_count_nbr_pipes(mini->token_list) + 1;
 		mini->commands = (t_token **)malloc(sizeof(t_token *) * nbr_cmds + 1);
+		collect_mem(mini->commands);
 		mini_fill_cmd_array(mini);
 		debug_print_array_list(mini); // FOR DEBUG ONLY
 	}

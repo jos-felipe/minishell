@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/26 12:28:50 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:57:09 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	mini_automaton(char *str, t_token **token_list, int start, int state)
 				return ;
 			}
 			value = ft_substr(str, start, (i - start) + 1);
+			collect_mem(value);
 			mini_token_lstadd_back(token_list, mini_token_lstnew(value, state));
 			state = 0;
 		}

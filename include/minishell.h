@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/27 16:39:14 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:58:20 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ typedef struct s_mini
 	t_token	**commands;
 }				t_mini;
 
+// trashman.c
+void    *allocate_mem(size_t nmemb, size_t size);
+void    collect_mem(void *content);
+t_list    **get_mem_address(void);
+void	mini_free_trashman(t_list **lst_memory);
+
 // 00_main.c
 int			main(int argc, char *argv[], char *envp[]);
 
@@ -86,7 +92,7 @@ char	*mini_get_path(char *envp[]);
 void	free_heap(t_list *lst_memory);
 void	mini_free_split(char **split);
 char	*mini_whereis(char *cmd, char *path);
-void	mini_trashman(t_list *lst_memory);
+void	mini_trashman(t_list **lst_memory);
 
 // 04_special_parameter.c
 void	mini_special_parameter(t_mini *mini);

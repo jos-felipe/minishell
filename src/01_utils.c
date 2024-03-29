@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:40 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/27 15:04:43 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:04:48 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	mini_trashman_collector(t_list **list_memory, void *trash)
 void	mini_safe_exit(t_mini *mini)
 {
 	clear_history();
-	mini_trashman(mini->lst_memory);
+	mini_trashman(get_mem_address());
 	exit(mini->status);
 }

@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:19:25 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/21 19:25:41 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:34:54 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*mini_get_path(char *envp[])
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
 			path = ft_strdup(envp[i] + 5);
+			collect_mem(path);
 			return (path);
 		}
 		i++;
@@ -87,15 +88,17 @@ char	*mini_whereis(char *cmd, char *path)
 	return (NULL);
 }
 
-void	mini_trashman(t_list *lst_memory)
+void	mini_trashman(t_list **lst_memory)
 {
 	t_list	*tmp;
 
-	while (lst_memory)
+	while (*lst_memory)
 	{
-		tmp = lst_memory;
-		lst_memory = lst_memory->next;
+		tmp = *lst_memory;
+		*lst_memory = (*lst_memory)->next;
 		free(tmp->content);
+		tmp->content = NULL;
 		free(tmp);
+		tmp = NULL;
 	}
 }

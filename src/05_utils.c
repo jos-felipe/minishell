@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:47 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/27 15:23:32 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:59:13 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_token	*mini_token_lstnew(void *token, int state)
 	mini_get_token_specie(state, new_node);
 	new_node->next = NULL;
 	new_node->prev = NULL;
+	collect_mem(new_node);
 	return (new_node);
 }
 
@@ -90,7 +91,7 @@ void	debug_print_list(t_token **head) // FOR DEBUG ONLY
 	node = *head;
 	while (node)
 	{
-		printf("token: %s, gender: %d, specie: %d\n", (char *)node->token, node->gender, node->specie);
+		printf("token: %s\n", (char *)node->token);
 		node = node->next;
 	}
 	printf("\n");
