@@ -24,8 +24,14 @@ input_data_list.append("\"|\"")
 input_data_list.append("\"  |  \"")
 
 # Outputs references:
-output_data_list = [f'echo;']
-output_data_list.append(f'echo;-n;Mephis;')
+output_data_list = [f'']
+output_data_list.append(f'')
+output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
+output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
+output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
+output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
+output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
+output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):

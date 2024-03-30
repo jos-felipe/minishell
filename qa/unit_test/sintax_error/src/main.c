@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/30 12:22:38 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:37:18 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[], char *envp[])
 	mini_init(&mini);
 	mini.cmd_line = argv[1];
 	mini_tokenizer(&mini);
-	printf("%d\n", mini.syntax_error);
+	//printf("%d", mini.syntax_error);
 	mini_free_trashman(get_mem_address());
 	//mini_free_token_list(&mini.token_list); 
 	return (0);
