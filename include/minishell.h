@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/30 10:55:06 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:51:40 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	mini_fill_cmd_array(t_mini  *mini);
 
 // 06_utils.c
 void	debug_print_array_list(t_mini *mini); // FOR DEBUG ONLY
+void	debug_print_parse_list(t_token **head); // FOR DEBUG ONLY
 
 
 
