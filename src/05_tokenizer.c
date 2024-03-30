@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/29 18:22:06 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/30 10:56:06 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	mini_tokenizer(t_mini *mini)
 	{
 		if (mini->cmd_line[0] == '\0')
 			return ;
-		mini->state = mini_automaton(mini->cmd_line, &mini->token_list, 0, 0);
-		//debug_print_list(&mini->token_list);
+		mini->syntax_error = mini_automaton(mini->cmd_line, &mini->token_list, 0, 0);
+		if (!mini->syntax_error)
+			mini->syntax_error = mini_check_pipe_sintax(mini->token_list);
+		// debug_print_list(&mini->token_list);
 		// mini->pathname = mini_whereis(mini->split_cmd_line[0], mini->path); TEMP COMMENT.
 		// if (mini->pathname == NULL)
 		// 	ft_printf("Command not found: %s\n", mini->split_cmd_line[0]);
@@ -52,7 +54,7 @@ int	mini_automaton(char *str, t_token **token_list, int start, int state)
 			if (mini_is_error_state(state))
 			{
 				mini_print_sintax_error_message(state);
-				return (state);
+				return (1);
 			}
 			value = ft_substr(str, start, (i - start) + 1);
 			collect_mem(value);
@@ -73,7 +75,7 @@ int	mini_get_next_state(int state, int column)
 									{103, 103, 104, 103, 103, 103, 103, 103},
 									{4,   4,   4,   107, 4,   4,   4,   200},
 									{5,   5,   5,   5,   108, 5,   5,   200},
-									{105, 105, 105, 105, 105, 202, 105, 201}
+									{105, 105, 105, 105, 105, 202, 105,   201},
 								  };
 	return (truth_table[state][column]);
 }
@@ -125,5 +127,19 @@ void	mini_print_sintax_error_message(int state)
 		ft_printf("bash: syntax error near unexpected token '|'");
 	else if (state == 202)
 		ft_printf("error: not a bonus project '||'");
+}
+
+int	mini_check_pipe_sintax(t_token *token_list)
+{
+	while (token_list)
+	{
+		if (token_list->token[0] == '|' && token_list->next == NULL)
+		{
+			ft_printf("bash: syntax error near unexpected token '|'");
+			return (1);
+		}
+		token_list = token_list->next;
+	}
+	return (0);
 }
 

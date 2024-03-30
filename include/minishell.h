@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/29 17:51:29 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/03/30 10:55:06 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_mini
 	char	*pathname;
 	t_token	*token_list;
 	t_token	**commands;
-	int		state;
+	int		syntax_error;
 }				t_mini;
 
 // trashman.c
@@ -109,6 +109,7 @@ int		mini_is_back_state(int num);
 int		mini_is_error_state(int num);
 int		mini_is_end_state(int num);
 void	mini_print_sintax_error_message(int state);
+int		mini_check_pipe_sintax(t_token *token_list);
 
 // 05_utils.c
 void	mini_lstdelone(t_token *lst);
