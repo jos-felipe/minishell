@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   06_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:29:13 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/01 16:30:39 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/01 18:54:20 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	mini_parser(t_mini *mini)
 	if (mini->token_list)
 	{
 		nbr_cmds = mini_count_nbr_pipes(mini->token_list) + 1;
-		mini->commands = (t_token **)malloc(sizeof(t_token *) * nbr_cmds + 1);
+		mini->commands = (t_token **)ft_calloc(sizeof(t_token *), nbr_cmds + 1);
 		collect_mem(mini->commands);
 		mini_fill_cmd_array(mini);
 		//debug_print_array_list(mini); // FOR DEBUG ONLY
