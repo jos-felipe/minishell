@@ -28,6 +28,7 @@ input_data_list.append("\"<< echo\"")
 input_data_list.append("\"cat -n infile | grep 'pattern'\"")
 input_data_list.append("\"echo 'Mephis e Fausto'\"")
 input_data_list.append("'echo \"Mephis e Fausto\"'")
+input_data_list.append("|")
 
 # Outputs references:
 output_data_list = [f'echo;']
@@ -44,6 +45,7 @@ output_data_list.append(f'<<;echo;')
 output_data_list.append(f'cat;-n;infile;|;grep;\'pattern\';')
 output_data_list.append(f"echo;'Mephis e Fausto';")
 output_data_list.append(f'echo;"Mephis e Fausto";')
+output_data_list.append(f"bash: syntax error near unexpected token `|'")
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
