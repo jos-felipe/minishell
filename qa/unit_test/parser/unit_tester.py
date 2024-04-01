@@ -16,10 +16,14 @@ trash = subprocess.run("make", stdout=subprocess.PIPE, stderr=subprocess.PIPE, t
 # Input Samples:
 input_data_list = ["\"infile < ls -l | wc -l > outfile\""]
 input_data_list.append("\"infile < cat | tr , * | sort | uniq | grep a | tr a-z A-Z | outfile\"")
+input_data_list.append("echo 42 || echo 21")
+input_data_list.append("echo 42 && echo 21")
 
 # Outputs references:
 output_data_list = [f'infile < ls -l \nwc -l > outfile \n']
 output_data_list.append(f'infile < cat \ntr , * \nsort \nuniq \ngrep a \ntr a-z A-Z \noutfile \n')
+output_data_list.append(f'echo 42 || echo 21 \n')
+output_data_list.append(f'echo 42 && echo 21 \n')
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
