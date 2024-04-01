@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/30 14:51:40 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:32:42 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,10 @@ void	debug_print_list(t_token **head); // FOR DEBUG ONLY
 
 // 06_parser.c
 void	mini_parser(t_mini *mini);
-int		mini_count_nbr_pipes(t_token *token_list);
 void	mini_fill_cmd_array(t_mini  *mini);
+int		mini_count_nbr_pipes(t_token *token_list);
+t_token	*mini_t_token_dup(t_token *t);
+
 
 // 06_utils.c
 void	debug_print_array_list(t_mini *mini); // FOR DEBUG ONLY

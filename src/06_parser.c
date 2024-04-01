@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   06_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:29:13 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/30 15:05:36 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:30:39 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	mini_count_nbr_pipes(t_token *token_list)
 	nbr_pipes = 0;
 	while (temp)
 	{
-		if (temp->token[0] == '|')
+		// if (temp->token[0] == '|')
+		if (!ft_strncmp(temp->token, "|", 2))
 			nbr_pipes++;
 		temp = temp->next;
 	}
@@ -45,21 +46,42 @@ int	mini_count_nbr_pipes(t_token *token_list)
 
 void	mini_fill_cmd_array(t_mini  *mini)
 {
-	t_token *temp;
+	t_token	*current;
+	t_token *new;
+	char	*token;
 	int		i;
 
+	new = NULL;
 	i = 0;
-	mini->commands[i++] = mini->token_list;
-	while (mini->token_list)
+	current = mini->token_list;
+	while (current)
 	{
-		temp = mini->token_list;
-		if (temp->token[0] == '|')
+		token = current->token;
+		if (!ft_strncmp(token, "|", 2))
 		{
-			mini->commands[i++] = temp->next;
-			mini->token_list = mini->token_list->next;
-			temp->prev->next = NULL;
+			mini->commands[i] = new;
+			new = NULL;
+			i++;
 		}
 		else
-			mini->token_list = mini->token_list->next;
+			mini_token_lstadd_back(&new, mini_t_token_dup(current));
+		current = current->next;
 	}
+	mini->commands[i] = new;
+}
+
+t_token	*mini_t_token_dup(t_token *t)
+{
+	t_token	*new_node;
+
+	new_node = malloc(sizeof(t_token));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->token = t->token;
+	new_node->gender = t->gender;
+	new_node->specie = t->specie;
+	new_node->next = NULL;
+	new_node->prev = NULL;
+	collect_mem(new_node);
+	return (new_node);
 }
