@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/01 16:32:42 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:23:26 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ void	mini_free_trashman(t_list **lst_memory);
 
 // 00_main.c
 int			main(int argc, char *argv[], char *envp[]);
+
+// 00_utils.c
+void		mini_ctrl_d_exit(t_mini *mini);
+
 
 // 01_prompt.c
 void		mini_prompt(t_mini *mini);
