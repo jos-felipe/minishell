@@ -11,7 +11,7 @@ RED = "\033[31;1m"
 COLOR_LIMITER = "\033[0m"
 colours = [GREEN, RED, COLOR_LIMITER]
 
-trash = subprocess.run("make", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run("make -C tokenizer", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 # Input Samples:
 input_data_list = ["\"echo\""]
@@ -49,7 +49,7 @@ output_data_list.append(f"bash: syntax error near unexpected token `|'\n")
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
-	output = subprocess.run(f"{valgrind} ./tokenizer {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	output = subprocess.run(f"{valgrind} ./tokenizer/tokenizer {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile_content = output.stdout
 	if outfile_content == output_ref:
 		print(f"{colours[0]}{i}/{len(input_data_list)}.	OK  {colours[2]}")
@@ -65,4 +65,4 @@ for input_data, output_ref in zip(input_data_list, output_data_list):
 		print(f"{colours[1]}	MKO  {colours[2]}")
 	i = i + 1
 
-trash = subprocess.run("make fclean", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run("make fclean -C tokenizer", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
