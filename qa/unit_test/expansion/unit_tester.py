@@ -11,26 +11,21 @@ RED = "\033[31;1m"
 COLOR_LIMITER = "\033[0m"
 colours = [GREEN, RED, COLOR_LIMITER]
 
-trash = subprocess.run("VAR='echo 42 | echo 84'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 trash = subprocess.run("make -C expansion", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 # Input Samples:
-input_data_list = ["\"echo 42 | echo 84\""]
-input_data_list.append("\"$LANGUAGE\"")
-input_data_list.append("\"$VAR\"")
-input_data_list.append("\"echo -n $LANGUAGE\"")
-input_data_list.append("\"echo -n $VAR\"")
-input_data_list.append("\"echo -n $LANGUAGE $VAR\"")
-input_data_list.append("\"echo -n $VAR | cat -e melvin\"")
+input_data_list = ["\'echo 42 | echo 84\'"]
+input_data_list.append("\'$LANGUAGE\'")
+input_data_list.append("\'echo -n $LANGUAGE\'")
+input_data_list.append("\'echo -n $LANGUAGE | cat -e outfile\'")
+input_data_list.append("\'echo -n $LANGUAGE $DESKTOP_SESSION\'")
 
 # Outputs references:
 output_data_list = [f'echo 42 \necho 84 \n']
 output_data_list.append(f'en \n')
-output_data_list.append(f'echo 42 | echo 84 \n')
 output_data_list.append(f'echo -n en \n')
-output_data_list.append(f'echo -n echo 42 | echo 84 \n')
-output_data_list.append(f'echo -n en echo 42 | echo 84 \n')
-output_data_list.append(f'echo -n echo 42 | echo 84 \ncat -e melvin \n')
+output_data_list.append(f'echo -n en \ncat -e oufile \n')
+output_data_list.append(f'echo -n en ubuntu \n')
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
