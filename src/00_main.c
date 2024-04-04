@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/02 12:21:48 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:17:23 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int main(int argc, char *argv[], char *envp[])
 	argv = NULL;
 	mini_process_envp(&mini, envp);
 	mini_ctrl_signal();
+	mini_init_env_list(&mini, envp);
 	while (1)
 	{
 		mini_init(&mini);
@@ -30,7 +31,10 @@ int main(int argc, char *argv[], char *envp[])
 		add_history(mini.cmd_line);
 		mini_tokenizer(&mini);
 		if (!mini.syntax_error)
+		{
 			mini_parser(&mini);
+			mini_expansion(&mini);
+		}
 		mini_free_trashman(get_mem_address());
 		mini.status = ft_get_exit_status(mini.status);
 	}
