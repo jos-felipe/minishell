@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/08 09:58:21 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/08 11:51:31 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	mini_expansion(t_mini *mini)
 	cmd = mini->commands[i];
 	while (cmd)
 	{
-		mini_token_expansion(cmd, mini);
+		mini_token_expansion(mini, i);
 		i++;
 		cmd = mini->commands[i];
 	}
@@ -52,7 +52,7 @@ void	mini_search_and_replace(t_mini *mini, int i)
 	new_token = NULL;
 	while (current)
 	{
-		if (current->key == old_token)
+		if (!ft_strncmp(current->key, old_token, ft_strlen(old_token)))
 		{
 			new_token = current->content;
 			break;
