@@ -19,6 +19,12 @@ input_data_list.append("\'$LANGUAGE\'")
 input_data_list.append("\'echo -n $LANGUAGE\'")
 input_data_list.append("\'echo -n $LANGUAGE | cat -e outfile\'")
 input_data_list.append("\'echo -n $LANGUAGE $DESKTOP_SESSION\'")
+input_data_list.append("\'echo word$LANGUAGE\'")
+input_data_list.append("\'echo LANGUAGE$\'")
+input_data_list.append("\'echo word$LANGUAGE$word\'")
+input_data_list.append("\'echo word$LANGUAGE$DESKTOP_SESSION\'")
+input_data_list.append("\'echo $$\'")
+input_data_list.append("\'echo $$LANGUAGE\'")
 
 # Outputs references:
 output_data_list = [f'echo 42 \necho 84 \n']
@@ -26,6 +32,12 @@ output_data_list.append(f'en \n')
 output_data_list.append(f'echo -n en \n')
 output_data_list.append(f'echo -n en \ncat -e oufile \n')
 output_data_list.append(f'echo -n en ubuntu \n')
+output_data_list.append(f'echo worden \n')
+output_data_list.append(f'echo LANGUAGE$ \n')
+output_data_list.append(f'echo wordenword \n')
+output_data_list.append(f'echo wordenubuntu \n')
+output_data_list.append(f'echo \n')
+output_data_list.append(f'echo \n')
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
