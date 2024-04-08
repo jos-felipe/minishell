@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/08 11:51:31 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:35:51 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,35 +29,51 @@ void	mini_expansion(t_mini *mini)
 
 void	mini_token_expansion(t_mini *mini, int i)
 {
-	t_token	*cmd;
+	t_token	*token_node;
 	
-	cmd = mini->commands[i];
-	while (cmd)
+	token_node = mini->commands[i];
+	while (token_node)
 	{
-		if (is_dollar_sign(cmd->token))
-			mini_search_and_replace(mini, i);
-		cmd = cmd->next;
+		if (ft_strchr(token_node->token, '$'))
+			token_node->token = mini_sep_exp_join(mini, token_node->token);
+		token_node = token_node->next;
 	}
 }
 
-void	mini_search_and_replace(t_mini *mini, int i)
+char	*mini_sep_exp_join(t_mini *mini, char *token)
 {
-	char	*old_token;
-	char	*new_token;
-	t_env	*current;
+	t_list	*sub_token_lst;
+	char	*sub_token;
 
-	old_token = mini->commands[i]->token;
-	old_token++;
+	sub_token_lst = NULL;
+	mini_sub_tokenizier(&sub_token_lst, token);
+	while (sub_token_lst)
+	{
+		sub_token = sub_token_lst->sub_token;
+		if (sub_token[0] == '$' && sub_token[1])
+			sub_token_lst->sub_token = mini_search_and_replace(mini, sub_token);
+		sub_token_lst = sub_token_lst->next;
+	}
+	return(mini_sub_token_join(sub_token_lst));
+	
+}
+
+char	*mini_search_and_replace(t_mini *mini, char *sub_token)
+{
+	t_env	*current;
+	char	*new_sub_token;
+
 	current = mini->env_list;
-	new_token = NULL;
+	sub_token++;
+	new_sub_token = NULL;
 	while (current)
 	{
-		if (!ft_strncmp(current->key, old_token, ft_strlen(old_token)))
+		if (!ft_strncmp(current->key, sub_token, ft_strlen(sub_token)))
 		{
-			new_token = current->content;
+			new_sub_token = current->content;
 			break;
 		}
 		current = current->next;
 	}
-	mini->commands[i]->token = new_token;
+	return(new_sub_token);
 }
