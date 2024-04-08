@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   07_expansion.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/08 17:35:51 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:45:09 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*mini_sep_exp_join(t_mini *mini, char *token)
 	char	*sub_token;
 
 	sub_token_lst = NULL;
-	mini_sub_tokenizier(&sub_token_lst, token);
+	mini_sub_tokenizier(token, &sub_token_lst, 0, 0);
 	while (sub_token_lst)
 	{
 		sub_token = sub_token_lst->sub_token;
