@@ -30,14 +30,14 @@ input_data_list.append("\'echo $$LANGUAGE\'")
 output_data_list = [f'echo 42 \necho 84 \n']
 output_data_list.append(f'en \n')
 output_data_list.append(f'echo -n en \n')
-output_data_list.append(f'echo -n en \ncat -e oufile \n')
+output_data_list.append(f'echo -n en \ncat -e outfile \n')
 output_data_list.append(f'echo -n en ubuntu \n')
 output_data_list.append(f'echo worden \n')
 output_data_list.append(f'echo LANGUAGE$ \n')
-output_data_list.append(f'echo wordenword \n')
+output_data_list.append(f'echo worden \n')
 output_data_list.append(f'echo wordenubuntu \n')
 output_data_list.append(f'echo \n')
-output_data_list.append(f'echo \n')
+output_data_list.append(f'echo LANGUAGE \n')
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
