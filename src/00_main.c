@@ -6,21 +6,19 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/04 18:17:23 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:34:32 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int main(int argc, char *argv[], char *envp[])
+int main(void)
 {
 	t_mini	mini;
 
-	argc = 0;
-	argv = NULL;
-	mini_process_envp(&mini, envp);
+	// mini_process_envp(&mini, envp);
 	mini_ctrl_signal();
-	mini_init_env_list(&mini, envp);
+	mini_init_env_list(&mini);
 	while (1)
 	{
 		mini_init(&mini);

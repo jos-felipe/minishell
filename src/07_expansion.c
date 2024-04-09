@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   07_expansion.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/08 18:45:09 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:39:37 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ char	*mini_sep_exp_join(t_mini *mini, char *token)
 	mini_sub_tokenizier(token, &sub_token_lst, 0, 0);
 	while (sub_token_lst)
 	{
-		sub_token = sub_token_lst->sub_token;
+		sub_token = sub_token_lst->content;
 		if (sub_token[0] == '$' && sub_token[1])
-			sub_token_lst->sub_token = mini_search_and_replace(mini, sub_token);
+			sub_token_lst->content = mini_search_and_replace(mini, sub_token);
 		sub_token_lst = sub_token_lst->next;
 	}
 	return(mini_sub_token_join(sub_token_lst));
@@ -70,7 +70,7 @@ char	*mini_search_and_replace(t_mini *mini, char *sub_token)
 	{
 		if (!ft_strncmp(current->key, sub_token, ft_strlen(sub_token)))
 		{
-			new_sub_token = current->content;
+			new_sub_token = current->value;
 			break;
 		}
 		current = current->next;

@@ -6,14 +6,13 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 09:16:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 12:57:52 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:33:34 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include "../include/minishell_3.h"
 
-void	mini_init_env_list(t_mini *mini, char *envp[])
+void	mini_init_env_list(t_mini *mini)
 {
 	int		i;
 	char	*split_position;

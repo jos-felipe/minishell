@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   07_utils_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 12:34:17 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:57:33 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-#define NULL_CHAR 666
 
 void	mini_sub_tokenizier(char *str, t_list **sub_token_lst, int start, int state)
 {
@@ -26,7 +24,7 @@ void	mini_sub_tokenizier(char *str, t_list **sub_token_lst, int start, int state
 	{
 		if (state == 0)
 			start = i;
-		state = mini_get_next_state(state, mini_get_column(str[i]));
+		state = mini_exp_get_next_state(state, mini_exp_get_column(str[i]));
 		if (state >= 100 && state != NULL_CHAR)
 		{
 			if (is_one_back_state(state))
@@ -43,7 +41,7 @@ void	mini_sub_tokenizier(char *str, t_list **sub_token_lst, int start, int state
 	
 }
 
-int	mini_get_next_state(int state, int column)
+int	mini_exp_get_next_state(int state, int column)
 {
 	static int truth_table[4][3] = {
 									{1,   3,   666},
@@ -54,7 +52,7 @@ int	mini_get_next_state(int state, int column)
 	return (truth_table[state][column]);
 }
 
-int	mini_get_column(char c)
+int	mini_exp_get_column(char c)
 {
 	if (c == '$')
 		return (1);

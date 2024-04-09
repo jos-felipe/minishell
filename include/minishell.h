@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 14:08:40 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:58:51 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+
+#define NULL_CHAR 666
 
 enum e_token_gender
 {
@@ -60,11 +62,19 @@ typedef struct s_mini
 	char	*pathname;
 	t_token	*token_list;
 	t_token	**commands;
+	t_env	*env_list;
 	int		syntax_error;
 }				t_mini;
 
+typedef struct	s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
+
 // trashman.c
-void    *allocate_mem(size_t nmemb, size_t size);
+// void    *allocate_mem(size_t nmemb, size_t size);
 void    collect_mem(void *content);
 t_list    **get_mem_address(void);
 void	mini_free_trashman(t_list **lst_memory);
@@ -143,7 +153,7 @@ char	*mini_sep_exp_join(t_mini *mini, char *token);
 char	*mini_search_and_replace(t_mini *mini, char *sub_token);
 
 // 07_utils_1.c
-void	mini_init_env_list(t_mini *mini, char *envp[]);
+void	mini_init_env_list(t_mini *mini);
 char	*mini_substr_pointer(char *begin, char *end);
 t_env	*mini_env_lstnew(char **var);
 void	mini_env_lstadd_back(t_env **lst, t_env *new);
@@ -152,10 +162,10 @@ char	*mini_sub_token_join(t_list *sub_token_lst);
 
 // 07_utils_2.c
 void	mini_sub_tokenizier(char *str, t_list **sub_token_lst, int start, int state);
-int	mini_get_next_state(int state, int column);
-int	mini_get_column(char c);
-int is_one_back_state(int state);
-int is_two_back_state(int state);
+int		mini_exp_get_next_state(int state, int column);
+int		mini_exp_get_column(char c);
+int		is_one_back_state(int state);
+int		is_two_back_state(int state);
 
 
 

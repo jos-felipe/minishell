@@ -6,13 +6,11 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/01 15:01:46 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:58:05 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-#define NULL_CHAR 666
 
 void	mini_tokenizer(t_mini *mini)
 {
