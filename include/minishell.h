@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/02 12:23:26 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:08:40 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,32 @@ void	mini_fill_cmd_array(t_mini  *mini);
 int		mini_count_nbr_pipes(t_token *token_list);
 t_token	*mini_t_token_dup(t_token *t);
 
-
 // 06_utils.c
 void	debug_print_array_list(t_mini *mini); // FOR DEBUG ONLY
 void	debug_print_parse_list(t_token **head); // FOR DEBUG ONLY
+
+// 07_expansion.c
+void	mini_expansion(t_mini *mini);
+void	mini_token_expansion(t_mini *mini, int i);
+char	*mini_sep_exp_join(t_mini *mini, char *token);
+char	*mini_search_and_replace(t_mini *mini, char *sub_token);
+
+// 07_utils_1.c
+void	mini_init_env_list(t_mini *mini, char *envp[]);
+char	*mini_substr_pointer(char *begin, char *end);
+t_env	*mini_env_lstnew(char **var);
+void	mini_env_lstadd_back(t_env **lst, t_env *new);
+t_env	*mini_env_lstlast(t_env *lst);
+char	*mini_sub_token_join(t_list *sub_token_lst);
+
+// 07_utils_2.c
+void	mini_sub_tokenizier(char *str, t_list **sub_token_lst, int start, int state);
+int	mini_get_next_state(int state, int column);
+int	mini_get_column(char c);
+int is_one_back_state(int state);
+int is_two_back_state(int state);
+
+
 
 
 
