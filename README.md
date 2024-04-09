@@ -62,6 +62,6 @@ References:
 
 3. The Open Group. (2018). The Open Group Base Specifications Issue 7, 2018 edition. https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/. (Accessed March 4, 2024)
 
-Guilherme
 
+Guilherme Borges
 José Felipe Dalcin Stieven
