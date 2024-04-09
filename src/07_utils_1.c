@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 09:16:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 12:04:05 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/09 12:57:52 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,37 @@
 void	mini_init_env_list(t_mini *mini, char *envp[])
 {
 	int		i;
-	char	**var;
+	char	*split_position;
+	char	*var[2];
 
 	i = 0;
 	while (environ[i])
 	{
-		var = ft_split(environ[i], ':');
-		mini_env_lstadd_back(&mini->env_list, mini_env_lstnew(var));		
+		split_position = ft_strchr(environ[i], '=');
+		if (!split_position)
+		{
+			var[0] = mini_substr_pointer(environ[i], split_position);
+			split_position++;
+			var[1] = mini_substr_pointer(split_position, NULL);
+			mini_env_lstadd_back(&mini->env_list, mini_env_lstnew(var));
+		}
 		i++;
+	}
+}
+
+char	*mini_substr_pointer(char *begin, char *end)
+{
+	char	*str;
+	int		i;
+
+	str = calloc(ft_strlen(begin), sizeof(char));
+	collect_mem(str);
+	i = 0;
+	while (begin != end || !*begin)
+	{
+		str[i] = *begin;
+		i++;
+		begin++;
 	}
 }
 
@@ -39,7 +62,6 @@ t_env	*mini_env_lstnew(char **var)
 	new_node->next = NULL;
 	collect_mem(var[0]);
 	collect_mem(var[1]);
-	collect_mem(var);
 	collect_mem(new_node);
 	return (new_node);
 }
@@ -53,11 +75,11 @@ void	mini_env_lstadd_back(t_env **lst, t_env *new)
 		*lst = new;
 		return ;
 	}
-	last_node = ft_lstlast(*lst);
+	last_node = mini_env_lstlast(*lst);
 	last_node->next = new;
 }
 
-t_token	*mini_env_lstlast(t_env *lst)
+t_env	*mini_env_lstlast(t_env *lst)
 {
 	if (lst == NULL)
 		return (NULL);
