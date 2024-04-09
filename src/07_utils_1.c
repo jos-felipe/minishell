@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 09:16:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 14:33:34 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:42:28 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,53 +15,72 @@
 void	mini_init_env_list(t_mini *mini)
 {
 	int		i;
-	char	*split_position;
+	char	*env_line;
+	int		split_index;
 	char	*var[2];
 
 	i = 0;
-	while (environ[i])
+	env_line = __environ[i];
+	while (env_line)
 	{
-		split_position = ft_strchr(environ[i], '=');
-		if (!split_position)
+		split_index = mini_strchr_index(env_line, '=');
+		if (split_index != -1)
 		{
-			var[0] = mini_substr_pointer(environ[i], split_position);
-			split_position++;
-			var[1] = mini_substr_pointer(split_position, NULL);
+			var[0] = mini_substr_index(env_line, 0, split_index - 1);
+			var[1] = mini_substr_index(env_line, split_index + 1, ft_strlen(env_line));
 			mini_env_lstadd_back(&mini->env_list, mini_env_lstnew(var));
 		}
 		i++;
+		env_line = __environ[i];
 	}
 }
 
-char	*mini_substr_pointer(char *begin, char *end)
+int	mini_strchr_index(char *str, char c)
 {
-	char	*str;
-	int		i;
+	int	i;
 
-	str = calloc(ft_strlen(begin), sizeof(char));
-	collect_mem(str);
 	i = 0;
-	while (begin != end || !*begin)
+	while (str[i])
 	{
-		str[i] = *begin;
+		if (str[i] == c)
+			return (i);
 		i++;
-		begin++;
 	}
+	return (-1);
 }
+
+char	*mini_substr_index(char *str, int start, int end)
+{
+	int		i;
+	int		j;
+	char	*substr;
+
+	i = start;
+	j = 0;
+	substr = (char *)calloc(end - start + 2, sizeof(char));
+	collect_mem(substr);
+	while (i <= end)
+	{
+		substr[j] = str[i]; 
+		i++;
+		j++;
+	}
+	substr[j] = '\0';
+	return (substr);
+}
+
 
 t_env	*mini_env_lstnew(char **var)
 {
 	t_env	*new_node;
 
 	new_node = malloc(sizeof(t_env));
+	collect_mem(new_node);
 	if (new_node == NULL)
 		return (NULL);
 	new_node->key = var[0];
 	new_node->value = var[1];
 	new_node->next = NULL;
-	collect_mem(var[0]);
-	collect_mem(var[1]);
-	collect_mem(new_node);
 	return (new_node);
 }
 
@@ -87,20 +106,23 @@ t_env	*mini_env_lstlast(t_env *lst)
 	return (lst);
 }
 
-char	*mini_sub_token_join(t_list *sub_token_lst)
+char	*mini_sub_token_join(t_sub_token *sub_token_lst)
 {
 	char	*sub_token;
 	char	*str;
 
 	str = NULL;
-		while (sub_token_lst)
+	while (sub_token_lst)
 	{
 		sub_token = sub_token_lst->content;
-		if (!str)
-			str = ft_strjoin(str, sub_token);
-		else
-			str = ft_strdup(sub_token);
-		collect_mem(str);
+		if (sub_token)
+		{
+			if (str)
+				str = ft_strjoin(str, sub_token);
+			else
+				str = ft_strdup(sub_token);
+			collect_mem(str);
+		}
 		sub_token_lst = sub_token_lst->next;
 	}
 	return (str);

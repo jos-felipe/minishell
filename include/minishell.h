@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 14:58:51 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:43:07 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,19 @@ typedef struct s_token
 	struct s_token 			*prev;
 }	t_token;
 
+typedef struct	s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
+
+typedef struct	s_sub_token
+{
+	char				*content;
+	struct s_sub_token	*next;
+}				t_sub_token;
+
 typedef struct s_mini
 {
 	char	*path;
@@ -66,13 +79,6 @@ typedef struct s_mini
 	int		syntax_error;
 }				t_mini;
 
-typedef struct	s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}				t_env;
-
 // trashman.c
 // void    *allocate_mem(size_t nmemb, size_t size);
 void    collect_mem(void *content);
@@ -80,7 +86,7 @@ t_list    **get_mem_address(void);
 void	mini_free_trashman(t_list **lst_memory);
 
 // 00_main.c
-int			main(int argc, char *argv[], char *envp[]);
+// int			main(void);
 
 // 00_utils.c
 void		mini_ctrl_d_exit(t_mini *mini);
@@ -154,18 +160,24 @@ char	*mini_search_and_replace(t_mini *mini, char *sub_token);
 
 // 07_utils_1.c
 void	mini_init_env_list(t_mini *mini);
-char	*mini_substr_pointer(char *begin, char *end);
+char	*mini_substr_index(char *str, int start, int end);
+int		mini_strchr_index(char *str, char c);
 t_env	*mini_env_lstnew(char **var);
 void	mini_env_lstadd_back(t_env **lst, t_env *new);
 t_env	*mini_env_lstlast(t_env *lst);
-char	*mini_sub_token_join(t_list *sub_token_lst);
+char	*mini_sub_token_join(t_sub_token *sub_token_lst);
 
 // 07_utils_2.c
-void	mini_sub_tokenizier(char *str, t_list **sub_token_lst, int start, int state);
+void	mini_sub_tokenizier(char *str, t_sub_token **sub_token_lst, int start, int state);
 int		mini_exp_get_next_state(int state, int column);
 int		mini_exp_get_column(char c);
 int		is_one_back_state(int state);
 int		is_two_back_state(int state);
+
+// 07_utils_3.c
+t_sub_token	*mini_sub_token_lstnew(char *content);
+t_sub_token	*mini_sub_token_lstlast(t_sub_token *lst);
+void		mini_sub_token_lstadd_back(t_sub_token **lst, t_sub_token *new);
 
 
 

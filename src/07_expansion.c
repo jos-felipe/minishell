@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 14:39:37 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:34:53 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,19 @@ void	mini_token_expansion(t_mini *mini, int i)
 
 char	*mini_sep_exp_join(t_mini *mini, char *token)
 {
-	t_list	*sub_token_lst;
+	t_sub_token	*sub_token_lst;
+	t_sub_token	*current;
 	char	*sub_token;
 
 	sub_token_lst = NULL;
 	mini_sub_tokenizier(token, &sub_token_lst, 0, 0);
-	while (sub_token_lst)
+	current = sub_token_lst;
+	while (current)
 	{
-		sub_token = sub_token_lst->content;
+		sub_token = current->content;
 		if (sub_token[0] == '$' && sub_token[1])
-			sub_token_lst->content = mini_search_and_replace(mini, sub_token);
-		sub_token_lst = sub_token_lst->next;
+			current->content = mini_search_and_replace(mini, sub_token);
+		current = current->next;
 	}
 	return(mini_sub_token_join(sub_token_lst));
 	
