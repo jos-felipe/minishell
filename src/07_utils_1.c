@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 09:16:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 12:44:09 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:52:12 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	mini_getenv(t_mini *mini)
 			len = ft_strlen(__environ[i]) - start;
 			var[1] = ft_substr(__environ[i], start, len);
 			collect_mem(var[1]);
-			mini_env_lstadd_back(&mini->env_list, mini_env_lstnew(var));
+			ft_dictadd_back(&mini->env_list, ft_dictnew(var));
 		}
 		i++;
 	}
@@ -51,27 +51,6 @@ int	mini_strchr_index(char *str, char c)
 	}
 	return (-1);
 }
-
-char	*mini_substr_index(char *str, int start, int end)
-{
-	int		i;
-	int		j;
-	char	*substr;
-
-	i = start;
-	j = 0;
-	substr = (char *)calloc(end - start + 2, sizeof(char));
-	collect_mem(substr);
-	while (i <= end)
-	{
-		substr[j] = str[i]; 
-		i++;
-		j++;
-	}
-	substr[j] = '\0';
-	return (substr);
-}
-
 
 t_env	*mini_env_lstnew(char **var)
 {
