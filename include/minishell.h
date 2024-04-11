@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/02 12:23:26 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:27:18 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "../lib/includes/libft.h"
+# include "dictionary.h"
+# include "trashman.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -23,6 +25,8 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+
+#define NULL_CHAR 666
 
 enum e_token_gender
 {
@@ -51,6 +55,21 @@ typedef struct s_token
 	struct s_token 			*prev;
 }	t_token;
 
+typedef struct	s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
+
+
+
+typedef struct	s_sub_token
+{
+	char				*content;
+	struct s_sub_token	*next;
+}				t_sub_token;
+
 typedef struct s_mini
 {
 	char	*path;
@@ -60,17 +79,18 @@ typedef struct s_mini
 	char	*pathname;
 	t_token	*token_list;
 	t_token	**commands;
+	t_dict	*env_list;
 	int		syntax_error;
 }				t_mini;
 
 // trashman.c
-void    *allocate_mem(size_t nmemb, size_t size);
+// void    *allocate_mem(size_t nmemb, size_t size);
 void    collect_mem(void *content);
 t_list    **get_mem_address(void);
 void	mini_free_trashman(t_list **lst_memory);
 
 // 00_main.c
-int			main(int argc, char *argv[], char *envp[]);
+// int			main(void);
 
 // 00_utils.c
 void		mini_ctrl_d_exit(t_mini *mini);
@@ -132,10 +152,34 @@ void	mini_fill_cmd_array(t_mini  *mini);
 int		mini_count_nbr_pipes(t_token *token_list);
 t_token	*mini_t_token_dup(t_token *t);
 
-
 // 06_utils.c
 void	debug_print_array_list(t_mini *mini); // FOR DEBUG ONLY
 void	debug_print_parse_list(t_token **head); // FOR DEBUG ONLY
+
+// 07_expansion.c
+void	mini_expansion(t_mini *mini);
+void	mini_token_expansion(t_mini *mini, int i);
+char	*mini_sep_exp_join(t_mini *mini, char *token);
+char	*mini_search_and_replace(t_mini *mini, char *sub_token);
+
+// 07_utils_1.c
+void	mini_getenv(t_mini *mini);
+int		mini_strchr_index(char *str, char c);
+char	*mini_sub_token_join(t_sub_token *sub_token_lst);
+
+// 07_utils_2.c
+void	mini_sub_tokenizier(char *str, t_sub_token **sub_token_lst, int start, int state);
+int		mini_exp_get_next_state(int state, int column);
+int		mini_exp_get_column(char c);
+int		is_one_back_state(int state);
+int		is_two_back_state(int state);
+
+// 07_utils_3.c
+t_sub_token	*mini_sub_token_lstnew(char *content);
+t_sub_token	*mini_sub_token_lstlast(t_sub_token *lst);
+void		mini_sub_token_lstadd_back(t_sub_token **lst, t_sub_token *new);
+
+
 
 
 

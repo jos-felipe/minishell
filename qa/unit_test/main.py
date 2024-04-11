@@ -10,3 +10,6 @@ from syntax_error import unit_tester
 
 print("Parser")
 from parser import unit_tester
+
+print("Expansion")
+from expansion import unit_tester

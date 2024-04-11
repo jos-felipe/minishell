@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   06_utils.c                                         :+:      :+:    :+:   */
+/*   trashman.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/27 14:29:20 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/09 17:57:02 by josfelip         ###   ########.fr       */
+/*   Created: 2024/04/11 14:44:19 by josfelip          #+#    #+#             */
+/*   Updated: 2024/04/11 15:08:23 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#ifndef TRASHMAN_H
+# define TRASHMAN_H
 
-void	debug_print_array_list(t_mini *mini)
-{
-	int i;
+# include "../lib/includes/libft.h"
 
-	i = 0;
-	while (mini->commands[i])
-	{
-		debug_print_parse_list(&mini->commands[i]);
-		printf("\n");	
-		i++;
-	}
-}
+t_list	**ft_get_mem_address(void);
+void	ft_collect_mem(void *content);
+void	ft_free_trashman(t_list **lst_memory);
 
-void	debug_print_parse_list(t_token **head)
-{
-	t_token *node;
-
-	node = *head;
-	while (node)
-	{
-		if (node->token)
-			printf("%s ", (char *)node->token);
-		node = node->next;
-	}
-}
+#endif

@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   06_utils.c                                         :+:      :+:    :+:   */
+/*   dictionary.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/27 14:29:20 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/09 17:57:02 by josfelip         ###   ########.fr       */
+/*   Created: 2024/04/11 14:28:50 by josfelip          #+#    #+#             */
+/*   Updated: 2024/04/11 15:04:32 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#ifndef DICTIONARY_H
+# define DICTIONARY_H
 
-void	debug_print_array_list(t_mini *mini)
+# include "../lib/includes/libft.h"
+# include "trashman.h"
+
+typedef struct	s_dict
 {
-	int i;
+	char			*key;
+	char			*value;
+	struct s_dict	*next;
+}				t_dict;
 
-	i = 0;
-	while (mini->commands[i])
-	{
-		debug_print_parse_list(&mini->commands[i]);
-		printf("\n");	
-		i++;
-	}
-}
+t_dict	*ft_dictnew(char **var);
+t_dict	*ft_dictlast(t_dict *dict);
+void	ft_dictadd_back(t_dict **dict, t_dict *new_entry);
 
-void	debug_print_parse_list(t_token **head)
-{
-	t_token *node;
-
-	node = *head;
-	while (node)
-	{
-		if (node->token)
-			printf("%s ", (char *)node->token);
-		node = node->next;
-	}
-}
+#endif
