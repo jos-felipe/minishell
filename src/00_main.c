@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/09 14:34:32 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:45:13 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(void)
 
 	// mini_process_envp(&mini, envp);
 	mini_ctrl_signal();
-	mini_init_env_list(&mini);
+	mini_getenv(&mini);
 	while (1)
 	{
 		mini_init(&mini);

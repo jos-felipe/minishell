@@ -6,32 +6,35 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 09:16:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 17:42:28 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:44:09 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	mini_init_env_list(t_mini *mini)
+void	mini_getenv(t_mini *mini)
 {
 	int		i;
-	char	*env_line;
-	int		split_index;
+	int		start;
+	int		len;
 	char	*var[2];
 
 	i = 0;
-	env_line = __environ[i];
-	while (env_line)
+	while (__environ[i])
 	{
-		split_index = mini_strchr_index(env_line, '=');
-		if (split_index != -1)
+		start = 0;
+		len = mini_strchr_index(__environ[i], '=');
+		if (len > -1)
 		{
-			var[0] = mini_substr_index(env_line, 0, split_index - 1);
-			var[1] = mini_substr_index(env_line, split_index + 1, ft_strlen(env_line));
+			var[0] = ft_substr(__environ[i], start, len);
+			collect_mem(var[0]);
+			start = len + 1;
+			len = ft_strlen(__environ[i]) - start;
+			var[1] = ft_substr(__environ[i], start, len);
+			collect_mem(var[1]);
 			mini_env_lstadd_back(&mini->env_list, mini_env_lstnew(var));
 		}
 		i++;
-		env_line = __environ[i];
 	}
 }
 

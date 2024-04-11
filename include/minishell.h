@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 17:43:07 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:44:43 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ typedef struct	s_env
 	char			*value;
 	struct s_env	*next;
 }				t_env;
+
+typedef struct	s_dict
+{
+	char			*key;
+	char			*value;
+	struct s_dict	*next;
+}				t_dict;
 
 typedef struct	s_sub_token
 {
@@ -159,7 +166,7 @@ char	*mini_sep_exp_join(t_mini *mini, char *token);
 char	*mini_search_and_replace(t_mini *mini, char *sub_token);
 
 // 07_utils_1.c
-void	mini_init_env_list(t_mini *mini);
+void	mini_getenv(t_mini *mini);
 char	*mini_substr_index(char *str, int start, int end);
 int		mini_strchr_index(char *str, char c);
 t_env	*mini_env_lstnew(char **var);
