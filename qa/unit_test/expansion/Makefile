@@ -6,11 +6,11 @@
 #    By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:03:46 by josfelip          #+#    #+#              #
-#    Updated: 2024/04/04 10:36:20 by gfantoni         ###   ########.fr        #
+#    Updated: 2024/04/04 10:36:10 by gfantoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = parser
+NAME = expansion
 DEBUG_NAME = expansion_debug
 CFLAGS = -g3
 DFLAGS = -g3
