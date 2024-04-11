@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 09:16:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 14:52:12 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:25:05 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,42 +50,6 @@ int	mini_strchr_index(char *str, char c)
 		i++;
 	}
 	return (-1);
-}
-
-t_env	*mini_env_lstnew(char **var)
-{
-	t_env	*new_node;
-
-	new_node = malloc(sizeof(t_env));
-	collect_mem(new_node);
-	if (new_node == NULL)
-		return (NULL);
-	new_node->key = var[0];
-	new_node->value = var[1];
-	new_node->next = NULL;
-	return (new_node);
-}
-
-void	mini_env_lstadd_back(t_env **lst, t_env *new)
-{
-	t_env	*last_node;
-
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	last_node = mini_env_lstlast(*lst);
-	last_node->next = new;
-}
-
-t_env	*mini_env_lstlast(t_env *lst)
-{
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
 }
 
 char	*mini_sub_token_join(t_sub_token *sub_token_lst)

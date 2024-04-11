@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 15:01:35 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:27:18 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,9 +165,6 @@ char	*mini_search_and_replace(t_mini *mini, char *sub_token);
 // 07_utils_1.c
 void	mini_getenv(t_mini *mini);
 int		mini_strchr_index(char *str, char c);
-t_env	*mini_env_lstnew(char **var);
-void	mini_env_lstadd_back(t_env **lst, t_env *new);
-t_env	*mini_env_lstlast(t_env *lst);
 char	*mini_sub_token_join(t_sub_token *sub_token_lst);
 
 // 07_utils_2.c
