@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/30 10:46:01 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:46:11 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int argc, char *argv[], char *envp[])
 	mini.cmd_line = argv[1];
 	mini_tokenizer(&mini);
 	unit_print_token_list(mini.token_list);
-	mini_free_trashman(get_mem_address());
+	ft_free_trashman(ft_get_mem_address());
 	//mini_free_token_list(&mini.token_list); 
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:34 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/30 14:44:45 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:46:11 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	mini_prompt(t_mini *mini)
 	{
 		mini_init(mini);
 		mini->cmd_line = readline("prompt > ");
-		collect_mem(mini->cmd_line);
+		ft_collect_mem(mini->cmd_line);
 		if (mini->cmd_line == NULL)
 		{
 			printf("exit\n");
@@ -30,8 +30,8 @@ void	mini_prompt(t_mini *mini)
 		mini_tokenizer(mini);
 		if (!mini->syntax_error)
 			mini_parser(mini);
-		mini_free_trashman(get_mem_address());
-		// mini_trashman(get_mem_address());
+		mini_free_trashman(ft_get_mem_address());
+		// mini_trashman(ft_get_mem_address());
 		// mini_execute(mini); TEMP COMMENT.
 		// mini_free_token_list(&mini->token_list);
 		//free(mini->cmd_line);

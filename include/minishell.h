@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 15:27:18 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:38:47 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ typedef struct s_mini
 
 // trashman.c
 // void    *allocate_mem(size_t nmemb, size_t size);
-void    collect_mem(void *content);
-t_list    **get_mem_address(void);
-void	mini_free_trashman(t_list **lst_memory);
+// void    collect_mem(void *content);
+// t_list    **get_mem_address(void);
+// void	ft_free_trashman(t_list **lst_memory);
 
 // 00_main.c
 // int			main(void);

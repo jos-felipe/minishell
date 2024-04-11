@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   07_utils_4.c                                       :+:      :+:    :+:   */
+/*   07_utils_3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:30:41 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 17:32:29 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_sub_token	*mini_sub_token_lstnew(char *content)
 	t_sub_token	*new_node;
 
 	new_node = malloc(sizeof(t_sub_token));
-	collect_mem(new_node);
+	ft_collect_mem(new_node);
 	if (new_node == NULL)
 		return (NULL);
 	new_node->content = content;

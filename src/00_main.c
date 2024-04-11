@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/11 12:45:13 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:46:11 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(void)
 	{
 		mini_init(&mini);
 		mini.cmd_line = readline("prompt > ");
-		collect_mem(mini.cmd_line);
+		ft_collect_mem(mini.cmd_line);
 		if (mini.cmd_line == NULL)
 			mini_ctrl_d_exit(&mini);
 		add_history(mini.cmd_line);
@@ -33,11 +33,11 @@ int main(void)
 			mini_parser(&mini);
 			mini_expansion(&mini);
 		}
-		mini_free_trashman(get_mem_address());
+		ft_free_trashman(ft_get_mem_address());
 		mini.status = ft_get_exit_status(mini.status);
 	}
 }
-// mini_trashman(get_mem_address());
+// mini_trashman(ft_get_mem_address());
 // mini_execute(mini); TEMP COMMENT.
 // mini_free_token_list(&mini->token_list);
 //free(mini->cmd_line);

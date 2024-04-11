@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   06_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:29:13 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/01 18:54:20 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	mini_parser(t_mini *mini)
 	{
 		nbr_cmds = mini_count_nbr_pipes(mini->token_list) + 1;
 		mini->commands = (t_token **)ft_calloc(sizeof(t_token *), nbr_cmds + 1);
-		collect_mem(mini->commands);
+		ft_collect_mem(mini->commands);
 		mini_fill_cmd_array(mini);
 		//debug_print_array_list(mini); // FOR DEBUG ONLY
 	}
@@ -82,6 +82,6 @@ t_token	*mini_t_token_dup(t_token *t)
 	new_node->specie = t->specie;
 	new_node->next = NULL;
 	new_node->prev = NULL;
-	collect_mem(new_node);
+	ft_collect_mem(new_node);
 	return (new_node);
 }

@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:23:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/09 14:35:52 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:46:11 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	mini_trashman_collector(t_list **list_memory, void *trash)
 void	mini_safe_exit(t_mini *mini)
 {
 	clear_history();
-	mini_trashman(get_mem_address());
+	mini_trashman(ft_get_mem_address());
 	exit(mini->status);
 }
 

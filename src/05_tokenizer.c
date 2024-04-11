@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/09 14:58:05 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	mini_automaton(char *str, t_token **token_list, int start, int state)
 				return (1);
 			}
 			value = ft_substr(str, start, (i - start) + 1);
-			collect_mem(value);
+			ft_collect_mem(value);
 			mini_token_lstadd_back(token_list, mini_token_lstnew(value, state));
 			state = 0;
 		}
