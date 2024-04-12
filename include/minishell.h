@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 16:38:47 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/12 12:11:48 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ t_token	*mini_lstlast(t_token *lst);
 void	mini_free_token_list(t_token **lst_memory);
 void	mini_get_token_gender(int state, t_token *token);
 void	mini_get_token_specie(int state, t_token *token);
+int		mini_check_consecutive_op_sintax(t_token *token_list);
 void	debug_print_split(char **str); // FOR DEBUG ONLY
 void	debug_print_list(t_token **head); // FOR DEBUG ONLY
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/12 11:56:12 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	mini_tokenizer(t_mini *mini)
 		mini->syntax_error = mini_automaton(mini->cmd_line, &mini->token_list, 0, 0);
 		if (!mini->syntax_error)
 			mini->syntax_error = mini_check_pipe_sintax(mini->token_list);
+		if (!mini->syntax_error)
+			mini->syntax_error = mini_check_consecutive_op_sintax(mini->token_list);
 		// debug_print_list(&mini->token_list);
 		// mini->pathname = mini_whereis(mini->split_cmd_line[0], mini->path); TEMP COMMENT.
 		// if (mini->pathname == NULL)

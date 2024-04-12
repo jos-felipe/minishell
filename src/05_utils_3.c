@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:48:39 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/30 12:08:18 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/12 12:08:56 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ int	mini_check_pipe_sintax(t_token *token_list)
 		{
 			ft_printf("bash: syntax error near unexpected token `|'\n");
 			return (1);
+		}
+		token_list = token_list->next;
+	}
+	return (0);
+}
+
+int	mini_check_consecutive_op_sintax(t_token *token_list)
+{
+	while (token_list)
+	{
+		if (token_list->gender == OPERATOR && token_list->specie != PIPE)
+		{
+			if (token_list->next && token_list->next->gender == OPERATOR)
+			{
+				ft_printf("syntax error near unexpected token\n");
+				return (1);
+			}
 		}
 		token_list = token_list->next;
 	}
