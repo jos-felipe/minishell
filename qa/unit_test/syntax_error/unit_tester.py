@@ -13,7 +13,9 @@ colours = [GREEN, RED, COLOR_LIMITER]
 
 trash = subprocess.run("make -C syntax_error", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
-# Input Samples:
+# Input Samples
+
+# Pipe errors:
 input_data_list = ["\"a b | c d\""]
 input_data_list.append("\"a b|c d\"")
 input_data_list.append("\"a b |\"")
@@ -22,6 +24,19 @@ input_data_list.append("\"| c d\"")
 input_data_list.append("\"|c d\"")
 input_data_list.append("\"|\"")
 input_data_list.append("\"  |  \"")
+
+# Consecutives operators errors
+input_data_list.append("\"echo melvin | > outfile\"")
+input_data_list.append("\"echo melvin >>> outfile\"")
+input_data_list.append("\"echo melvin > | cat\"")
+input_data_list.append("\"echo melvin >> | cat\"")
+input_data_list.append("\"echo melvin >| cat\"")
+input_data_list.append("\"echo melvin >>| cat\"")
+input_data_list.append("\"echo melvin <<< melvin\"")
+input_data_list.append("\"echo melvin <<<< melvin\"")
+input_data_list.append("\"echo melvin > < melvin\"")
+input_data_list.append("\"echo melvin > << melvin\"")
+input_data_list.append("\"echo melvin > <<< melvin\"")
 
 # Outputs references:
 output_data_list = [f'']
@@ -32,6 +47,19 @@ output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
 output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
 output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
 output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
+
+output_data_list.append(f'')
+output_data_list.append(f'syntax error near unexpected token\n')
+output_data_list.append(f'syntax error near unexpected token\n')
+output_data_list.append(f'syntax error near unexpected token\n')
+output_data_list.append(f'syntax error near unexpected token\n')
+output_data_list.append(f'syntax error near unexpected token\n')
+output_data_list.append(f'syntax error near unexpected token\n')
+output_data_list.append(f'syntax error near unexpected token\n')
+output_data_list.append(f'syntax error near unexpected token\n')
+output_data_list.append(f'syntax error near unexpected token\n')
+output_data_list.append(f'syntax error near unexpected token\n')
+
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
