@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:40 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/02 12:33:24 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:46:11 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 // void	mini_safe_exit(t_mini *mini)
 // {
 // 	clear_history();
-// 	mini_trashman(get_mem_address());
+// 	mini_trashman(ft_get_mem_address());
 // 	exit(mini->status);
 // }
 

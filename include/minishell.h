@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 12:44:43 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:38:47 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "../lib/includes/libft.h"
+# include "dictionary.h"
+# include "trashman.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -60,12 +62,7 @@ typedef struct	s_env
 	struct s_env	*next;
 }				t_env;
 
-typedef struct	s_dict
-{
-	char			*key;
-	char			*value;
-	struct s_dict	*next;
-}				t_dict;
+
 
 typedef struct	s_sub_token
 {
@@ -82,15 +79,15 @@ typedef struct s_mini
 	char	*pathname;
 	t_token	*token_list;
 	t_token	**commands;
-	t_env	*env_list;
+	t_dict	*env_list;
 	int		syntax_error;
 }				t_mini;
 
 // trashman.c
 // void    *allocate_mem(size_t nmemb, size_t size);
-void    collect_mem(void *content);
-t_list    **get_mem_address(void);
-void	mini_free_trashman(t_list **lst_memory);
+// void    collect_mem(void *content);
+// t_list    **get_mem_address(void);
+// void	ft_free_trashman(t_list **lst_memory);
 
 // 00_main.c
 // int			main(void);
@@ -167,11 +164,7 @@ char	*mini_search_and_replace(t_mini *mini, char *sub_token);
 
 // 07_utils_1.c
 void	mini_getenv(t_mini *mini);
-char	*mini_substr_index(char *str, int start, int end);
 int		mini_strchr_index(char *str, char c);
-t_env	*mini_env_lstnew(char **var);
-void	mini_env_lstadd_back(t_env **lst, t_env *new);
-t_env	*mini_env_lstlast(t_env *lst);
 char	*mini_sub_token_join(t_sub_token *sub_token_lst);
 
 // 07_utils_2.c

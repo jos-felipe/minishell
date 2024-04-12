@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_process_envp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 20:11:53 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/29 13:14:21 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:46:11 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	mini_process_envp(t_mini *mini, char *envp[])
 		mini_safe_exit(mini);
 	}
 	//mini_trashman_collector(&mini->lst_memory, mini->path);
-	if (get_mem_address() == NULL)
+	if (ft_get_mem_address() == NULL)
 	{
 		ft_printf("Memory allocation failed: new list.\n");
 		mini->status = EXIT_FAILURE;

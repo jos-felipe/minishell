@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_utils_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/30 11:48:08 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token	*mini_token_lstnew(void *token, int state)
 	mini_get_token_specie(state, new_node);
 	new_node->next = NULL;
 	new_node->prev = NULL;
-	collect_mem(new_node);
+	ft_collect_mem(new_node);
 	return (new_node);
 }
 

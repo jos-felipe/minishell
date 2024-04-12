@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trashman.c                                         :+:      :+:    :+:   */
+/*   ft_trashman.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:44:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/11 14:43:24 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:40:28 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/trashman.h"
 
-t_list    **get_mem_address(void)
+t_list	**ft_get_mem_address(void)
 {
-    static t_list    *ptr;
+	static t_list	*ptr;
 
-    return (&ptr);
+	return (&ptr);
 }
 
-void    collect_mem(void *content)
+void	ft_collect_mem(void *content)
 {
 	t_list **ptr;
 
-    ft_lstadd_back(get_mem_address(), ft_lstnew(content));
+	ft_lstadd_back(ft_get_mem_address(), ft_lstnew(content));
 	
-	ptr = get_mem_address();
+	ptr = ft_get_mem_address();
 }
 
-void    *allocate_mem(size_t nmemb, size_t size)
-{
-    void    *content;
-	
-    content = ft_calloc(nmemb, size);
-    collect_mem(content);
-
-	return (content);
-}
-
-void	mini_free_trashman(t_list **lst_memory)
+void	ft_free_trashman(t_list **lst_memory)
 {
 	t_list	*next;
 

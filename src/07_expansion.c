@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 17:34:53 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:06:02 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*mini_sep_exp_join(t_mini *mini, char *token)
 
 char	*mini_search_and_replace(t_mini *mini, char *sub_token)
 {
-	t_env	*current;
+	t_dict	*current;
 	char	*new_sub_token;
 
 	current = mini->env_list;

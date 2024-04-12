@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/09 17:36:09 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	mini_sub_tokenizier(char *str, t_sub_token **sub_token_lst, int start, int 
 			else if (is_two_back_state(state))
 				i = i - 2;
 			value = ft_substr(str, start, (i - start) + 1);
-			collect_mem(value);
+			ft_collect_mem(value);
 			mini_sub_token_lstadd_back(sub_token_lst, mini_sub_token_lstnew(value));
 			state = 0;
 		}

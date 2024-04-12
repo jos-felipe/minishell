@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:19:25 by josfelip          #+#    #+#             */
-/*   Updated: 2024/03/29 13:34:54 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*mini_get_path(char *envp[])
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
 			path = ft_strdup(envp[i] + 5);
-			collect_mem(path);
+			ft_collect_mem(path);
 			return (path);
 		}
 		i++;

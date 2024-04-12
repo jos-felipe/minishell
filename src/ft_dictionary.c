@@ -1,48 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   07_utils_3.c                                       :+:      :+:    :+:   */
+/*   ft_dictionary.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 17:30:41 by josfelip          #+#    #+#             */
+/*   Created: 2024/04/11 14:26:06 by josfelip          #+#    #+#             */
 /*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/dictionary.h"
 #include "../include/minishell.h"
 
-t_sub_token	*mini_sub_token_lstnew(char *content)
+t_dict	*ft_dictnew(char **var)
 {
-	t_sub_token	*new_node;
+	t_dict	*new_entry;
 
-	new_node = malloc(sizeof(t_sub_token));
-	ft_collect_mem(new_node);
-	if (new_node == NULL)
+	new_entry = malloc(sizeof(t_dict));
+	ft_collect_mem(new_entry);
+	if (new_entry == NULL)
 		return (NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
+	new_entry->key = var[0];
+	new_entry->value = var[1];
+	new_entry->next = NULL;
+	return (new_entry);
 }
 
-void	mini_sub_token_lstadd_back(t_sub_token **lst, t_sub_token *new)
+void	ft_dictadd_back(t_dict **dict, t_dict *new_entry)
 {
-	t_sub_token	*last_node;
+	t_dict	*last_node;
 
-	if (*lst == NULL)
+	if (*dict == NULL)
 	{
-		*lst = new;
+		*dict = new_entry;
 		return ;
 	}
-	last_node = mini_sub_token_lstlast(*lst);
-	last_node->next = new;
+	last_node = ft_dictlast(*dict);
+	last_node->next = new_entry;
 }
 
-t_sub_token	*mini_sub_token_lstlast(t_sub_token *lst)
+t_dict	*ft_dictlast(t_dict *dict)
 {
-	if (lst == NULL)
+	if (dict == NULL)
 		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	while (dict->next != NULL)
+		dict = dict->next;
+	return (dict);
 }
