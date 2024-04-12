@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_utils_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/12 13:43:17 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ void	mini_get_token_gender(int state, t_token *token)
 
 void	mini_get_token_specie(int state, t_token *token)
 {
-	if (state == 100)
-		token->specie = UNDEFINED;
-	else if (state == 101)
+	token->specie = UNDEFINED;
+	if (state == 101)
 		token->specie = OUT_REDIRECT;
 	else if (state == 102)
 		token->specie = APPEND;
