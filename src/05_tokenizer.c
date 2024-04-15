@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/15 17:06:59 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/15 18:42:24 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,64 +14,54 @@
 
 void	mini_tokenizer(t_mini *mini)
 {
-	mini->pathname = NULL;
+	t_dfa dfa;
+	
+	mini_init_dfa(&dfa);
 	if (mini->cmd_line)
 	{
 		if (mini->cmd_line[0] == '\0')
 			return ;
-		mini->syntax_error = mini_automaton(mini->cmd_line, &mini->token_list, 0, 0);
+		mini_automaton(mini, &dfa);
 		if (!mini->syntax_error)
-			mini->syntax_error = mini_check_pipe_sintax(mini->token_list);
+			mini_check_pipe_sintax(mini, mini->token_list);
 		if (!mini->syntax_error)
-			mini->syntax_error = mini_check_consecutive_op_sintax(mini->token_list);
-		// debug_print_list(&mini->token_list);
-		// mini->pathname = mini_whereis(mini->split_cmd_line[0], mini->path); TEMP COMMENT.
-		// if (mini->pathname == NULL)
-		// 	ft_printf("Command not found: %s\n", mini->split_cmd_line[0]);
-		// else
-		// 	ft_lstadd_back(&mini->lst_memory, ft_lstnew(mini->pathname));
-		// mini_special_parameter(mini);
+			mini_check_consecutive_op_sintax(mini, mini->token_list);
 	}
 }
 
-int	mini_automaton(char *str, t_token **token_list, int start, int state)
+void	mini_init_dfa(t_dfa *dfa)
 {
-	int		i;
-	char	*value;
-	int		size;
-	int		quote;
+	dfa->value = NULL;
+	dfa->size = 0;
+	dfa->start = 0;
+	dfa->state = 0;
+	dfa->quote = 0;
+	dfa->i = 0;
+}
 
-	i = 0;
-	quote = 0;
-	size = ft_strlen(str) + 1;
-	while (i < size)
+void	mini_automaton(t_mini *mini, t_dfa *dfa)
+
+{
+	dfa->i = 0;
+	dfa->size = ft_strlen(mini->cmd_line) + 1;
+	while (dfa->i < dfa->size)
 	{
-		if (state == 0)
-			start = i;
-		state = mini_get_next_state(state, mini_get_column(str[i]));
-		if (mini_is_end_state(state) && state != NULL_CHAR)
+		if (dfa->state == 0)
+			dfa->start = dfa->i;
+		dfa->state = mini_get_next_state(dfa->state, mini_get_column(mini->cmd_line[dfa->i]));
+		if (mini_is_end_state(dfa->state) && dfa->state != NULL_CHAR)
 		{
-			if (mini_is_back_state(state))
-				i--;
-			if (mini_is_quote_state(state))
+			mini_syntonize_index(dfa);
+			if (mini_is_error_state(dfa->state))
 			{
-				start++;
-				quote = 1;
+				mini_print_sintax_error_message(dfa->state); 
+				mini->syntax_error = 1;
+				break;
 			}
-			if (mini_is_error_state(state))
-			{
-				mini_print_sintax_error_message(state);
-				return (1);
-			}
-			value = ft_substr(str, start, (i - start) + 1 - quote);
-			ft_collect_mem(value);
-			mini_token_lstadd_back(token_list, mini_token_lstnew(value, state));
-			state = 0;
-			quote = 0;
+			mini_cut_string(mini, dfa);
 		}
-		i++;
+		dfa->i++;
 	}
-	return (0);
 }
 
 int	mini_get_next_state(int state, int column)
@@ -87,7 +77,6 @@ int	mini_get_next_state(int state, int column)
 								  };
 	return (truth_table[state][column]);
 }
-
 int	mini_get_column(char c)
 {
 	if (c == '>')
@@ -104,6 +93,7 @@ int	mini_get_column(char c)
 		return (6);
 	if (c == '\0')
 		return (7);
-	return (0); // word
+	return (0);
 }
+
 

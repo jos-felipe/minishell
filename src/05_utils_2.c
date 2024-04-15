@@ -6,69 +6,64 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/12 13:43:17 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/15 18:50:12 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_token	*mini_token_lstnew(void *token, int state)
+void	mini_print_sintax_error_message(int state)
 {
-	t_token	*new_node;
-
-	new_node = malloc(sizeof(t_token));
-	if (new_node == NULL)
-		return (NULL);
-	new_node->token = token;
-	mini_get_token_gender(state, new_node);
-	mini_get_token_specie(state, new_node);
-	new_node->next = NULL;
-	new_node->prev = NULL;
-	ft_collect_mem(new_node);
-	return (new_node);
+	if (state == 200)
+		ft_printf("error: quote was not closed properly\n");
+	else if (state == 201)
+		ft_printf("bash: syntax error near unexpected token `|'\n");
+	else if (state == 202)
+		ft_printf("error: not a bonus project '||'\n");
 }
 
-void	mini_get_token_gender(int state, t_token *token)
+void	mini_cut_string(t_mini *mini, t_dfa *dfa)
 {
-	token->gender = OPERATOR;
-	if (state == 100)
-		token->gender = WORD;
+	dfa->value = ft_substr(mini->cmd_line, dfa->start, (dfa->i - dfa->start) + 1 - dfa->quote);
+	ft_collect_mem(dfa->value);
+	mini_token_lstadd_back(&mini->token_list, mini_token_lstnew(dfa->value, dfa->state));
+	dfa->state = 0;
+	dfa->quote = 0;
 }
 
-void	mini_get_token_specie(int state, t_token *token)
+void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list)
 {
-	token->specie = UNDEFINED;
-	if (state == 101)
-		token->specie = OUT_REDIRECT;
-	else if (state == 102)
-		token->specie = APPEND;
-	else if (state == 103)
-		token->specie = IN_REDIRECT;
-	else if (state == 104)
-		token->specie = HERE_DOC;
-	else if (state == 105)
-		token->specie = PIPE;
-}
-
-void	mini_token_lstadd_back(t_token **lst, t_token *new)
-{
-	t_token	*last_node;
-
-	if (*lst == NULL)
+	if (token_list->token[0] == '|')
 	{
-		*lst = new;
-		return ;
+		ft_printf("bash: syntax error near unexpected token `|'\n");	
+		mini->syntax_error = 1;
+		return;
 	}
-	last_node = mini_lstlast(*lst);
-	last_node->next = new;
-	new->prev = last_node;
+	while (token_list)
+	{
+		if (token_list->token[0] == '|' && token_list->next == NULL)
+		{
+			ft_printf("bash: syntax error near unexpected token `|'\n");
+			mini->syntax_error = 1;
+			return;
+		}
+		token_list = token_list->next;
+	}
 }
 
-t_token	*mini_lstlast(t_token *lst)
+void	mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list)
 {
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	while (token_list)
+	{
+		if (token_list->gender == OPERATOR && token_list->specie != PIPE)
+		{
+			if (token_list->next && token_list->next->gender == OPERATOR)
+			{
+				ft_printf("syntax error near unexpected token\n");
+				mini->syntax_error = 1;
+				return;
+			}
+		}
+		token_list = token_list->next;
+	}
 }

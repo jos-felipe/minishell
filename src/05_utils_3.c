@@ -6,89 +6,69 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:48:39 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/12 12:08:56 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/15 18:51:14 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	mini_free_token_list(t_token **lst_memory)
+t_token	*mini_token_lstnew(void *token, int state)
 {
-	t_token	*next;
+	t_token	*new_node;
 
-	while (*lst_memory)
-	{
-		next = (*lst_memory)->next;
-		free((*lst_memory)->token);
-		free(*lst_memory);
-		*lst_memory = next;
-	}
-	*lst_memory = NULL;
+	new_node = malloc(sizeof(t_token));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->token = token;
+	mini_get_token_gender(state, new_node);
+	mini_get_token_specie(state, new_node);
+	new_node->next = NULL;
+	new_node->prev = NULL;
+	ft_collect_mem(new_node);
+	return (new_node);
 }
 
-int	mini_check_pipe_sintax(t_token *token_list)
+void	mini_get_token_gender(int state, t_token *token)
 {
-	if (token_list->token[0] == '|')
-	{
-		ft_printf("bash: syntax error near unexpected token `|'\n");	
-		return (1);
-	}
-	while (token_list)
-	{
-		if (token_list->token[0] == '|' && token_list->next == NULL)
-		{
-			ft_printf("bash: syntax error near unexpected token `|'\n");
-			return (1);
-		}
-		token_list = token_list->next;
-	}
-	return (0);
+	token->gender = OPERATOR;
+	if (state == 100)
+		token->gender = WORD;
 }
 
-int	mini_check_consecutive_op_sintax(t_token *token_list)
+void	mini_get_token_specie(int state, t_token *token)
 {
-	while (token_list)
-	{
-		if (token_list->gender == OPERATOR && token_list->specie != PIPE)
-		{
-			if (token_list->next && token_list->next->gender == OPERATOR)
-			{
-				ft_printf("syntax error near unexpected token\n");
-				return (1);
-			}
-		}
-		token_list = token_list->next;
-	}
-	return (0);
-}
-void	mini_lstdelone(t_token *lst)
-{
-	if (lst && lst->token)
-	{
-		free(lst->token);
-		free(lst);
-	}
+	token->specie = UNDEFINED;
+	if (state == 101)
+		token->specie = OUT_REDIRECT;
+	else if (state == 102)
+		token->specie = APPEND;
+	else if (state == 103)
+		token->specie = IN_REDIRECT;
+	else if (state == 104)
+		token->specie = HERE_DOC;
+	else if (state == 105)
+		token->specie = PIPE;
 }
 
-void	debug_print_split(char **str) // FOR DEBUG ONLY
+void	mini_token_lstadd_back(t_token **lst, t_token *new)
 {
-	while (*str)
+	t_token	*last_node;
+
+	if (*lst == NULL)
 	{
-		printf("%s | ", *str);
-		str++;
+		*lst = new;
+		return ;
 	}
-	printf("\n");
+	last_node = mini_lstlast(*lst);
+	last_node->next = new;
+	new->prev = last_node;
 }
 
-void	debug_print_list(t_token **head) // FOR DEBUG ONLY
+t_token	*mini_lstlast(t_token *lst)
 {
-	t_token *node;
-
-	node = *head;
-	while (node)
-	{
-		printf("token: %s\n", (char *)node->token);
-		node = node->next;
-	}
-	printf("\n");
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }

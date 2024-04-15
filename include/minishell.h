@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/15 16:58:00 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/15 18:57:15 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ enum e_token_specie
 	PIPE
 };
 
+typedef struct s_dfa
+{
+	char 	*value;
+	int		size;
+	int		start;
+	int		state;
+	int		quote;
+	int		i;
+}	t_dfa;
+
 typedef struct s_token
 {
 	char 					*token;
@@ -61,8 +71,6 @@ typedef struct	s_env
 	char			*value;
 	struct s_env	*next;
 }				t_env;
-
-
 
 typedef struct	s_sub_token
 {
@@ -83,18 +91,8 @@ typedef struct s_mini
 	int		syntax_error;
 }				t_mini;
 
-// trashman.c
-// void    *allocate_mem(size_t nmemb, size_t size);
-// void    collect_mem(void *content);
-// t_list    **get_mem_address(void);
-// void	ft_free_trashman(t_list **lst_memory);
-
-// 00_main.c
-// int			main(void);
-
 // 00_utils.c
 void		mini_ctrl_d_exit(t_mini *mini);
-
 
 // 01_prompt.c
 void		mini_prompt(t_mini *mini);
@@ -126,25 +124,34 @@ int		ft_get_exit_status(int exit_status);
 
 // 05_tokenizer.c
 void	mini_tokenizer(t_mini *mini);
-int		mini_automaton(char *str, t_token **token_list, int start, int state);
+void	mini_init_dfa(t_dfa *dfa);
+void	mini_automaton(t_mini *mini, t_dfa *dfa);
 int		mini_get_next_state(int state, int column);
 int		mini_get_column(char c);
-int		mini_is_back_state(int num);
-int		mini_is_error_state(int num);
-int		mini_is_end_state(int num);
-void	mini_print_sintax_error_message(int state);
-int		mini_check_pipe_sintax(t_token *token_list);
 
-// 05_utils.c
-void	mini_lstdelone(t_token *lst);
+// 05_utils_1.c
+int		mini_is_end_state(int num);
+void	mini_syntonize_index(t_dfa *dfa);
+int		mini_is_back_state(int num);
+int		mini_is_quote_state(int num);
+int		mini_is_error_state(int num);
+
+// 05_utils_2.c
+void	mini_print_sintax_error_message(int state);
+void	mini_cut_string(t_mini *mini, t_dfa *dfa);
+void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list);
+void	mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list);
+
+// 05_utils_3.c
 t_token	*mini_token_lstnew(void *token, int state);
-void	mini_token_lstadd_back(t_token **lst, t_token *new);
-t_token	*mini_lstlast(t_token *lst);
-void	mini_free_token_list(t_token **lst_memory);
 void	mini_get_token_gender(int state, t_token *token);
 void	mini_get_token_specie(int state, t_token *token);
-int		mini_check_consecutive_op_sintax(t_token *token_list);
-int		mini_is_quote_state(int num);
+void	mini_token_lstadd_back(t_token **lst, t_token *new);
+t_token	*mini_lstlast(t_token *lst);
+
+// 05_utils_4.c
+void	mini_free_token_list(t_token **lst_memory);
+void	mini_lstdelone(t_token *lst);
 void	debug_print_split(char **str); // FOR DEBUG ONLY
 void	debug_print_list(t_token **head); // FOR DEBUG ONLY
 
@@ -180,9 +187,5 @@ int		is_two_back_state(int state);
 t_sub_token	*mini_sub_token_lstnew(char *content);
 t_sub_token	*mini_sub_token_lstlast(t_sub_token *lst);
 void		mini_sub_token_lstadd_back(t_sub_token **lst, t_sub_token *new);
-
-
-
-
 
 #endif
