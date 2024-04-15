@@ -17,7 +17,7 @@ trash = subprocess.run("make -C expansion", stdout=subprocess.PIPE, stderr=subpr
 
 # env_list
 input_data_list = ["\'export\'"]
-output_data_list = [f'1']
+output_data_list = [f'1\n']
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
