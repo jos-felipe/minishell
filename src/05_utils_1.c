@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:47 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/03/30 12:01:04 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:57:29 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ int	mini_is_back_state(int num)
 int	mini_is_error_state(int num)
 {
 	if (num >= 200)
+		return (1);
+	return (0);
+}
+
+int	mini_is_quote_state(int num)
+{
+	if (num == 107 || num == 108)
 		return (1);
 	return (0);
 }

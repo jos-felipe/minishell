@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/12 11:56:12 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:06:59 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int	mini_automaton(char *str, t_token **token_list, int start, int state)
 	int		i;
 	char	*value;
 	int		size;
+	int		quote;
 
 	i = 0;
+	quote = 0;
 	size = ft_strlen(str) + 1;
 	while (i < size)
 	{
@@ -51,15 +53,21 @@ int	mini_automaton(char *str, t_token **token_list, int start, int state)
 		{
 			if (mini_is_back_state(state))
 				i--;
+			if (mini_is_quote_state(state))
+			{
+				start++;
+				quote = 1;
+			}
 			if (mini_is_error_state(state))
 			{
 				mini_print_sintax_error_message(state);
 				return (1);
 			}
-			value = ft_substr(str, start, (i - start) + 1);
+			value = ft_substr(str, start, (i - start) + 1 - quote);
 			ft_collect_mem(value);
 			mini_token_lstadd_back(token_list, mini_token_lstnew(value, state));
 			state = 0;
+			quote = 0;
 		}
 		i++;
 	}

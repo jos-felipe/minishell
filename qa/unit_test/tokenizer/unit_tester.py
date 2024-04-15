@@ -42,9 +42,9 @@ output_data_list.append(f'>;outfile;')
 output_data_list.append(f'<;infile;')
 output_data_list.append(f'<;infile;')
 output_data_list.append(f'<<;echo;')
-output_data_list.append(f'cat;-n;infile;|;grep;\'pattern\';')
-output_data_list.append(f"echo;'Mephis e Fausto';")
-output_data_list.append(f'echo;"Mephis e Fausto";')
+output_data_list.append(f'cat;-n;infile;|;grep;pattern;')
+output_data_list.append(f"echo;Mephis e Fausto;")
+output_data_list.append(f'echo;Mephis e Fausto;')
 output_data_list.append(f"bash: syntax error near unexpected token `|'\n")
 
 i = 1

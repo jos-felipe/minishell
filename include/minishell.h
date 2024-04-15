@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/12 12:11:48 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:58:00 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void	mini_free_token_list(t_token **lst_memory);
 void	mini_get_token_gender(int state, t_token *token);
 void	mini_get_token_specie(int state, t_token *token);
 int		mini_check_consecutive_op_sintax(t_token *token_list);
+int		mini_is_quote_state(int num);
 void	debug_print_split(char **str); // FOR DEBUG ONLY
 void	debug_print_list(t_token **head); // FOR DEBUG ONLY
 
