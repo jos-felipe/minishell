@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr_men.c                                    :+:      :+:    :+:   */
+/*   ft_substr_mem.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:01:36 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/16 13:02:15 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:32:12 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libftplus.h"
-#include "../include/minishell.h"
 
 char	*ft_substr_mem(char *str, int start, int len)
 {
