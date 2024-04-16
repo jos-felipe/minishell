@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/16 14:28:11 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:47:31 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 int	mini_env_identifier(char *str, t_dict **env_list, int start, int state)
 {
-	char	new_entry[2];
+	char	*new_entry[2];
 	int		i;
 
 	new_entry[1] = NULL;
@@ -48,7 +48,7 @@ int	mini_env_get_next_state(int state, int column)
 {
 	static int truth_table[3][5] =	{
 										{200, 001, 200, 200, 200},
-										{200, 001, 001, 002, 100},
+										{200, 001, 001, 100, 100},
 										{002, 002, 002, 002, 300}
 									};
 	return (truth_table[state][column]);
@@ -58,11 +58,11 @@ int	mini_env_get_column(char c)
 {
 	if (ft_isalpha(c) || c == '_')
 		return (1);
-	if (c == '=')
-		return (2);
-	if (c == '\0')
-		return (3);
 	if (ft_isdigit(c))
+		return (2);
+	if (c == '=')
+		return (3);
+	if (c == '\0')
 		return (4);
 	return (0);
 }

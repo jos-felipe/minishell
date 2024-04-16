@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:01:36 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/16 14:32:12 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:56:43 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*ft_substr_mem(char *str, int start, int len)
 {
-	char	*substr;
+	char	*sub;
 	
-	substr = ft_substr(str, start, len);
-	ft_collect_mem(substr);
-	return (str);
+	sub = ft_substr(str, start, len);
+	ft_collect_mem(sub);
+	return (sub);
 }

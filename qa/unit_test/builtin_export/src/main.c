@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/11 16:46:11 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:29:26 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	mini_init(t_mini *pipex)
 int main(int argc, char *argv[], char *envp[])
 {
 	t_mini	mini;
+	t_token *arg;
 
 	mini_init(&mini);
 	mini_getenv(&mini);
@@ -47,6 +48,9 @@ int main(int argc, char *argv[], char *envp[])
 	mini_tokenizer(&mini);
 	mini_parser(&mini);
 	mini_expansion(&mini);
+	arg = mini.commands[0];
+	arg = arg->next;
+	mini_export(arg, &mini.env_list);
 	unit_print_array_list(&mini);
 	ft_free_trashman(ft_get_mem_address());
 	return (0);

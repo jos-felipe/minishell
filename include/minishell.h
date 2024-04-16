@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/12 12:11:48 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:26:02 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,13 @@ t_sub_token	*mini_sub_token_lstnew(char *content);
 t_sub_token	*mini_sub_token_lstlast(t_sub_token *lst);
 void		mini_sub_token_lstadd_back(t_sub_token **lst, t_sub_token *new);
 
+// 08_builtin_export.c
+int	mini_export(t_token *arg, t_dict **env_list);
+
+// 08_util.c
+int	mini_env_identifier(char *str, t_dict **env_list, int start, int state);
+int	mini_env_get_next_state(int state, int column);
+int	mini_env_get_column(char c);
 
 
 
