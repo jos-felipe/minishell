@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:23:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/11 16:46:11 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/17 10:19:39 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	mini_init(t_mini *pipex)
 {
-
 	pipex->path = NULL;
 	pipex->lst_memory = NULL;
 	pipex->status = 0;

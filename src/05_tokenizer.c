@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/17 10:06:06 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/17 10:09:50 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,3 @@ int	mini_get_column(char c)
 		return (7);
 	return (0);
 }
-
-
