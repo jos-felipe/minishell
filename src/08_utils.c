@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/16 15:47:31 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:45:57 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	mini_env_identifier(char *str, t_dict **env_list, int start, int state)
 		{
 			new_entry[0] = ft_substr_mem(str, start, i - start);
 			start = i + 1;
+			state = 2;
 		}
 		if (state == VALUE)
 			new_entry[1] = ft_substr_mem(str, start, i - start);
