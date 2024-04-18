@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/18 12:56:34 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:52:27 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	mini_init(t_mini *mini)
 	mini->pathname = NULL;
 	mini->token_list = NULL;
 	mini->commands = NULL;
-	mini->env_list = NULL;
 	mini->syntax_error = 0;
 }
 int		unit_echo(t_token *arg)
@@ -54,9 +53,9 @@ void	unit_cmd_selection(t_token *token_lst, t_mini *mini)
 
 	cmd = token_lst->token;
 	arg = token_lst->next;
-	if (ft_strncmp(cmd, "export", 6))
+	if (!ft_strncmp(cmd, "export", 6))
 		mini_export(arg, &mini->env_list);
-	else if (ft_strncmp(cmd, "echo", 4))
+	else if (!ft_strncmp(cmd, "echo", 4))
 		unit_echo(arg);
 }
 
@@ -73,14 +72,20 @@ int main(int argc, char *argv[], char *envp[])
 {
 	t_mini	mini;
 	t_token *arg;
+	int		i;
 
-	mini_init(&mini);
+	mini.env_list = NULL;
 	mini_getenv(&mini);
-	mini.cmd_line = argv[1];
-	mini_tokenizer(&mini);
-	mini_parser(&mini);
-	mini_expansion(&mini);
-	unit_cmd_router(&mini);
+	i = 0;
+	while (++i < argc)
+	{
+		mini_init(&mini);
+		mini.cmd_line = argv[i];
+		mini_tokenizer(&mini);
+		mini_parser(&mini);
+		mini_expansion(&mini);
+		unit_cmd_router(&mini);
+	}
 	ft_free_trashman(ft_get_mem_address());
 	return (0);
 }
