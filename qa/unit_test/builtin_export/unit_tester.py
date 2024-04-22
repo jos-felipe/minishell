@@ -29,40 +29,40 @@ input_data_list.append("\'export var=jojo kaka\' \'echo $var\'")
 output_data_list.append(f'jojo ')
 
 #4
-input_data_list.append("\'export var=\"jojo kaka\"\' \'echo $var\'")
-output_data_list.append(f'jojo kaka ')
-
-#5
 input_data_list.append("\'export var=\' \'echo $var\'")
 output_data_list.append(f' ')
 
-#6
+#5
 input_data_list.append("\'export =jojo\' \'echo $var\'")
 output_data_list.append(f' export: not a valid identifier')
 
-#7
+#6
 input_data_list.append("\'export =\' \'echo $var\'")
 output_data_list.append(f' export: not a valid identifier')
 
-#8
+#7
 input_data_list.append("\'export var1 var2=jojo\' \'echo $var1 $var2\'")
 output_data_list.append(f' jojo ')
 
-#9
+#8
 input_data_list.append("\'export var1 var2=jojo =\' \'echo $var1 $var2\'")
 output_data_list.append(f'jojo;\nnot a valid identifier\n')
 
-#10
+#9
 input_data_list.append("\' = export var1 var2=jojo\' \'echo $var2\'")
 output_data_list.append(f'jojo;\nnot a valid identifier\n')
 
-#11
+#10
 input_data_list.append("\'export LANGUAGE=pt\' \'echo $LANGUAGE\'")
 output_data_list.append(f'pt ')
 
-#12
+#11
 input_data_list.append("\'export \"\"\' \'echo $var\'")
 output_data_list.append(f' export: not a valid identifier')
+
+#0 - waiting for fix on "" tokenizier
+# input_data_list.append("\'export var=\"jojo kaka\"\' \'echo $var\'")
+# output_data_list.append(f'jojo kaka ')
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):

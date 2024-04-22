@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/16 16:45:57 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:02:17 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,17 @@ int	mini_env_identifier(char *str, t_dict **env_list, int start, int state)
 			new_entry[1] = ft_substr_mem(str, start, i - start);
 		if (state == ERROR)
 		{
-			printf("export: not a valid identifier");
+			ft_printf("export: not a valid identifier");
 			return (1);
 		}
 	}
-	ft_dictadd_back(env_list, ft_dictnew(new_entry));
+	mini_update_env_lst(env_list, new_entry);
 	return (0);
+}
+
+void	mini_update_env_list(char *new_entry, t_dict **env_list)
+{
+	ft_dictadd_back(env_list, ft_dictnew(new_entry));
 }
 
 int	mini_env_get_next_state(int state, int column)
