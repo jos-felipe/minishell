@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/15 18:57:15 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:36:23 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ typedef struct	s_sub_token
 	struct s_sub_token	*next;
 }				t_sub_token;
 
+typedef struct s_cmd
+{
+	int	input_fd;
+	int output_fd;
+	struct s_cmd *next;
+}		t_cmd;
+
 typedef struct s_mini
 {
 	char	*path;
@@ -88,6 +95,7 @@ typedef struct s_mini
 	t_token	*token_list;
 	t_token	**commands;
 	t_dict	*env_list;
+	t_cmd 	*cmd_list;
 	int		syntax_error;
 }				t_mini;
 
@@ -187,5 +195,18 @@ int		is_two_back_state(int state);
 t_sub_token	*mini_sub_token_lstnew(char *content);
 t_sub_token	*mini_sub_token_lstlast(t_sub_token *lst);
 void		mini_sub_token_lstadd_back(t_sub_token **lst, t_sub_token *new);
+
+// 08_redirect.c
+void	mini_redirect(t_mini *mini);
+void	mini_find_redirect(t_mini *mini, int i);
+void	mini_handle_out_redir(t_cmd *cmd_node, char *file);
+void	mini_handle_in_redir(t_cmd *cmd_node, char *file);
+void	mini_handle_append_redir(t_cmd *cmd_node, char *file);
+
+// 08_utils_1.c
+t_cmd	*mini_redir_lstnew(void);
+void	mini_redir_lstadd_back(t_cmd **lst, t_cmd *new);
+t_cmd	*mini_redir_lstlast(t_cmd *lst);
+
 
 #endif

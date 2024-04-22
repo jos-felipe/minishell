@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/17 10:21:39 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:13:32 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int main(void)
 		{
 			mini_parser(&mini);
 			mini_expansion(&mini);
+			mini_redirect(&mini);
 		}
 		ft_free_trashman(ft_get_mem_address());
 		mini.status = ft_get_exit_status(mini.status);
