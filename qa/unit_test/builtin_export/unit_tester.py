@@ -16,41 +16,53 @@ trash = subprocess.run("make -C builtin_export", stdout=subprocess.PIPE, stderr=
 # Input Samples and Outputs references:
 
 # env_list
+#1
 input_data_list = ["\'export var\' \'echo $var\'"]
 output_data_list = [f' ']
 
-input_data_list.append("\'export var=jojo\' var")
-output_data_list.append(f'jojo;\n')
+#2
+input_data_list.append("\'export var=jojo\' \'echo $var\'")
+output_data_list.append(f'jojo ')
 
-input_data_list.append("\'export var=jojo kaka\' var")
-output_data_list.append(f'jojo;\n')
+#3
+input_data_list.append("\'export var=jojo kaka\' \'echo $var\'")
+output_data_list.append(f'jojo ')
 
-input_data_list.append("\'export var=\"jojo kaka\"\' var")
-output_data_list.append(f'jojo kaka;\n')
+#4
+input_data_list.append("\'export var=\"jojo kaka\"\' \'echo $var\'")
+output_data_list.append(f'jojo kaka ')
 
-input_data_list.append("\'export var=\' var")
-output_data_list.append(f'null;\n')
+#5
+input_data_list.append("\'export var=\' \'echo $var\'")
+output_data_list.append(f' ')
 
-input_data_list.append("\'export =jojo\' var")
-output_data_list.append(f'not a valid identifier\n')
+#6
+input_data_list.append("\'export =jojo\' \'echo $var\'")
+output_data_list.append(f' export: not a valid identifier')
 
-input_data_list.append("\'export =\' var")
-output_data_list.append(f'not a valid identifier\n')
+#7
+input_data_list.append("\'export =\' \'echo $var\'")
+output_data_list.append(f' export: not a valid identifier')
 
-input_data_list.append("\'export var1 var2=jojo\' var2")
-output_data_list.append(f'jojo;\n')
+#8
+input_data_list.append("\'export var1 var2=jojo\' \'echo $var1 $var2\'")
+output_data_list.append(f' jojo ')
 
-input_data_list.append("\'export var1 var2=jojo =\' var2")
+#9
+input_data_list.append("\'export var1 var2=jojo =\' \'echo $var1 $var2\'")
 output_data_list.append(f'jojo;\nnot a valid identifier\n')
 
-input_data_list.append("\' = export var1 var2=jojo\' var2")
+#10
+input_data_list.append("\' = export var1 var2=jojo\' \'echo $var2\'")
 output_data_list.append(f'jojo;\nnot a valid identifier\n')
 
-input_data_list.append("\'export LANGUAGE=pt\' LANGUAGE")
-output_data_list.append(f'pt;\n')
+#11
+input_data_list.append("\'export LANGUAGE=pt\' \'echo $LANGUAGE\'")
+output_data_list.append(f'pt ')
 
-input_data_list.append("\'export \"\"\' var")
-output_data_list.append(f'not a valid identifier\n')
+#12
+input_data_list.append("\'export \"\"\' \'echo $var\'")
+output_data_list.append(f' export: not a valid identifier')
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
