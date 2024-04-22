@@ -18,24 +18,31 @@ trash = subprocess.run(f"make -C {name}", stdout=subprocess.PIPE, stderr=subproc
 
 # Input Samples:
 input_data_list = ["\'echo melvin > out\'"]
-output_data_list = [f'']
+output_data_list = [f'0-3\n']
 
 input_data_list.append("\'echo melvin > out1 > out2\'")
-output_data_list.append(f'')
+output_data_list.append(f'0-4\n')
 
 input_data_list.append("\'> out\'")
+output_data_list.append(f'0-3\n')
 
 input_data_list.append("\'< in\'")
+output_data_list.append(f'3-1\n')
 
 input_data_list.append("\'< in1 cat > out1 > out2\'")
+output_data_list.append(f'3-5\n')
 
 input_data_list.append("\'< in1 < in2 cat > out\'")
+output_data_list.append(f'4-5\n')
 
 input_data_list.append("\'echo > out1 > out2 melvin\'")
+output_data_list.append(f'0-4\n')
 
 input_data_list.append("\'echo > out1 melvin > out2 tropical\'")
+output_data_list.append(f'0-4\n')
 
 input_data_list.append("\'echo melvin > out | < in cat\'")
+output_data_list.append(f'4-3\n')
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):

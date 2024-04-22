@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/11 16:46:11 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/22 19:07:46 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	unit_print_array_list(t_mini *mini)
+void	unit_print_redirect_list(t_cmd **head)
 {
-	int i;
+	t_cmd *node;
 
-	i = 0;
-	while (mini->commands[i])
+	node = *head;
+	while (node)
 	{
-		debug_print_parse_list(&mini->commands[i]);
-		printf("\n");	
-		i++;
+		printf("%d|%d ", node->input_fd, node->output_fd);
+		node = node->next;
 	}
 }
+
 void	mini_init(t_mini *pipex)
 {
 
@@ -34,6 +34,7 @@ void	mini_init(t_mini *pipex)
 	pipex->pathname = NULL;
 	pipex->token_list = NULL;
 	pipex->env_list = NULL;
+	pipex->cmd_list = NULL;
 	pipex->syntax_error = 0;
 }
 
@@ -47,7 +48,9 @@ int main(int argc, char *argv[], char *envp[])
 	mini_tokenizer(&mini);
 	mini_parser(&mini);
 	mini_expansion(&mini);
-	unit_print_array_list(&mini);
+	mini_redirect(&mini);
+	unit_print_redirect_list(&mini.cmd_list);
+	//unit_print_array_list(&mini);
 	ft_free_trashman(ft_get_mem_address());
 	return (0);
 }
