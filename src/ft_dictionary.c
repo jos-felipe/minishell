@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:26:06 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:42:28 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,22 @@ t_dict	*ft_dictlast(t_dict *dict)
 	while (dict->next != NULL)
 		dict = dict->next;
 	return (dict);
+}
+
+int	ft_dict_update(t_dict *dict, char **var)
+{
+	t_dict	*cur;
+	
+	cur = dict;
+	while (cur)
+	{
+		if (!ft_strncmp(cur->key, var[0], strlen(var[0])))
+		{
+			if (var[1])
+				cur->value = var[1];
+			return (1);
+		}
+		cur = cur->next;
+	}
+	return (0);
 }

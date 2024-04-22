@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:28:50 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 15:04:32 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:40:23 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ typedef struct	s_dict
 t_dict	*ft_dictnew(char **var);
 t_dict	*ft_dictlast(t_dict *dict);
 void	ft_dictadd_back(t_dict **dict, t_dict *new_entry);
+int		ft_dict_update(t_dict *dict, char **var);
 
 #endif
