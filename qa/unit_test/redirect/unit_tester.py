@@ -15,7 +15,9 @@ COLOR_LIMITER = "\033[0m"
 colours = [GREEN, RED, COLOR_LIMITER]
 
 trash = subprocess.run(f"make -C {name}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-trash = subprocess.run(f"touch in1 in2", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run(f"touch in1 in2 inblock outblock", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run(f"chmod a-r inblock", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run(f"chmod a-w outblock", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 
 # Input Samples:
@@ -23,7 +25,7 @@ input_data_list = ["\'echo melvin > out\'"]
 output_data_list = [f'0|4\n']
 
 input_data_list.append("\'echo melvin > out1 > out2\'")
-output_data_list.append(f'0|5\n')
+output_data_list.append(f'0|4\n')
 
 input_data_list.append("\'> out\'")
 output_data_list.append(f'0|4\n')
@@ -32,19 +34,31 @@ input_data_list.append("\'< in1\'")
 output_data_list.append(f'4|1\n')
 
 input_data_list.append("\'< in1 cat > out1 > out2\'")
-output_data_list.append(f'4|6\n')
+output_data_list.append(f'4|5\n')
 
 input_data_list.append("\'< in1 < in2 cat > out\'")
-output_data_list.append(f'5|6\n')
+output_data_list.append(f'4|5\n')
 
 input_data_list.append("\'echo > out1 > out2 melvin\'")
-output_data_list.append(f'0|5\n')
+output_data_list.append(f'0|4\n')
 
 input_data_list.append("\'echo > out1 melvin > out2 tropical\'")
-output_data_list.append(f'0|5\n')
+output_data_list.append(f'0|4\n')
 
 input_data_list.append("\'echo melvin > out | < in1 cat\'")
 output_data_list.append(f'0|4\n5|1\n')
+
+input_data_list.append("\'echo melvin > out | < in1 cat\'")
+output_data_list.append(f'0|4\n5|1\n')
+
+input_data_list.append("\'echo melvin > blockout > out1\'")
+output_data_list.append(f'minishell: blockout: Permission denied-1|-1\n')
+
+input_data_list.append("\'echo melvin > out1 > blockout\'")
+output_data_list.append(f'minishell: blockout: Permission denied-1|-1\n')
+
+input_data_list.append("\'< blockin < in1 cat\'")
+output_data_list.append(f'minishell: blockin: Permission denied-1|-1\n')
 
 i = 1
 
@@ -65,5 +79,5 @@ for input_data, output_ref in zip(input_data_list, output_data_list):
 		print(f"{colours[1]}	MKO  {colours[2]}")
 	i = i + 1
 
-trash = subprocess.run(f"rm out out1 out2 in1 in2", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run(f"rm out out1 out2 in1 in2 inblock outblock", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 trash = subprocess.run(f"make fclean -C {name}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
