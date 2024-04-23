@@ -56,6 +56,7 @@ SOURCES = \
 	ft_lstsize_bonus.c \
 	ft_math_sqrt.c \
 	ft_printf.c \
+	ft_printf_fd.c \
 
 OBJECTS	:= $(addprefix $(OBJECTS_PATH)/, $(SOURCES:%.c=%.o))
 
