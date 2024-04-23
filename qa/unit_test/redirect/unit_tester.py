@@ -51,14 +51,14 @@ output_data_list.append(f'0|4\n5|1\n')
 input_data_list.append("\'echo melvin > out | < in1 cat\'")
 output_data_list.append(f'0|4\n5|1\n')
 
-input_data_list.append("\'echo melvin > blockout > out1\'")
-output_data_list.append(f'minishell: blockout: Permission denied-1|-1\n')
+input_data_list.append("\'echo melvin > outblock > out1\'")
+output_data_list.append(f'minishell: outblock: Permission denied-1|-1\n')
 
-input_data_list.append("\'echo melvin > out1 > blockout\'")
-output_data_list.append(f'minishell: blockout: Permission denied-1|-1\n')
+input_data_list.append("\'echo melvin > out1 > outblock\'")
+output_data_list.append(f'minishell: outblock: Permission denied-1|-1\n')
 
-input_data_list.append("\'< blockin < in1 cat\'")
-output_data_list.append(f'minishell: blockin: Permission denied-1|-1\n')
+input_data_list.append("\'< inblock < in1 cat\'")
+output_data_list.append(f'minishell: inblock: Permission denied-1|-1\n')
 
 i = 1
 
