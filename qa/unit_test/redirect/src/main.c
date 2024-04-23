@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/22 19:07:46 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:51:16 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	unit_print_redirect_list(t_cmd **head)
 	node = *head;
 	while (node)
 	{
-		printf("%d|%d ", node->input_fd, node->output_fd);
+		printf("%d|%d", node->input_fd, node->output_fd);
+		printf("\n");
 		node = node->next;
 	}
 }
@@ -50,7 +51,6 @@ int main(int argc, char *argv[], char *envp[])
 	mini_expansion(&mini);
 	mini_redirect(&mini);
 	unit_print_redirect_list(&mini.cmd_list);
-	//unit_print_array_list(&mini);
 	ft_free_trashman(ft_get_mem_address());
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:13:42 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/22 18:30:49 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/23 10:29:39 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	mini_handle_out_redir(t_cmd *cmd_node, char *file)
 {
 	int fd;
 
-	fd = open(file, O_WRONLY, O_CREAT, O_TRUNC);
+	fd = open(file, O_WRONLY| O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 		printf("open outfile error\n");
 	cmd_node->output_fd = fd;
@@ -71,7 +71,7 @@ void	mini_handle_append_redir(t_cmd *cmd_node, char *file)
 {
 	int fd;
 
-	fd = open(file, O_WRONLY, O_APPEND);
+	fd = open(file, O_WRONLY | O_APPEND);
 	if (fd < 0)
 		printf("open outfile append error\n");
 	cmd_node->output_fd = fd;	

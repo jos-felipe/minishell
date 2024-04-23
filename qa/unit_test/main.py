@@ -13,3 +13,6 @@ from parser import unit_tester
 
 print("Expansion")
 from expansion import unit_tester
+
+print("Redirect")
+from redirect import unit_tester
