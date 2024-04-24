@@ -6,12 +6,13 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/22 16:45:20 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:20:38 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/libftplus.h"
+#include "../include/dictionary.h"
 
 #define NAME 100
 #define ERROR 200
@@ -37,12 +38,11 @@ int	mini_env_identifier(char *str, t_dict **env_list, int start, int state)
 			new_entry[1] = ft_substr_mem(str, start, i - start);
 		if (state == ERROR)
 		{
-			ft_printf("export: not a valid identifier");
+			ft_putstr_fd("export: not a valid identifier\n", STDOUT_FILENO);
 			return (1);
 		}
 	}
-	if(!ft_dict_update(*env_list, new_entry))
-		ft_dictadd_back(env_list, ft_dictnew(new_entry));
+	ft_dict_insert(env_list, new_entry);
 	return (0);
 }
 
