@@ -6,13 +6,14 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:26:06 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/24 11:42:03 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:53:43 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/dictionary.h"
-# include "../lib/includes/libft.h"
+#include "../lib/includes/libft.h"
 #include "../include/libftplus.h"
+#include "../include/trashman.h"
 
 void	ft_dict_insert(t_dict **dict, char **var)
 {
