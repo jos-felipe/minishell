@@ -64,11 +64,16 @@ input_data_list.append("\'export var1 var2=jojo =\' \'echo $var1 $var2\'")
 output_data_list.append(f' jojo ')
 err_data_list.append(f'export: not a valid identifier\n')
 
-
-test_description_list.append(" - update an existing variable")
-input_data_list.append("\'export LANGUAGE=pt\' \'echo $LANGUAGE\'")
+test_description_list.append(" - update variable content")
+input_data_list.append("\'export LANG=pt\' \'echo $LANG\'")
 output_data_list.append(f'pt ')
 err_data_list.append(f'')
+
+test_description_list.append(" - don't update if null value ")
+input_data_list.append("\'export LANG=\' \'echo $LANG\'")
+output_data_list.append(f'en_US.UTF-8 ')
+err_data_list.append(f'')
+
 
 # waiting for fix on "" tokenizier
 # input_data_list.append("\'export var=\"jojo kaka\"\' \'echo $var\'")
