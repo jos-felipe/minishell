@@ -61,7 +61,7 @@ err_data_list.append(f'')
 
 test_description_list.append(" - multiple variables plus invalid identifier")
 input_data_list.append("\'export var1 var2=jojo =\' \'echo $var1 $var2\'")
-output_data_list.append(f'jojo ')
+output_data_list.append(f' jojo ')
 err_data_list.append(f'export: not a valid identifier\n')
 
 
