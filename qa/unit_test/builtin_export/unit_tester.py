@@ -69,9 +69,14 @@ input_data_list.append("\'export LANG=pt\' \'echo $LANG\'")
 output_data_list.append(f'pt ')
 err_data_list.append(f'')
 
-test_description_list.append(" - don't update if null value ")
-input_data_list.append("\'export LANG=\' \'echo $LANG\'")
+test_description_list.append(" - don't update if null address")
+input_data_list.append("\'export LANG\' \'echo $LANG\'")
 output_data_list.append(f'en_US.UTF-8 ')
+err_data_list.append(f'')
+
+test_description_list.append(" - update if null value")
+input_data_list.append("\'export LANG=\' \'echo $LANG\'")
+output_data_list.append(f' ')
 err_data_list.append(f'')
 
 
