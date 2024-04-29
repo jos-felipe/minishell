@@ -99,6 +99,11 @@ input_data_list.append("\'export var1=jojo\' \'echo $var1\'")
 output_data_list.append(f'jojo ')
 err_data_list.append(f'')
 
+test_description_list.append(" - export with no options")
+input_data_list.append("\'export\'")
+export_status = subprocess.run('bash -c export', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+output_data_list.append(export_status.stdout)
+err_data_list.append(f'')
 
 # waiting for fix on "" tokenizier
 # input_data_list.append("\'export var=\"jojo kaka\"\' \'echo $var\'")
