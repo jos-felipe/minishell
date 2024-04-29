@@ -79,6 +79,26 @@ input_data_list.append("\'export LANG=\' \'echo $LANG\'")
 output_data_list.append(f' ')
 err_data_list.append(f'')
 
+test_description_list.append(" - assign value using expansion")
+input_data_list.append("\'export var=$LANG\' \'echo $var\'")
+output_data_list.append(f'en_US.UTF-8 ')
+err_data_list.append(f'')
+
+test_description_list.append(" - assign value using invalid expansion")
+input_data_list.append("\'export var=$affsdf\' \'echo $var\'")
+output_data_list.append(f' ')
+err_data_list.append(f'')
+
+test_description_list.append(" - variable name starting with number")
+input_data_list.append("\'export 1var=jojo\' \'echo $1var\'")
+output_data_list.append(f' ')
+err_data_list.append(f'export: not a valid identifier\n')
+
+test_description_list.append(" - variable name ending with number")
+input_data_list.append("\'export var1=jojo\' \'echo $var1\'")
+output_data_list.append(f'jojo ')
+err_data_list.append(f'')
+
 
 # waiting for fix on "" tokenizier
 # input_data_list.append("\'export var=\"jojo kaka\"\' \'echo $var\'")
