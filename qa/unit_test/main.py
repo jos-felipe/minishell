@@ -16,3 +16,6 @@ from expansion import unit_tester
 
 print("Redirect")
 from redirect import unit_tester
+
+print("join_cmd")
+from join_cmd import unit_tester

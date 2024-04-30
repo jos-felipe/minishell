@@ -60,6 +60,9 @@ output_data_list.append(f'-1|1\n')
 input_data_list.append("\'ls -la | cat\'")
 output_data_list.append(f'0|1\n0|1\n')
 
+input_data_list.append("\'> out\'")
+output_data_list.append(f'0|4\n')
+
 i = 1
 
 for input_data, output_ref in zip(input_data_list, output_data_list):
