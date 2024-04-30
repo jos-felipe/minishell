@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:13:42 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/30 12:08:00 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:15:02 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	mini_handle_out_redir(t_cmd *redir_node, char *file)
 		close(redir_node->output_fd);
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 420);
 	if (fd < 0)
-		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied", file);
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied\n", file);
 	redir_node->output_fd = fd;
 }
 
@@ -71,7 +71,7 @@ void	mini_handle_in_redir(t_cmd *redir_node, char *file)
 		close(redir_node->input_fd);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied", file);
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied\n", file);
 	redir_node->input_fd = fd;
 }
 
@@ -85,6 +85,6 @@ void	mini_handle_append_redir(t_cmd *redir_node, char *file)
 		close(redir_node->output_fd);
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 420);
 	if (fd < 0)
-		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied", file);
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied\n", file);
 	redir_node->output_fd = fd;
 }
