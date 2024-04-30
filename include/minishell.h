@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/22 18:36:23 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:10:42 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct s_cmd
 {
 	int	input_fd;
 	int output_fd;
+	int	nbr_of_words;
+	char **cmd_exec;
 	struct s_cmd *next;
 }		t_cmd;
 
@@ -95,7 +97,7 @@ typedef struct s_mini
 	t_token	*token_list;
 	t_token	**commands;
 	t_dict	*env_list;
-	t_cmd 	*cmd_list;
+	t_cmd 	*cmd_exec_list;
 	int		syntax_error;
 }				t_mini;
 
@@ -208,5 +210,11 @@ t_cmd	*mini_redir_lstnew(void);
 void	mini_redir_lstadd_back(t_cmd **lst, t_cmd *new);
 t_cmd	*mini_redir_lstlast(t_cmd *lst);
 
+// 09_execute.c
+void	mini_execute(t_mini *mini);
+void	mini_build_cmd_exec(t_mini *mini);
+void	mini_count_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node);
+void	mini_unite_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node);
+void	mini_match_cmd_exec_word(char *token, t_cmd *cmd_exec_node, int i);
 
 #endif

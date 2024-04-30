@@ -6,20 +6,35 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/23 12:51:16 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:28:34 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	unit_print_redirect_list(t_cmd **head)
+void	unit_print_cmd_exec_word(char **cmd_exec)
+{
+	int	i;
+
+	i = 0;
+	if (cmd_exec)
+	{
+		while (cmd_exec[i])
+		{
+			printf("%s ", cmd_exec[i]);
+			i++;
+		}
+	}
+}
+
+void	unit_print_cmd_exec_list(t_cmd **head)
 {
 	t_cmd *node;
 
 	node = *head;
 	while (node)
 	{
-		printf("%d|%d", node->input_fd, node->output_fd);
+		unit_print_cmd_exec_word(node->cmd_exec);
 		printf("\n");
 		node = node->next;
 	}
@@ -35,7 +50,7 @@ void	mini_init(t_mini *pipex)
 	pipex->pathname = NULL;
 	pipex->token_list = NULL;
 	pipex->env_list = NULL;
-	pipex->cmd_list = NULL;
+	pipex->cmd_exec_list = NULL;
 	pipex->syntax_error = 0;
 }
 
@@ -50,7 +65,8 @@ int main(int argc, char *argv[], char *envp[])
 	mini_parser(&mini);
 	mini_expansion(&mini);
 	mini_redirect(&mini);
-	unit_print_redirect_list(&mini.cmd_list);
+	mini_build_cmd_exec(&mini);
+	unit_print_cmd_exec_list(&mini.cmd_exec_list);
 	ft_free_trashman(ft_get_mem_address());
 	return (0);
 }

@@ -22,22 +22,22 @@ trash = subprocess.run(f"chmod a-w outblock", stdout=subprocess.PIPE, stderr=sub
 
 # Input Samples:
 input_data_list = ["\'echo -n melvin\'"]
-output_data_list = [f'echo -n melvin\n']
+output_data_list = [f'echo -n melvin \n']
 
 input_data_list.append("\'echo -n melvin > out\'")
-output_data_list.append(f'echo -n melvin\n')
+output_data_list.append(f'echo -n melvin \n')
 
 input_data_list.append("\'> out\'")
-output_data_list.append(f'(null)\n')
+output_data_list.append(f'\n')
 
 input_data_list.append("\'echo > out1 melvin > out2 tropical\'")
-output_data_list.append(f'echo melvin tropical\n')
+output_data_list.append(f'echo melvin tropical \n')
 
 input_data_list.append("\'echo melvin > out | < in1 cat\'")
-output_data_list.append(f'echo melvin\ncat\n')
+output_data_list.append(f'echo melvin \ncat \n')
 
 input_data_list.append("\'cat < in1 | tr ',' '.' | sortT | uniq | grep a | tr 'a-z' 'A-Z' >> out\'")
-output_data_list.append(f'cat\ntr , .\nsortT\nuniq\ngrep a\ntr a-z A-Z')
+output_data_list.append(f'cat \ntr , . \nsortT \nuniq \ngrep a \ntr a-z A-Z \n')
 
 i = 1
 
