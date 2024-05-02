@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:48:39 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/15 18:51:14 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:43:14 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_token	*mini_token_lstnew(void *token, int state)
 void	mini_get_token_gender(int state, t_token *token)
 {
 	token->gender = OPERATOR;
-	if (state == 100)
+	if (state == 100 || state == 107 || state == 108)
 		token->gender = WORD;
 }
 

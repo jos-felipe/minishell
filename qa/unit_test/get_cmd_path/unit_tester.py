@@ -38,6 +38,9 @@ output_data_list.append(f'/usr/bin/echo\n/usr/bin/cat\n')
 input_data_list.append("\'cat < in1 | tr , . | sort | uniq | grep a | tr a-z A-Z >> out\'")
 output_data_list.append(f'/usr/bin/cat\n/usr/bin/tr\n/usr/bin/sort\n/usr/bin/uniq\n/usr/bin/grep\n/usr/bin/tr\n')
 
+input_data_list.append("\'echo \"melvin num pais tropical\" | cat\'")
+output_data_list.append(f'/usr/bin/echo\n/usr/bin/cat\n')
+
 i = 1
 
 for input_data, output_ref in zip(input_data_list, output_data_list):
