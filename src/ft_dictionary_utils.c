@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   08_builtin_export.c                                :+:      :+:    :+:   */
+/*   ft_dictionary_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/02 11:52:20 by josfelip         ###   ########.fr       */
+/*   Created: 2024/05/02 11:44:30 by josfelip          #+#    #+#             */
+/*   Updated: 2024/05/02 11:50:41 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
 #include "../include/dictionary.h"
 
-int	mini_export(t_token *arg, t_dict **env_list)
+void	ft_dict_print(t_dict *dict)
 {
-	int		exit_status;
-	int		tmp;
-	t_token	*cur;
-
-	exit_status = 0;
-	cur = arg;
-	if (!cur)
-		ft_dict_print(*env_list);
+	t_dict	*cur;
+	
+	cur = dict;
 	while (cur)
-	{	
-		tmp = mini_env_identifier(cur->token, env_list, 0, 0);
-		if (tmp)
-			exit_status = tmp;
+	{
+		ft_printf("%s=%s\n", cur->key, cur->value);
 		cur = cur->next;
 	}
-	return (exit_status);
 }
