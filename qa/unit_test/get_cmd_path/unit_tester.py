@@ -27,7 +27,7 @@ input_data_list.append("\'echo -n melvin > out\'")
 output_data_list.append(f'/usr/bin/echo\n')
 
 input_data_list.append("\'> out\'")
-output_data_list.append(f'\n')
+output_data_list.append(f'(null)\n')
 
 input_data_list.append("\'echo > out1 melvin > out2 tropical\'")
 output_data_list.append(f'/usr/bin/echo\n')
@@ -35,8 +35,8 @@ output_data_list.append(f'/usr/bin/echo\n')
 input_data_list.append("\'echo melvin > out | < in1 cat\'")
 output_data_list.append(f'/usr/bin/echo\n/usr/bin/cat\n')
 
-input_data_list.append("\'cat < in1 | tr ',' '.' | sortT | uniq | grep a | tr 'a-z' 'A-Z' >> out\'")
-output_data_list.append(f'/usr/bin/cat\n/usr/bin/tr\nsortT \n/usr/bin/sort\n/usr/bin/grep\n/usr/bin/tr\n')
+input_data_list.append("\'cat < in1 | tr , . | sort | uniq | grep a | tr a-z A-Z >> out\'")
+output_data_list.append(f'/usr/bin/cat\n/usr/bin/tr\n/usr/bin/sort\n/usr/bin/uniq\n/usr/bin/grep\n/usr/bin/tr\n')
 
 i = 1
 
@@ -47,7 +47,7 @@ for input_data, output_ref in zip(input_data_list, output_data_list):
 		print(f"{colours[0]}{i}/{len(input_data_list)}.	OK  {colours[2]}")
 	else:
 		print(f"{colours[1]}{i}/{len(input_data_list)}.	KO  {colours[2]}")
-		
+
 	valgrind_status = subprocess.run('./valgrind.sh', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	# Check for leaks

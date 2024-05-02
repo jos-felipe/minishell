@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/30 12:10:42 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:59:31 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,12 @@ typedef struct	s_sub_token
 
 typedef struct s_cmd
 {
-	int	input_fd;
-	int output_fd;
-	int	nbr_of_words;
-	char **cmd_exec;
-	struct s_cmd *next;
+	int				input_fd;
+	int 			output_fd;
+	int				nbr_of_words;
+	char			**cmd_exec;
+	char			*cmd_path;
+	struct s_cmd 	*next;
 }		t_cmd;
 
 typedef struct s_mini
@@ -216,5 +217,9 @@ void	mini_build_cmd_exec(t_mini *mini);
 void	mini_count_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node);
 void	mini_unite_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node);
 void	mini_match_cmd_exec_word(char *token, t_cmd *cmd_exec_node, int i);
+
+// 10_get_cmd_path.c
+void	mini_get_cmd_exec_path(t_mini *mini);
+char	*mini_get_cmd_path(t_cmd *cmd_exec_node);
 
 #endif

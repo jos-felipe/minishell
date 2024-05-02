@@ -6,12 +6,12 @@
 #    By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:03:46 by josfelip          #+#    #+#              #
-#    Updated: 2024/04/30 09:33:09 by gfantoni         ###   ########.fr        #
+#    Updated: 2024/05/02 16:13:36 by gfantoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = join_cmd
-DEBUG_NAME = join_cmd_debug
+NAME = get_cmd_path
+DEBUG_NAME = get_cmd_path_debug
 CFLAGS = -g3
 DFLAGS = -g3
 

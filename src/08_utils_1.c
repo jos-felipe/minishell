@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:30:59 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/30 12:18:43 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:04:46 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_cmd	*mini_redir_lstnew(void)
 	new_node->output_fd = 1;
 	new_node->nbr_of_words = 0;
 	new_node->cmd_exec = NULL;
+	new_node->cmd_path = NULL;
 	new_node->next = NULL;
 	ft_collect_mem(new_node);
 	return (new_node);

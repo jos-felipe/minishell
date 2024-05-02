@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 10:11:27 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/30 13:27:39 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:59:00 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void mini_execute(t_mini *mini)
 {
 	mini_build_cmd_exec(mini);
+	mini_get_cmd_exec_path(mini);
 }
 
 void mini_build_cmd_exec(t_mini *mini)
