@@ -3,6 +3,14 @@
 # https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-export
 
 import subprocess
+import difflib
+
+def string_difference(s1, s2):
+	differ = difflib.Differ()
+	diff = differ.compare(s1.splitlines(), s2.splitlines())
+	for line in diff:
+		if line.startswith('+') or line.startswith('-'):
+			print(line)
 
 # Valgrind
 valgrind = "valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp -q --log-file=valgrind.log"
@@ -100,8 +108,8 @@ output_data_list.append(f'jojo ')
 err_data_list.append(f'')
 
 test_description_list.append(" - export with no options")
-input_data_list.append("\'export\'")
-export_status = subprocess.run('bash -c export', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+input_data_list.append("\'export SHLVL=2\' \'export\'")
+export_status = subprocess.run('bash -c "export"', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 output_data_list.append(export_status.stdout)
 err_data_list.append(f'')
 
@@ -114,7 +122,7 @@ err_data_list.append(f'')
 
 i = 1
 for input_data, output_ref, err_ref in zip(input_data_list, output_data_list, err_data_list):
-	output = subprocess.run(f"{valgrind} ./builtin_export/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	output = subprocess.run(f"./builtin_export/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile_content = output.stdout
 	errfile_content = output.stderr
 	print(f"{colours[3]}{i}/{len(input_data_list)}{test_description_list[i-1]}{colours[0]}")
@@ -123,14 +131,16 @@ for input_data, output_ref, err_ref in zip(input_data_list, output_data_list, er
 	else:
 		print(f"{colours[1]}	KO{colours[0]}")
 		if outfile_content != output_ref:
-			print(f"{colours[4]}	stdout Expected - {output_ref}{colours[0]}")
-			print(f"{colours[4]}	stdout Received - {outfile_content}{colours[0]}")
+			print(f"{colours[3]}stdout Diff{colours[0]}")
+			print(string_difference(output_ref, outfile_content))
 		if errfile_content != err_ref:
-			print(f"{colours[4]}	stderr Expected - {err_ref}{colours[0]}")
-			print(f"{colours[4]}	stderr Received - {errfile_content}{colours[0]}")
-	valgrind_status = subprocess.run('./valgrind.sh', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-
+			print(f"{colours[3]}stderr Diff{colours[0]}")
+			print(string_difference(err_ref, errfile_content))
+	
 	# Check for leaks
+	subprocess.run(f"{valgrind} ./builtin_export/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	valgrind_status = subprocess.run(f"./valgrind.sh", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	# valgrind_status = subprocess.run('./valgrind.sh', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	if (valgrind_status.stdout == '0\n'):
 		print(f"{colours[2]}	MOK{colours[0]}")
 	else:
