@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/02 11:52:20 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/02 12:38:06 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	mini_export(t_token *arg, t_dict **env_list)
 	exit_status = 0;
 	cur = arg;
 	if (!cur)
-		ft_dict_print(*env_list);
+		ft_dict_print(ft_dictsort(*env_list));
 	while (cur)
 	{	
 		tmp = mini_env_identifier(cur->token, env_list, 0, 0);
