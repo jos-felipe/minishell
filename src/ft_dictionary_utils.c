@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:44:30 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/02 12:50:01 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/02 12:54:50 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	ft_dict_print(t_dict *dict)
 	cur = dict;
 	while (cur)
 	{
-		ft_printf("declare -x %s=\"%s\"\n", cur->key, cur->value);
+		if (cur->value)
+			ft_printf("declare -x %s=\"%s\"\n", cur->key, cur->value);
+		else
+			ft_printf("declare -x %s\n", cur->key);
 		cur = cur->next;
 	}
 }
