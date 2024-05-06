@@ -36,12 +36,14 @@
 *.x86_64
 *.hex
 minishell*
+unit.tester
 
 # Debug files
 *.dSYM/
 *.su
 *.idb
 *.pdb
+debug*
 
 # Kernel Module Compile Results
 *.mod*
