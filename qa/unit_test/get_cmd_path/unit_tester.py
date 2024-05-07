@@ -41,6 +41,15 @@ output_data_list.append(f'/usr/bin/cat\n/usr/bin/tr\n/usr/bin/sort\n/usr/bin/uni
 input_data_list.append("\'echo \"melvin num pais tropical\" | cat\'")
 output_data_list.append(f'/usr/bin/echo\n/usr/bin/cat\n')
 
+# 1. cmd not found.
+input_data_list.append("\'cat < in1 | tr , . | sortX | uniq | grep a | tr a-z A-Z >> out\'")
+output_data_list.append(f'/usr/bin/cat\n/usr/bin/tr\nsortX\n/usr/bin/uniq\n/usr/bin/grep\n/usr/bin/tr\n')
+
+# 2. absolute path.
+input_data_list.append("\'/usr/bin/echo -n melvin > out\'")
+output_data_list.append(f'/usr/bin/echo\n')
+
+
 i = 1
 
 for input_data, output_ref in zip(input_data_list, output_data_list):
