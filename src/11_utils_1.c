@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   08_utils.c                                         :+:      :+:    :+:   */
+/*   11_utils_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/29 11:43:40 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/07 10:41:23 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 int	mini_env_identifier(char *str, t_dict **env_list, int start, int state)
 {
-	char	*new_entry[2];
-	int		i;
+	char				*new_entry[2];
+	unsigned long		i;
 
 	new_entry[1] = NULL;
 	i = -1;
