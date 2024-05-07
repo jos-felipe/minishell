@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:27:24 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/02 17:56:55 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/07 10:23:26 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ char	*mini_get_cmd_path(t_cmd *cmd_exec_node)
 		i++;
 	}
 	mini_free_split(splited_path);
-	return (path);
+	return (cmd_name);
 }
