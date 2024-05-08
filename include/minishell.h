@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/08 12:09:17 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:53:56 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,14 @@ char	*mini_get_cmd_path(t_cmd *cmd_exec_node);
 
 // 11_open_pipes.c
 void	mini_open_pipes(t_mini *mini);
+
+// 12_mini_execve.c
+void	mini_execve(t_mini *mini);
+void	mini_execve_child(t_cmd *cmd_exec_node);
+void	mini_manage_execve_fd(t_cmd *cmd_exec_node);
+void	mini_exit_if_fd_neg(t_cmd *cmd_exec_node);
+void	mini_close_all_fd(t_mini *mini);
+void	mini_close_node_fd(t_cmd *cmd_exec_node);
 
 // 99_builtin_export.c
 int	mini_export(t_token *arg, t_dict **env_list);

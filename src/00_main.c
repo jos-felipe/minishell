@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/30 10:13:07 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:34:35 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(void)
 
 	mini_ctrl_signal();
 	mini_getenv(&mini);
-	while (1)
+	while (42)
 	{
 		mini_init(&mini);
 		mini.cmd_line = readline("prompt > ");
