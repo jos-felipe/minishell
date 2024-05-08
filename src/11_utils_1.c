@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   11_utils_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/07 10:41:23 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/08 11:59:55 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 int	mini_env_identifier(char *str, t_dict **env_list, int start, int state)
 {
 	char				*new_entry[2];
-	unsigned long		i;
+	size_t		i;
 
 	new_entry[1] = NULL;
 	i = -1;
