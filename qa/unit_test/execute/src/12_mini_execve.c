@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/09 13:19:30 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:43:50 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	mini_execve(t_mini *mini)
 			mini_execve_child(cmd_exec_node);
 		cmd_exec_node = cmd_exec_node->next;
 	}
+	waitpid(pid, &mini->status, 0);
 	mini_close_all_fd(mini);
 }
 
