@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/08 15:55:17 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:19:30 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ void	mini_manage_execve_fd(t_cmd *cmd_exec_node)
 		close(cmd_exec_node->input_fd);
 	}
 	else if (cmd_exec_node->input_fd == 0 && cmd_exec_node->read_pipe != -1)
-	{
 		dup2(cmd_exec_node->read_pipe, STDIN_FILENO);
-		close(cmd_exec_node->write_pipe);
-	}
 	if (cmd_exec_node->output_fd > 1)
 	{
 		dup2(cmd_exec_node->output_fd, STDOUT_FILENO);
@@ -62,10 +59,7 @@ void	mini_manage_execve_fd(t_cmd *cmd_exec_node)
 		close(cmd_exec_node->output_fd);
 	}
 	else if (cmd_exec_node->output_fd == 1 && cmd_exec_node->write_pipe != -1)
-	{
 		dup2(cmd_exec_node->write_pipe, STDOUT_FILENO);
-		close(cmd_exec_node->read_pipe);
-	}
 }
 
 void	mini_exit_if_fd_neg(t_cmd *cmd_exec_node)
