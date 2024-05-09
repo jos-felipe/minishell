@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/09 13:43:50 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:58:36 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	mini_execve(t_mini *mini)
 		pid = fork();
 		if (pid == 0)
 			mini_execve_child(cmd_exec_node);
+		mini_close_pipe_node_fd(cmd_exec_node);
 		cmd_exec_node = cmd_exec_node->next;
 	}
 	waitpid(pid, &mini->status, 0);
@@ -52,7 +53,10 @@ void	mini_manage_execve_fd(t_cmd *cmd_exec_node)
 		close(cmd_exec_node->input_fd);
 	}
 	else if (cmd_exec_node->input_fd == 0 && cmd_exec_node->read_pipe != -1)
+	{
 		dup2(cmd_exec_node->read_pipe, STDIN_FILENO);
+		close(cmd_exec_node->read_pipe);
+	}
 	if (cmd_exec_node->output_fd > 1)
 	{
 		dup2(cmd_exec_node->output_fd, STDOUT_FILENO);
@@ -60,7 +64,10 @@ void	mini_manage_execve_fd(t_cmd *cmd_exec_node)
 		close(cmd_exec_node->output_fd);
 	}
 	else if (cmd_exec_node->output_fd == 1 && cmd_exec_node->write_pipe != -1)
+	{
 		dup2(cmd_exec_node->write_pipe, STDOUT_FILENO);
+		close(cmd_exec_node->write_pipe);
+	}
 }
 
 void	mini_exit_if_fd_neg(t_cmd *cmd_exec_node)
@@ -89,6 +96,12 @@ void	mini_close_node_fd(t_cmd *cmd_exec_node)
 {
 	close(cmd_exec_node->input_fd);
 	close(cmd_exec_node->output_fd);
+	close(cmd_exec_node->read_pipe);
+	close(cmd_exec_node->write_pipe);
+}
+
+void 	mini_close_pipe_node_fd(t_cmd *cmd_exec_node)
+{
 	close(cmd_exec_node->read_pipe);
 	close(cmd_exec_node->write_pipe);
 }
