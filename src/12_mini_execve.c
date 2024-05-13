@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/13 13:13:44 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:23:53 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,10 @@ void	mini_close_all_fd(t_mini *mini)
 	cmd_exec_node = mini->cmd_exec_list;
 	while (cmd_exec_node)
 	{
-		close(cmd_exec_node->input_fd);
-		close(cmd_exec_node->output_fd);
+		if (cmd_exec_node->input_fd != 0)
+			close(cmd_exec_node->input_fd);
+		if (cmd_exec_node->output_fd != 1)
+			close(cmd_exec_node->output_fd);
 		close(cmd_exec_node->read_pipe);
 		close(cmd_exec_node->write_pipe);
 		cmd_exec_node = cmd_exec_node->next;
