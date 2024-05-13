@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
 
-# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bash-Builtins.html#index-echo
-
+# Unit name - the same as the directory name
 unit = 'echo'
 
-import subprocess
-import difflib
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bash-Builtins.html#index-echo
 
-def string_difference(s1, s2):
-	differ = difflib.Differ()
-	diff = differ.compare(s1.splitlines(), s2.splitlines())
-	for line in diff:
-		if line.startswith('+') or line.startswith('-'):
-			print(line)
+import subprocess
 
 # Valgrind
 valgrind = "valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp -q --log-file=valgrind.log"
@@ -53,37 +46,65 @@ stdout_list.append(returned_instance.stdout)
 stderr_list.append(returned_instance.stderr)
 returncode_list.append(returned_instance.returncode)
 
+test_description_list.append(" - two str with -n")
+stdin = "\'echo -n École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
 # Check for stdout, stderr and exit status
 i = 1
-test_pass = True
 for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list):
+	# Open files
+	outfile = open(f"{unit}/outfile", "w")
+	outfile_ref = open(f"{unit}/outfile_ref", "w")
+	errfile = open(f"{unit}/errfile", "w")
+	errfile_ref = open(f"{unit}/errfile_ref", "w")
+	
+	# Run the unit
 	output = subprocess.run(f"./{unit}/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-	outfile_content = output.stdout
-	errfile_content = output.stderr
+	outfile.write(f"{output.stdout}\n")
+	outfile_ref.write(f"{output_ref}\n")
+	errfile.write(f"{output.stderr}\n")
+	errfile_ref.write(f"{err_ref}\n")
+
+	# Close files
+	outfile.close()
+	outfile_ref.close()
+	errfile.close()
+	errfile_ref.close()
+	
+	
 	print(f"{colours[3]}{i}/{len(stdin_list)}{test_description_list[i-1]}{colours[0]}")
 
-	diff_returned = subprocess.run(f"diff <(echo {output_ref}) <(echo {outfile_content})", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-	if diff_returned.stdout != '':
-		test_pass = False
+	# Check for stdout
+	diff_returned = subprocess.run(f"diff {unit}/outfile_ref {unit}/outfile", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	if diff_returned.returncode != 0:
+		print(f"{colours[1]}	KO - stdout{colours[0]}")
 		print(f"{colours[4]}stdout diff{colours[0]}")
-		print(diff_returned.stdout)
-
-	if outfile_content == output_ref and errfile_content == err_ref and output.returncode == returncode_list[i-1]:
-		print(f"{colours[2]}	OK{colours[0]}")
+		print(f"{diff_returned.stdout}")
 	else:
-		print(f"{colours[1]}	KO{colours[0]}")
-		if outfile_content != output_ref:
-			print(f"{colours[4]}stdout diff{colours[0]}")
-			diff_returned = subprocess.run(f"diff <(echo {output_ref}) <(echo {outfile_content})", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-			print(diff_returned.stdout)
-		if errfile_content != err_ref:
-			print(f"{colours[4]}stderr diff{colours[0]}")
-			diff_returned = subprocess.run(f"diff <(echo {err_ref}) <(echo {errfile_content})", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-			print(diff_returned.stdout)
-		if output.returncode != returncode_list[i-1]:
-			print(f"{colours[4]}exit status{colours[0]}")
-			print(f"Expected: {returncode_list[i-1]}")
-			print(f"Got: {output.returncode}")
+		print(f"{colours[2]}	OK - stdout{colours[0]}")
+
+	# Check for stderr
+	diff_returned = subprocess.run(f"diff {unit}/errfile_ref {unit}/errfile", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	if diff_returned.returncode != 0:
+		print(f"{colours[1]}	KO - stderr{colours[0]}")
+		print(f"{colours[4]}stderr diff{colours[0]}")
+		print(f"{diff_returned.stdout}")
+	else:
+		print(f"{colours[2]}	OK - stderr{colours[0]}")
+
+	# Check for exit status
+	if output.returncode != returncode_list[i-1]:
+		print(f"{colours[4]}	KO - exit status{colours[0]}")
+		print(f"{colours[4]}exit status diff{colours[0]}")
+		print(f"Expected: {returncode_list[i-1]}")
+		print(f"Got: {output.returncode}")
+	else:
+		print(f"{colours[2]}	OK - exit status{colours[0]}")
 	
 	# Check for leaks
 	subprocess.run(f"{valgrind} ./{unit}/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
@@ -92,6 +113,9 @@ for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list)
 		print(f"{colours[2]}	MOK{colours[0]}")
 	else:
 		print(f"{colours[1]}	MKO{colours[0]}")
+	print("\n------------------------------------\n")
 	i = i + 1
 
+# Clean
+subprocess.run(f"rm {unit}/outfile {unit}/outfile_ref {unit}/errfile {unit}/errfile_ref", shell=True)
 trash = subprocess.run(f"make fclean -C {unit}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
