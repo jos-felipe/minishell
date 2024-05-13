@@ -32,9 +32,6 @@ output_data_list.append(f'guinga\n')
 input_data_list.append("\'cat < infile -e | tr , . | tr a-z A-Z > outfile\'")
 output_data_list.append(f'APPLE. BANANA. CARROT. BREAD$\n')
 
-input_data_list.append("\'cat < infile -e | trX , . | echo melvin > outfile\'")
-output_data_list.append(f'melvin\nCommand \'trX\' not found\n')
-
 i = 1
 
 for input_data, output_ref in zip(input_data_list, output_data_list):

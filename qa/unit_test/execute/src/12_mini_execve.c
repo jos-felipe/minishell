@@ -6,11 +6,12 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/09 16:58:36 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:13:44 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <errno.h>
 
 void	mini_execve(t_mini *mini)
 {
@@ -35,7 +36,10 @@ void	mini_execve_child(t_cmd *cmd_exec_node)
 	mini_manage_execve_fd(cmd_exec_node);
 	if (execve(cmd_exec_node->cmd_path, cmd_exec_node->cmd_exec, NULL) == -1)
 	{
-        perror(NULL);
+		if (errno == ENOENT)
+            ft_printf_fd(STDERR_FILENO, "Command '%s' not found\n", cmd_exec_node->cmd_path);
+		else
+        	perror(NULL);
 		ft_free_trashman(ft_get_mem_address());
 		mini_close_node_fd(cmd_exec_node);
         exit(1);

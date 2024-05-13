@@ -22,3 +22,6 @@ from join_cmd import unit_tester
 
 print("get_cmd_path")
 from get_cmd_path import unit_tester
+
+print("execute")
+from execute import unit_tester
