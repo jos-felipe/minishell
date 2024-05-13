@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-export
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bash-Builtins.html#index-echo
 
 import subprocess
 import difflib
@@ -23,7 +23,7 @@ CYAN = "\033[36;1;3;208m"
 YELLOW = "\033[33;1m"
 colours = [COLOR_LIMITER, RED, GREEN, CYAN, YELLOW]
 
-trash = subprocess.run("make -C builtin_export", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run("make -C echo", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 # Test description, Input Samples and Outputs references:
 
@@ -84,8 +84,8 @@ err_data_list.append(f'')
 exit_status_list.append(0)
 
 test_description_list.append(" - don't update if null address")
-input_data_list.append("\'export _myvar_\' \'echo $_myvar_\'")
-output_data_list.append(f' ')
+input_data_list.append("\'export LANG\' \'echo $LANG\'")
+output_data_list.append(f'en_US.UTF-8 ')
 err_data_list.append(f'')
 exit_status_list.append(0)
 
@@ -95,11 +95,11 @@ output_data_list.append(f' ')
 err_data_list.append(f'')
 exit_status_list.append(0)
 
-# test_description_list.append(" - assign value using expansion")
-# input_data_list.append("\'export var=$LANG\' \'echo $var\'")
-# output_data_list.append(f'en_US.UTF-8 ')
-# err_data_list.append(f'')
-# exit_status_list.append(0)
+test_description_list.append(" - assign value using expansion")
+input_data_list.append("\'export var=$LANG\' \'echo $var\'")
+output_data_list.append(f'en_US.UTF-8 ')
+err_data_list.append(f'')
+exit_status_list.append(0)
 
 test_description_list.append(" - assign value using invalid expansion")
 input_data_list.append("\'export var=$affsdf\' \'echo $var\'")
@@ -163,4 +163,4 @@ for input_data, output_ref, err_ref in zip(input_data_list, output_data_list, er
 		print(f"{colours[1]}	MKO{colours[0]}")
 	i = i + 1
 
-trash = subprocess.run("make fclean -C builtin_export", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run("make fclean -C echo", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)

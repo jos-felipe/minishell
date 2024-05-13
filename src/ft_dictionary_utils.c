@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:44:30 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/02 12:54:50 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:38:20 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ t_dict	*ft_dictsort(t_dict *dict)
 	t_dict	*header;
 	char	*key;
 	char	*value;
+	size_t	len;
 
 	header = dict;
+	len = ft_max(ft_strlen(dict->key), ft_strlen(dict->next->key));
 	while (dict->next)
 	{
-		if (ft_strncmp(dict->key, dict->next->key, ft_strlen(dict->next->key)) <= 0)
+		if (ft_strncmp(dict->key, dict->next->key, len) <= 0)
 			dict = dict->next;
 		else
 		{
@@ -51,3 +53,15 @@ t_dict	*ft_dictsort(t_dict *dict)
 	}
 	return (header);
 }
+
+size_t	ft_max(size_t a, size_t b)
+{
+	size_t	max;
+
+	max = a;
+	if (max < b)
+		max = b;
+	return (max);
+}
+
+
