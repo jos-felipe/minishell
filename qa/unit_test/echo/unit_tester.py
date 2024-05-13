@@ -30,121 +30,56 @@ trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subproc
 # Test description, Input Samples and Outputs references:
 
 test_description_list = [" - no opt and no str"]
-stdin_list = ["\'echo\'"]
-returned_instance = subprocess.run("bash -c 'echo'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdin = "\'echo\'"
+stdin_list = [stdin]
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 stdout_list = [returned_instance.stdout]
 stderr_list = [returned_instance.stderr]
 returncode_list = [returned_instance.returncode]
 
-#2
-test_description_list.append(" - single word")
-stdin_list.append("\'export var=jojo\' \'echo $var\'")
-stdout_list.append(f'jojo ')
-stderr_list.append(f'')
-returncode_list.append(0)
+test_description_list.append(" - one str")
+stdin = "\'echo 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - multiple words")
-stdin_list.append("\'export var=jojo kaka\' \'echo $var\'")
-stdout_list.append(f'jojo ')
-stderr_list.append(f'')
-returncode_list.append(0)
+test_description_list.append(" - two str")
+stdin = "\'echo École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - null value variant")
-stdin_list.append("\'export var=\' \'echo $var\'")
-stdout_list.append(f' ')
-stderr_list.append(f'')
-returncode_list.append(0)
-
-test_description_list.append(" - invalid identifier with value")
-stdin_list.append("\'export =jojo\'")
-stdout_list.append(f'')
-stderr_list.append(f'export: not a valid identifier\n')
-returncode_list.append(1)
-
-test_description_list.append(" - invalid identifier without value")
-stdin_list.append("\'export =\'")
-stdout_list.append(f'')
-stderr_list.append(f'export: not a valid identifier\n')
-returncode_list.append(1)
-
-test_description_list.append(" - multiple variables")
-stdin_list.append("\'export var1=kaka var2=jojo\' \'echo $var1 $var2\'")
-stdout_list.append(f'kaka jojo ')
-stderr_list.append(f'')
-returncode_list.append(0)
-
-test_description_list.append(" - multiple variables plus invalid identifier")
-stdin_list.append("\'export var1 var2=jojo =\' \'echo $var1 $var2\'")
-stdout_list.append(f' jojo ')
-stderr_list.append(f'export: not a valid identifier\n')
-returncode_list.append(1)
-
-test_description_list.append(" - update variable content")
-stdin_list.append("\'export LANG=pt\' \'echo $LANG\'")
-stdout_list.append(f'pt ')
-stderr_list.append(f'')
-returncode_list.append(0)
-
-test_description_list.append(" - don't update if null address")
-stdin_list.append("\'export LANG\' \'echo $LANG\'")
-stdout_list.append(f'en_US.UTF-8 ')
-stderr_list.append(f'')
-returncode_list.append(0)
-
-test_description_list.append(" - update if null value")
-stdin_list.append("\'export LANG=\' \'echo $LANG\'")
-stdout_list.append(f' ')
-stderr_list.append(f'')
-returncode_list.append(0)
-
-test_description_list.append(" - assign value using expansion")
-stdin_list.append("\'export var=$LANG\' \'echo $var\'")
-stdout_list.append(f'en_US.UTF-8 ')
-stderr_list.append(f'')
-returncode_list.append(0)
-
-test_description_list.append(" - assign value using invalid expansion")
-stdin_list.append("\'export var=$affsdf\' \'echo $var\'")
-stdout_list.append(f' ')
-stderr_list.append(f'')
-returncode_list.append(0)
-
-test_description_list.append(" - variable name starting with number")
-stdin_list.append("\'export 1var=jojo\' \'echo $1var\'")
-stdout_list.append(f' ')
-stderr_list.append(f'export: not a valid identifier\n')
-returncode_list.append(1)
-
-test_description_list.append(" - variable name ending with number")
-stdin_list.append("\'export var1=jojo\' \'echo $var1\'")
-stdout_list.append(f'jojo ')
-stderr_list.append(f'')
-returncode_list.append(0)
-
-test_description_list.append(" - export with no options")
-stdin_list.append("\'export SHLVL=2\' \'export\'")
-export_status = subprocess.run('bash -c "export"', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list.append(export_status.stdout)
-stderr_list.append(f'')
-returncode_list.append(0)
-
-
+# Check for stdout, stderr and exit status
 i = 1
+test_pass = True
 for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list):
 	output = subprocess.run(f"./{unit}/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile_content = output.stdout
 	errfile_content = output.stderr
 	print(f"{colours[3]}{i}/{len(stdin_list)}{test_description_list[i-1]}{colours[0]}")
+
+	diff_returned = subprocess.run(f"diff <(echo {output_ref}) <(echo {outfile_content})", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	if diff_returned.stdout != '':
+		test_pass = False
+		print(f"{colours[4]}stdout diff{colours[0]}")
+		print(diff_returned.stdout)
+
 	if outfile_content == output_ref and errfile_content == err_ref and output.returncode == returncode_list[i-1]:
 		print(f"{colours[2]}	OK{colours[0]}")
 	else:
 		print(f"{colours[1]}	KO{colours[0]}")
 		if outfile_content != output_ref:
-			print(f"{colours[4]}stdout Diff{colours[0]}")
-			print(string_difference(output_ref, outfile_content))
+			print(f"{colours[4]}stdout diff{colours[0]}")
+			diff_returned = subprocess.run(f"diff <(echo {output_ref}) <(echo {outfile_content})", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+			print(diff_returned.stdout)
 		if errfile_content != err_ref:
-			print(f"{colours[4]}stderr Diff{colours[0]}")
-			print(string_difference(err_ref, errfile_content))
+			print(f"{colours[4]}stderr diff{colours[0]}")
+			diff_returned = subprocess.run(f"diff <(echo {err_ref}) <(echo {errfile_content})", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+			print(diff_returned.stdout)
 		if output.returncode != returncode_list[i-1]:
 			print(f"{colours[4]}exit status{colours[0]}")
 			print(f"Expected: {returncode_list[i-1]}")
