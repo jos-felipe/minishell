@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/02 18:49:35 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:41:56 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ int		unit_echo(t_token *arg)
 {
 	while (arg)
 	{
-		ft_printf("%s ", arg->token);
+		ft_printf("%s", arg->token);
 		arg = arg->next;
+		if (arg)
+			ft_printf(" ");
 	}
+	ft_printf("\n");
 	return (0);
 }
 
