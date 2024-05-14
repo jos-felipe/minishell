@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/13 18:23:53 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:13:07 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	mini_execve_child(t_cmd *cmd_exec_node)
 	if (execve(cmd_exec_node->cmd_path, cmd_exec_node->cmd_exec, NULL) == -1)
 	{
 		if (errno == ENOENT)
-            ft_printf_fd(STDERR_FILENO, "Command '%s' not found\n", cmd_exec_node->cmd_path);
+            ft_printf_fd(STDERR_FILENO, "minishell: %s: command not found\n", cmd_exec_node->cmd_path);
 		else
         	perror(NULL);
 		ft_free_trashman(ft_get_mem_address());
