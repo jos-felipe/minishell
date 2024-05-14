@@ -34,6 +34,12 @@ colours = [COLOR_LIMITER, RED, GREEN, CYAN, YELLOW]
 
 trash = subprocess.run(f"make -C ../../", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
+# Create input file
+infile = open('infile', 'w')
+infile.write('banana.apple.grape')
+infile.close()
+
+
 # Test description, Input Samples and Outputs references:
 
 test_description_list = [" - one str"]
@@ -54,6 +60,46 @@ returncode_list.append(returned_instance.returncode)
 
 test_description_list.append(" - two str with -n")
 stdin = "echo -n École 42"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - two pipes and infile")
+stdin = "cat < infile -e | tr . , | tr a-z A-Z"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - wrong command")
+stdin = "cat < infile -e | trERR . , | tr a-z A-Z"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - wrong command")
+stdin = "echo a | echo b | echo c"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - wrong command")
+stdin = "echo a | echoERR b | echo c"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - wrong command")
+stdin = "echo \'melvin ropical"
 stdin_list.append(stdin)
 returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 stdout_list.append(returned_instance.stdout)
@@ -137,5 +183,5 @@ for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list)
 	i = i + 1
 
 # Clean
-subprocess.run(f"rm outfile outfile_ref errfile errfile_ref mini_infile outfile_tmp", shell=True)
+subprocess.run(f"rm outfile outfile_ref errfile errfile_ref mini_infile outfile_tmp infile", shell=True)
 trash = subprocess.run(f"make fclean -C ../../", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
