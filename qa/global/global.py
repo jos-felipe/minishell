@@ -7,6 +7,20 @@
 
 import subprocess
 
+# Function to process the file content and modify it
+def process_and_modify_file(filename):
+    lines = []
+    with open(filename, 'r+') as file:
+        for line in file:
+            if 'prompt >' in line:
+                value = line.split("prompt >")
+                if value[0] != '':
+                    lines.append(value[0])
+            else:
+                lines.append(line)
+        # lines.pop()
+    return lines
+
 # Valgrind
 valgrind = "valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp -q --log-file=valgrind.log"
 
@@ -22,7 +36,7 @@ trash = subprocess.run(f"make -C ../../", stdout=subprocess.PIPE, stderr=subproc
 
 # Test description, Input Samples and Outputs references:
 
-test_description_list = [" - no opt and no str"]
+test_description_list = [" - one str"]
 stdin = "echo 42"
 stdin_list = [stdin]
 returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
@@ -30,29 +44,21 @@ stdout_list = [returned_instance.stdout]
 stderr_list = [returned_instance.stderr]
 returncode_list = [returned_instance.returncode]
 
-# test_description_list.append(" - one str")
-# stdin = "\'echo 42\'"
-# stdin_list.append(stdin)
-# returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-# stdout_list.append(returned_instance.stdout)
-# stderr_list.append(returned_instance.stderr)
-# returncode_list.append(returned_instance.returncode)
+test_description_list.append(" - two str")
+stdin = "echo École 42"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-# test_description_list.append(" - two str")
-# stdin = "\'echo École 42\'"
-# stdin_list.append(stdin)
-# returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-# stdout_list.append(returned_instance.stdout)
-# stderr_list.append(returned_instance.stderr)
-# returncode_list.append(returned_instance.returncode)
-
-# test_description_list.append(" - two str with -n")
-# stdin = "\'echo -n École 42\'"
-# stdin_list.append(stdin)
-# returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-# stdout_list.append(returned_instance.stdout)
-# stderr_list.append(returned_instance.stderr)
-# returncode_list.append(returned_instance.returncode)
+test_description_list.append(" - two str with -n")
+stdin = "echo -n École 42"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
 # Check for stdout, stderr and exit status
 i = 1
@@ -85,7 +91,10 @@ for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list)
 	errfile_ref.close()
 
 	# Clean outfile  for it to keep only the minishell output
-	subprocess.run(f"grep -v 'prompt' outfile_tmp > outfile", shell=True)
+	lines = process_and_modify_file('outfile_tmp')
+	outfile = open('outfile', 'w')
+	outfile.writelines(lines)
+	outfile.close()
 	
 	print(f"{colours[3]}{i}/{len(stdin_list)}{test_description_list[i-1]}{colours[0]}")
 
