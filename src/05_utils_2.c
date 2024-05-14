@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/15 18:50:12 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:36:39 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	mini_print_sintax_error_message(int state)
 {
 	if (state == 200)
-		ft_printf("error: quote was not closed properly\n");
+		ft_printf_fd(STDERR_FILENO, "minishell: syntax error: unterminated quoted string\n");
 	else if (state == 201)
-		ft_printf("bash: syntax error near unexpected token `|'\n");
+		ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token `|'\n");
 	else if (state == 202)
-		ft_printf("error: not a bonus project '||'\n");
+		ft_printf_fd(STDERR_FILENO, "minishell: syntax error: not a bonus project '||'\n");
 }
 
 void	mini_cut_string(t_mini *mini, t_dfa *dfa)
@@ -35,7 +35,7 @@ void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list)
 {
 	if (token_list->token[0] == '|')
 	{
-		ft_printf("bash: syntax error near unexpected token `|'\n");	
+		ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token `|'\n");	
 		mini->syntax_error = 1;
 		return;
 	}
@@ -43,7 +43,7 @@ void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list)
 	{
 		if (token_list->token[0] == '|' && token_list->next == NULL)
 		{
-			ft_printf("bash: syntax error near unexpected token `|'\n");
+			ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token `|'\n");
 			mini->syntax_error = 1;
 			return;
 		}
@@ -59,7 +59,7 @@ void	mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list)
 		{
 			if (token_list->next && token_list->next->gender == OPERATOR)
 			{
-				ft_printf("syntax error near unexpected token\n");
+				ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");
 				mini->syntax_error = 1;
 				return;
 			}
