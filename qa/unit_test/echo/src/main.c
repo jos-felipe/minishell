@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/13 17:41:56 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/15 10:43:56 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	unit_cmd_selection(t_token *token_lst, t_mini *mini)
 	if (!ft_strncmp(cmd, "export", 6))
 		mini->status = mini_export(arg, &mini->env_list);
 	else if (!ft_strncmp(cmd, "echo", 4))
-		unit_echo(arg);
+		mini->status = unit_echo(arg);
 }
 
 void	unit_cmd_router(t_mini *mini)
