@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/14 15:13:07 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:12:15 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,10 @@ void	mini_close_all_fd(t_mini *mini)
 			close(cmd_exec_node->input_fd);
 		if (cmd_exec_node->output_fd != 1)
 			close(cmd_exec_node->output_fd);
-		close(cmd_exec_node->read_pipe);
-		close(cmd_exec_node->write_pipe);
+		if (cmd_exec_node->read_pipe != -1)
+			close(cmd_exec_node->read_pipe);
+		if (cmd_exec_node->write_pipe != -1)
+			close(cmd_exec_node->write_pipe);
 		cmd_exec_node = cmd_exec_node->next;
 	}
 }
@@ -102,12 +104,16 @@ void	mini_close_node_fd(t_cmd *cmd_exec_node)
 {
 	close(cmd_exec_node->input_fd);
 	close(cmd_exec_node->output_fd);
-	close(cmd_exec_node->read_pipe);
-	close(cmd_exec_node->write_pipe);
+	if (cmd_exec_node->read_pipe != -1)
+		close(cmd_exec_node->read_pipe);
+	if (cmd_exec_node->write_pipe != -1)
+		close(cmd_exec_node->write_pipe);
 }
 
 void 	mini_close_pipe_node_fd(t_cmd *cmd_exec_node)
 {
-	close(cmd_exec_node->read_pipe);
-	close(cmd_exec_node->write_pipe);
+	if (cmd_exec_node->read_pipe != -1)
+		close(cmd_exec_node->read_pipe);
+	if (cmd_exec_node->write_pipe != -1)
+		close(cmd_exec_node->write_pipe);
 }
