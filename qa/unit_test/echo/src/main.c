@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/15 10:43:56 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/15 10:59:06 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ void	mini_init(t_mini *mini)
 }
 int		unit_echo(t_token *arg)
 {
+	int	new_line;
+
+	new_line = 1;
+	if (arg && arg->token)
+	{
+		if (!ft_strncmp(arg->token, "-n", ft_strlen(arg->token)))
+		{
+			new_line = 0;
+			arg = arg->next;
+		}
+	}
 	while (arg)
 	{
 		ft_printf("%s", arg->token);
@@ -44,7 +55,8 @@ int		unit_echo(t_token *arg)
 		if (arg)
 			ft_printf(" ");
 	}
-	ft_printf("\n");
+	if (new_line)
+		ft_printf("\n");
 	return (0);
 }
 
