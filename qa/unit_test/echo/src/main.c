@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/15 11:48:17 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:54:50 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,32 @@ void	mini_init(t_mini *mini)
 	mini->commands = NULL;
 	mini->syntax_error = 0;
 }
+int	unit_add_new_line(char *str)
+{
+	int i;
+
+	i = 1;
+	if (str[i] == '\0')
+		return (1);
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		unit_echo(t_token *arg)
 {
 	int	new_line;
-	int	len;
 
 	new_line = 1;
-	if (arg && arg->token)
+	if (arg && arg->token && arg->token[0] == '-')
 	{
-		len = ft_max(ft_strlen("-n"), ft_strlen(arg->token));
-		if (!ft_strncmp(arg->token, "-n", len))
-		{
-			new_line = 0;
+		new_line = unit_add_new_line(arg->token);
+		if (new_line == 0)
 			arg = arg->next;
-		}
 	}
 	while (arg)
 	{
