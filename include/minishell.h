@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/06 11:58:32 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:23:00 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,14 +206,6 @@ void	mini_handle_out_redir(t_cmd *cmd_node, char *file);
 void	mini_handle_in_redir(t_cmd *cmd_node, char *file);
 void	mini_handle_append_redir(t_cmd *cmd_node, char *file);
 
-// 08_builtin_export.c
-int	mini_export(t_token *arg, t_dict **env_list);
-
-// 08_util.c
-int	mini_env_identifier(char *str, t_dict **env_list, int start, int state);
-int	mini_env_get_next_state(int state, int column);
-int	mini_env_get_column(char c);
-
 // 08_utils_1.c
 t_cmd	*mini_redir_lstnew(void);
 void	mini_redir_lstadd_back(t_cmd **lst, t_cmd *new);
@@ -229,5 +221,17 @@ void	mini_match_cmd_exec_word(char *token, t_cmd *cmd_exec_node, int i);
 // 10_get_cmd_path.c
 void	mini_get_cmd_exec_path(t_mini *mini);
 char	*mini_get_cmd_path(t_cmd *cmd_exec_node);
+
+// 11_builtin_export.c
+int	mini_export(t_token *arg, t_dict **env_list);
+
+// 11_util.c
+int	mini_env_identifier(char *str, t_dict **env_list, int start, int state);
+int	mini_env_get_next_state(int state, int column);
+int	mini_env_get_column(char c);
+
+// 99_builtin_echo.c
+int		mini_echo(t_token *arg);
+int		mini_add_new_line(char *str);
 
 #endif
