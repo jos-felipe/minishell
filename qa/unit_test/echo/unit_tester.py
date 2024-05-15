@@ -7,6 +7,22 @@ unit = 'echo'
 
 import subprocess
 
+class CommandRunner:
+	def __init__(self):
+		self.test_description_list = []
+		self.stdin_list = []
+		self.stdout_list = []
+		self.stderr_list = []
+		self.returncode_list = []
+
+	def run_command_with_input(self, test_description, command, input_string):
+		self.test_description_list.append(test_description)
+		self.stdin_list.append(input_string)
+		returned_instance = subprocess.run(command, input=input_string, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+		self.stdout_list.append(returned_instance.stdout)
+		self.stderr_list.append(returned_instance.stderr)
+		self.returncode_list.append(returned_instance.returncode)
+
 # Valgrind
 valgrind = "valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp -q --log-file=valgrind.log"
 
@@ -48,6 +64,29 @@ returncode_list.append(returned_instance.returncode)
 
 test_description_list.append(" - opt -n and two str")
 stdin = "\'echo -n École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+# Encapusalate the test definition in a class/function
+# command_runner = CommandRunner()
+
+# 	command = "bash -c"
+# 	stdin = "\'echo -n École 42\'"
+# 	command_runner.run_command_with_input(command, stdin)
+
+test_description_list.append(" - two str and opt -n")
+stdin = "\'echo École 42 -n\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - opt - and two str")
+stdin = "\'echo - École 42\'"
 stdin_list.append(stdin)
 returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 stdout_list.append(returned_instance.stdout)
