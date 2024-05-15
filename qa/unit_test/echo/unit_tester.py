@@ -93,6 +93,38 @@ stdout_list.append(returned_instance.stdout)
 stderr_list.append(returned_instance.stderr)
 returncode_list.append(returned_instance.returncode)
 
+test_description_list.append(" - opt -nn and two str")
+stdin = "\'echo -nn École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - opt -nnm and two str")
+stdin = "\'echo -nnm École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - opt -nmn and two str")
+stdin = "\'echo -nmn École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - str, opt -n and str")
+stdin = "\'echo École -n 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
 # Check for stdout, stderr and exit status
 i = 1
 for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list):

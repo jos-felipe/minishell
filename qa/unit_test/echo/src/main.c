@@ -6,11 +6,12 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/15 10:59:06 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:48:17 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include "../include/dictionary.h"
 
 void	unit_print_array_list(t_mini *mini)
 {
@@ -38,11 +39,13 @@ void	mini_init(t_mini *mini)
 int		unit_echo(t_token *arg)
 {
 	int	new_line;
+	int	len;
 
 	new_line = 1;
 	if (arg && arg->token)
 	{
-		if (!ft_strncmp(arg->token, "-n", ft_strlen(arg->token)))
+		len = ft_max(ft_strlen("-n"), ft_strlen(arg->token));
+		if (!ft_strncmp(arg->token, "-n", len))
 		{
 			new_line = 0;
 			arg = arg->next;
