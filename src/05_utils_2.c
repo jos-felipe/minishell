@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/16 19:26:05 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:45:13 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list)
 	{
 		ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");	
 		mini->syntax_error = 1;
+		mini->status = 2; 
 		return;
 	}
 	while (token_list)
@@ -45,6 +46,7 @@ void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list)
 		{
 			ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");
 			mini->syntax_error = 1;
+			mini->status = 2; 
 			return;
 		}
 		token_list = token_list->next;
@@ -61,6 +63,7 @@ void	mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list)
 			{
 				ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");
 				mini->syntax_error = 1;
+				mini->status = 2; 
 				return;
 			}
 		}

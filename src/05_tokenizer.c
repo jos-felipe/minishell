@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/17 10:09:50 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:42:29 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	mini_automaton(t_mini *mini, t_dfa *dfa)
 			mini_syntonize_index(dfa);
 			if (mini_is_error_state(dfa->state))
 			{
-				mini_print_sintax_error_message(dfa->state); 
+				mini_print_sintax_error_message(dfa->state);
+				mini->status = 2; 
 				mini->syntax_error = 1;
 				break;
 			}

@@ -17,7 +17,7 @@ colours = [GREEN, RED, COLOR_LIMITER]
 # Preparing environment.
 trash = subprocess.run(f"make -C {name}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 subprocess.run("touch executable", shell=True)
-subprocess.run("chmod +x executable", shell=True)
+subprocess.run("chmod -x executable", shell=True)
 subprocess.run("mkdir directory", shell=True)
 
 # Input Samples:
