@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/09 16:58:55 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:43:25 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,11 +236,16 @@ void	mini_close_all_fd(t_mini *mini);
 void	mini_close_node_fd(t_cmd *cmd_exec_node);
 void 	mini_close_pipe_node_fd(t_cmd *cmd_exec_node);
 
-// 99_builtin_export.c
+// 98_builtin_export.c
 int	mini_export(t_token *arg, t_dict **env_list);
 
-// 99_util.c
+// 98_utils_1.c
 int	mini_env_identifier(char *str, t_dict **env_list, int start, int state);
 int	mini_env_get_next_state(int state, int column);
 int	mini_env_get_column(char c);
+
+// 99_builtin_echo.c
+int		mini_echo(t_token *arg);
+int		mini_add_new_line(char *str);
+
 #endif

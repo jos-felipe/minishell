@@ -6,11 +6,12 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/02 18:49:35 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:25:50 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include "../include/dictionary.h"
 
 void	unit_print_array_list(t_mini *mini)
 {
@@ -35,15 +36,6 @@ void	mini_init(t_mini *mini)
 	mini->commands = NULL;
 	mini->syntax_error = 0;
 }
-int		unit_echo(t_token *arg)
-{
-	while (arg)
-	{
-		ft_printf("%s ", arg->token);
-		arg = arg->next;
-	}
-	return (0);
-}
 
 void	unit_cmd_selection(t_token *token_lst, t_mini *mini)
 {
@@ -55,7 +47,7 @@ void	unit_cmd_selection(t_token *token_lst, t_mini *mini)
 	if (!ft_strncmp(cmd, "export", 6))
 		mini->status = mini_export(arg, &mini->env_list);
 	else if (!ft_strncmp(cmd, "echo", 4))
-		unit_echo(arg);
+		mini->status = mini_echo(arg);
 }
 
 void	unit_cmd_router(t_mini *mini)
