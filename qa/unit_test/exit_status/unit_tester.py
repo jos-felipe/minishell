@@ -26,7 +26,7 @@ subprocess.run("mkdir directory", shell=True)
 input_data_list = ["\'echo a | grep -B\'"]
 output_data_list = [f'2\n']
 
-input_data_list.append("\'echo a | | echo b\'")
+input_data_list.append("\'|\'")
 output_data_list.append(f'2\n')
 
 # return status = 126: permission denied; is a directory
@@ -68,5 +68,5 @@ for input_data, output_ref in zip(input_data_list, output_data_list):
 		print(f"{colours[1]}	MKO  {colours[2]}")
 	i = i + 1
 
-trash = subprocess.run(f"rm -f executable directory", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run(f"rm -rf executable directory", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 trash = subprocess.run(f"make fclean -C {name}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)

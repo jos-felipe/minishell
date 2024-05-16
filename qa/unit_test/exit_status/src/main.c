@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/08 17:25:40 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:51:20 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	mini_init(t_mini *pipex)
 	pipex->syntax_error = 0;
 }
 
+void	unit_print_exit_status(t_mini *mini)
+{
+	printf("%i\n", mini->status);	
+}
+
 int main(int argc, char *argv[], char *envp[])
 {
 	t_mini	mini;
@@ -38,6 +43,8 @@ int main(int argc, char *argv[], char *envp[])
 	mini_expansion(&mini);
 	mini_redirect(&mini);
 	mini_execute(&mini);
+
+	unit_print_exit_status(&mini);
 	
 	ft_free_trashman(ft_get_mem_address());
 	return (0);

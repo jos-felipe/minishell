@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/15 16:12:15 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:27:11 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 void	mini_execve(t_mini *mini)
 {
 	t_cmd	*cmd_exec_node;
-	int		pid;
 	
 	cmd_exec_node = mini->cmd_exec_list;
 	while (cmd_exec_node)
 	{
-		pid = fork();
-		if (pid == 0)
+		cmd_exec_node->pid = fork();
+		if (cmd_exec_node->pid == 0)
 			mini_execve_child(cmd_exec_node);
 		mini_close_pipe_node_fd(cmd_exec_node);
 		cmd_exec_node = cmd_exec_node->next;
 	}
-	waitpid(pid, &mini->status, 0);
 	mini_close_all_fd(mini);
+	mini_wait_childs(mini);
+	// waitpid(pid, &mini->status, 0);
 }
 
 void	mini_execve_child(t_cmd *cmd_exec_node)
@@ -42,7 +42,7 @@ void	mini_execve_child(t_cmd *cmd_exec_node)
         	perror(NULL);
 		ft_free_trashman(ft_get_mem_address());
 		mini_close_node_fd(cmd_exec_node);
-        exit(1);
+        exit(127);
 	}
 }
 
@@ -116,4 +116,20 @@ void 	mini_close_pipe_node_fd(t_cmd *cmd_exec_node)
 		close(cmd_exec_node->read_pipe);
 	if (cmd_exec_node->write_pipe != -1)
 		close(cmd_exec_node->write_pipe);
+}
+
+void   mini_wait_childs(t_mini *mini)
+{
+    int     status;
+    t_cmd	*cmd_exec_node;
+
+    status = 0;
+	cmd_exec_node = mini->cmd_exec_list;
+    while (cmd_exec_node)
+    {
+        waitpid(cmd_exec_node->pid, &status, 0);
+        cmd_exec_node = cmd_exec_node->next;
+    }
+    if (WIFEXITED(status))
+        mini->status = WEXITSTATUS(status);
 }
