@@ -45,12 +45,15 @@ output_data_list.append(f'<<;echo;')
 output_data_list.append(f'cat;-n;infile;|;grep;pattern;')
 output_data_list.append(f"echo;Mephis e Fausto;")
 output_data_list.append(f'echo;Mephis e Fausto;')
-output_data_list.append(f"bash: syntax error near unexpected token `|'\n")
+output_data_list.append(["E", f"minishell: syntax error near unexpected token\n"])
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
 	output = subprocess.run(f"{valgrind} ./tokenizer/tokenizer {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile_content = output.stdout
+	if output_ref[0] == "E":
+		outfile_content = output.stderr
+		output_ref = output_ref[1]
 	if outfile_content == output_ref:
 		print(f"{colours[0]}{i}/{len(input_data_list)}.	OK  {colours[2]}")
 	else:
