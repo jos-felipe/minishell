@@ -59,6 +59,7 @@ args = ""
 command_runner.run_command_with_input(test_description, args)
 
 command_runner.run_command_with_input("invalid identifier", '???dfsafa')
+command_runner.run_command_with_input("valid identifier", 'SHLVL')
 
 
 # Legacy
@@ -70,7 +71,7 @@ returncode_list = command_runner.returncode_list
 
 # Check for stdout, stderr and exit status
 i = 1
-for input_data, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
+for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	# Open files
 	outfile = open(f"{unit}/outfile", "w")
 	outfile_ref = open(f"{unit}/outfile_ref", "w")
@@ -78,7 +79,7 @@ for input_data, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	errfile_ref = open(f"{unit}/errfile_ref", "w")
 	
 	# Run the unit
-	cmd_line = f"./{unit}/unit.tester \'{builtin} {args}\' \'echo ${args}\'"
+	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\' \'echo ${arg}\'"
 	output = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile.write(f"{output.stdout}\n")
 	outfile_ref.write(f"{output_ref}\n")
@@ -122,7 +123,8 @@ for input_data, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 		print(f"{colours[2]}	OK - exit status{colours[0]}")
 	
 	# Check for leaks
-	subprocess.run(f"{valgrind} ./{unit}/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	cmd_line = f"{valgrind} ./{unit}/unit.tester \'{builtin} {arg}\'"
+	subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	valgrind_status = subprocess.run(f"./valgrind.sh", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	if (valgrind_status.stdout == '0\n'):
 		print(f"{colours[2]}	MOK{colours[0]}")
