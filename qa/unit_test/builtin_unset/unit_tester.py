@@ -16,10 +16,12 @@ class CommandRunner:
 		self.stderr_list = []
 		self.returncode_list = []
 
-	def run_command_with_input(self, test_description, command, args):
+	def run_command_with_input(self, test_description, args):
 		self.test_description_list.append(test_description)
 		self.args_list.append(args)
-		cmd_line = f"{command} {args}"
+		# cmd_line = f"{command} {args}"
+		cmd_line = f"bash -c unset {args}; echo ${args}"
+		print(f"cmd_line: {cmd_line}")
 		returned_instance = subprocess.run(cmd_line, input=args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
 		self.stderr_list.append(returned_instance.stderr)
@@ -43,9 +45,8 @@ trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subproc
 command_runner = CommandRunner()
 
 test_description = " - no name"
-command = "bash -c"
-args = "\'unset\'"
-command_runner.run_command_with_input(test_description, command, args)
+args = "\'\'"
+command_runner.run_command_with_input(test_description, args)
 
 # Legacy
 test_description_list = command_runner.test_description_list
