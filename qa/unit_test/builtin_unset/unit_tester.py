@@ -1,24 +1,26 @@
 #!/usr/bin/env python3
 
 # Unit name - the same as the directory name
-unit = 'echo'
+unit = 'builtin_unset'
 
-# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bash-Builtins.html#index-echo
+# Design reference
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-unset
 
 import subprocess
 
 class CommandRunner:
 	def __init__(self):
 		self.test_description_list = []
-		self.stdin_list = []
+		self.args_list = []
 		self.stdout_list = []
 		self.stderr_list = []
 		self.returncode_list = []
 
-	def run_command_with_input(self, test_description, command, input_string):
+	def run_command_with_input(self, test_description, command, args):
 		self.test_description_list.append(test_description)
-		self.stdin_list.append(input_string)
-		returned_instance = subprocess.run(command, input=input_string, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+		self.args_list.append(args)
+		cmd_line = f"{command} {args}"
+		returned_instance = subprocess.run(cmd_line, input=args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
 		self.stderr_list.append(returned_instance.stderr)
 		self.returncode_list.append(returned_instance.returncode)
@@ -38,96 +40,23 @@ trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subproc
 
 # Test description, Input Samples and Outputs references:
 
-test_description_list = [" - no opt and no str"]
-stdin = "\'echo\'"
-stdin_list = [stdin]
-returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list = [returned_instance.stdout]
-stderr_list = [returned_instance.stderr]
-returncode_list = [returned_instance.returncode]
+command_runner = CommandRunner()
 
-test_description_list.append(" - one str")
-stdin = "\'echo 42\'"
-stdin_list.append(stdin)
-returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list.append(returned_instance.stdout)
-stderr_list.append(returned_instance.stderr)
-returncode_list.append(returned_instance.returncode)
+test_description = " - no name"
+command = "bash -c"
+args = "\'unset\'"
+command_runner.run_command_with_input(test_description, command, args)
 
-test_description_list.append(" - two str")
-stdin = "\'echo École 42\'"
-stdin_list.append(stdin)
-returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list.append(returned_instance.stdout)
-stderr_list.append(returned_instance.stderr)
-returncode_list.append(returned_instance.returncode)
-
-test_description_list.append(" - opt -n and two str")
-stdin = "\'echo -n École 42\'"
-stdin_list.append(stdin)
-returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list.append(returned_instance.stdout)
-stderr_list.append(returned_instance.stderr)
-returncode_list.append(returned_instance.returncode)
-
-# Encapusalate the test definition in a class/function
-# command_runner = CommandRunner()
-
-# 	command = "bash -c"
-# 	stdin = "\'echo -n École 42\'"
-# 	command_runner.run_command_with_input(command, stdin)
-
-test_description_list.append(" - two str and opt -n")
-stdin = "\'echo École 42 -n\'"
-stdin_list.append(stdin)
-returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list.append(returned_instance.stdout)
-stderr_list.append(returned_instance.stderr)
-returncode_list.append(returned_instance.returncode)
-
-test_description_list.append(" - opt - and two str")
-stdin = "\'echo - École 42\'"
-stdin_list.append(stdin)
-returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list.append(returned_instance.stdout)
-stderr_list.append(returned_instance.stderr)
-returncode_list.append(returned_instance.returncode)
-
-test_description_list.append(" - opt -nn and two str")
-stdin = "\'echo -nn École 42\'"
-stdin_list.append(stdin)
-returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list.append(returned_instance.stdout)
-stderr_list.append(returned_instance.stderr)
-returncode_list.append(returned_instance.returncode)
-
-test_description_list.append(" - opt -nnm and two str")
-stdin = "\'echo -nnm École 42\'"
-stdin_list.append(stdin)
-returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list.append(returned_instance.stdout)
-stderr_list.append(returned_instance.stderr)
-returncode_list.append(returned_instance.returncode)
-
-test_description_list.append(" - opt -nmn and two str")
-stdin = "\'echo -nmn École 42\'"
-stdin_list.append(stdin)
-returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list.append(returned_instance.stdout)
-stderr_list.append(returned_instance.stderr)
-returncode_list.append(returned_instance.returncode)
-
-test_description_list.append(" - str, opt -n and str")
-stdin = "\'echo École -n 42\'"
-stdin_list.append(stdin)
-returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-stdout_list.append(returned_instance.stdout)
-stderr_list.append(returned_instance.stderr)
-returncode_list.append(returned_instance.returncode)
+# Legacy
+test_description_list = command_runner.test_description_list
+args_list = command_runner.args_list
+stdout_list = command_runner.stdout_list
+stderr_list = command_runner.stderr_list
+returncode_list = command_runner.returncode_list
 
 # Check for stdout, stderr and exit status
 i = 1
-for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list):
+for input_data, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	# Open files
 	outfile = open(f"{unit}/outfile", "w")
 	outfile_ref = open(f"{unit}/outfile_ref", "w")
@@ -148,7 +77,7 @@ for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list)
 	errfile_ref.close()
 	
 	
-	print(f"{colours[3]}{i}/{len(stdin_list)}{test_description_list[i-1]}{colours[0]}")
+	print(f"{colours[3]}{i}/{len(args_list)}{test_description_list[i-1]}{colours[0]}")
 
 	# Check for stdout
 	diff_returned = subprocess.run(f"diff {unit}/outfile_ref {unit}/outfile", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
