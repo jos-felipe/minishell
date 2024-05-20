@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/20 13:12:42 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:48:04 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node)
 	execve(cmd_exec_node->cmd_path, cmd_exec_node->cmd_exec, NULL);
 	command_not_found_handler(mini, cmd_exec_node);
 	ft_free_trashman(ft_get_mem_address());
-	mini_close_node_fd(cmd_exec_node);
+	// mini_close_node_fd(cmd_exec_node);
     exit(mini->status);
 }
 
