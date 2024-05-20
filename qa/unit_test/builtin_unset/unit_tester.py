@@ -22,8 +22,11 @@ class CommandRunner:
 		self.args_list.append(args)
 		cmd_line = f"bash -c {builtin} {args}; echo ${args}"
 		# print(f"cmd_line: {cmd_line}")
-		returned_instance = subprocess.run(cmd_line, input=args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
+		cmd_line = f"bash -c {builtin} {args}"
+		print(f"cmd_line: {cmd_line}")
+		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stderr_list.append(returned_instance.stderr)
 		self.returncode_list.append(returned_instance.returncode)
 
