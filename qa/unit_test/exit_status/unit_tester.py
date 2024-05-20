@@ -19,6 +19,8 @@ trash = subprocess.run(f"make -C {name}", shell=True, stdout=subprocess.PIPE, st
 subprocess.run("touch executable", shell=True)
 subprocess.run("chmod -x executable", shell=True)
 subprocess.run("mkdir directory", shell=True)
+subprocess.run("cp /usr/bin/ls .", shell=True)
+subprocess.run("chmod -x ls", shell=True)
 
 # Input Samples:
 
@@ -34,6 +36,9 @@ input_data_list.append("\'./executable\'")
 output_data_list.append(f'126\n')
 
 input_data_list.append("\'./directory\'")
+output_data_list.append(f'126\n')
+
+input_data_list.append("\'./ls\'")
 output_data_list.append(f'126\n')
 
 # return status = 127: command not found; no such file or directory
@@ -68,5 +73,5 @@ for input_data, output_ref in zip(input_data_list, output_data_list):
 		print(f"{colours[1]}	MKO  {colours[2]}")
 	i = i + 1
 
-trash = subprocess.run(f"rm -rf executable directory", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run(f"rm -rf executable directory ls", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 trash = subprocess.run(f"make fclean -C {name}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)

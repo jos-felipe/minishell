@@ -6,11 +6,12 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:27:24 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/07 10:23:26 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:29:21 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include "../include/mini_get_cmd_path.h"
 
 void	mini_get_cmd_exec_path(t_mini *mini)
 {
@@ -27,29 +28,28 @@ void	mini_get_cmd_exec_path(t_mini *mini)
 
 char	*mini_get_cmd_path(t_cmd *cmd_exec_node)
 {
-	char	*cmd_name;
-	char	*path;
-	char	*part_path;
-	char	**splited_path;
-	int		i;
+	t_get_cmd_path tmp_struct;
+	int i;
 
-	cmd_name = cmd_exec_node->cmd_exec[0];
-	path = getenv("PATH");
-	splited_path = ft_split(path, ':');
+	tmp_struct.cmd_name = cmd_exec_node->cmd_exec[0];
+	if (tmp_struct.cmd_name[0] == '.' && tmp_struct.cmd_name[1] == '/')
+		return (tmp_struct.cmd_name);
+	tmp_struct.path = getenv("PATH");
+	tmp_struct.splited_path = ft_split(tmp_struct.path, ':');
 	i = 0;
-	while (splited_path[i])
+	while (tmp_struct.splited_path[i])
 	{
-		part_path = ft_strjoin(splited_path[i], "/");
-		path = ft_strjoin(part_path, cmd_name);
-		ft_collect_mem(path);
-		free(part_path);
-		if (access(path, F_OK) == 0)
+		tmp_struct.part_path = ft_strjoin(tmp_struct.splited_path[i], "/");
+		tmp_struct.path = ft_strjoin(tmp_struct.part_path, tmp_struct.cmd_name);
+		ft_collect_mem(tmp_struct.path);
+		free(tmp_struct.part_path);
+		if (access(tmp_struct.path, F_OK) == 0)
 		{
-			mini_free_split(splited_path);
-			return (path);
+			mini_free_split(tmp_struct.splited_path);
+			return (tmp_struct.path);
 		}
 		i++;
 	}
-	mini_free_split(splited_path);
-	return (cmd_name);
+	mini_free_split(tmp_struct.splited_path);
+	return (tmp_struct.cmd_name);
 }
