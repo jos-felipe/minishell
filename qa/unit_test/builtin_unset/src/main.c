@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/20 11:58:46 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:35:28 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ void	unit_cmd_selection(t_token *token_lst, t_mini *mini)
 	else if (!ft_strncmp(cmd, "echo", 4))
 		mini_echo(arg);
 	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
-		// mini->status = ft_printf("hello world!");
-		mini->status = 3;
+		mini->status = mini_unset(arg);
 }
 
 void	unit_cmd_router(t_mini *mini)
