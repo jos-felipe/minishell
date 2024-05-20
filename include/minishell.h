@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/20 13:11:55 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:53:06 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void	mini_print_sintax_error_message(int state);
 void	mini_cut_string(t_mini *mini, t_dfa *dfa);
 void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list);
 void	mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list);
+void	mini_check_pipe_space_pipe_sintax(t_mini *mini, t_token *token_list);
 
 // 05_utils_3.c
 t_token	*mini_token_lstnew(void *token, int state);

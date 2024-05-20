@@ -26,6 +26,7 @@ input_data_list.append("\"|\"")
 input_data_list.append("\"  |  \"")
 
 # Consecutives operators errors
+input_data_list.append("\"echo a | | echo b\"")
 input_data_list.append("\"echo melvin | > outfile\"")
 input_data_list.append("\"echo melvin >>> outfile\"")
 input_data_list.append("\"echo melvin > | cat\"")
@@ -41,6 +42,7 @@ input_data_list.append("\"echo melvin > <<< melvin\"")
 # Outputs references:
 output_data_list = [[f'', "C"]]
 output_data_list.append([f'', "C"])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
 output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
 output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
 output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
