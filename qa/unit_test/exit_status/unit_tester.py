@@ -41,7 +41,7 @@ input_data_list.append("\'echo a | echo b | echoERR c\'")
 output_data_list.append(f'127\n')
 
 input_data_list.append("\'echo a | echoERR b | echo c\'")
-output_data_list.append(f'0\n')
+output_data_list.append(f'c\n0\n')
 
 input_data_list.append("\'echoERR a\'")
 output_data_list.append(f'127\n')
