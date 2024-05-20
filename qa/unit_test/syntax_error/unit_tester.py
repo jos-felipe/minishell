@@ -26,6 +26,7 @@ input_data_list.append("\"|\"")
 input_data_list.append("\"  |  \"")
 
 # Consecutives operators errors
+input_data_list.append("\"echo a | | echo b\"")
 input_data_list.append("\"echo melvin | > outfile\"")
 input_data_list.append("\"echo melvin >>> outfile\"")
 input_data_list.append("\"echo melvin > | cat\"")
@@ -39,32 +40,38 @@ input_data_list.append("\"echo melvin > << melvin\"")
 input_data_list.append("\"echo melvin > <<< melvin\"")
 
 # Outputs references:
-output_data_list = [f'']
-output_data_list.append(f'')
-output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
-output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
-output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
-output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
-output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
-output_data_list.append(f'bash: syntax error near unexpected token `|\'\n')
+output_data_list = [[f'', "C"]]
+output_data_list.append([f'', "C"])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
 
-output_data_list.append(f'')
-output_data_list.append(f'syntax error near unexpected token\n')
-output_data_list.append(f'syntax error near unexpected token\n')
-output_data_list.append(f'syntax error near unexpected token\n')
-output_data_list.append(f'syntax error near unexpected token\n')
-output_data_list.append(f'syntax error near unexpected token\n')
-output_data_list.append(f'syntax error near unexpected token\n')
-output_data_list.append(f'syntax error near unexpected token\n')
-output_data_list.append(f'syntax error near unexpected token\n')
-output_data_list.append(f'syntax error near unexpected token\n')
-output_data_list.append(f'syntax error near unexpected token\n')
+output_data_list.append([f'', "C"])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
+output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'])
 
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
 	output = subprocess.run(f"{valgrind} ./syntax_error/syntax_error {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile_content = output.stdout
+	if output_ref[0] == "E":
+		outfile_content = output.stderr
+		output_ref = output_ref[1]
+	else:
+		output_ref = output_ref[0]
 	if outfile_content == output_ref:
 		print(f"{colours[0]}{i}/{len(input_data_list)}.	OK  {colours[2]}")
 	else:

@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/17 10:09:50 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:50:10 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	mini_tokenizer(t_mini *mini)
 			mini_check_pipe_sintax(mini, mini->token_list);
 		if (!mini->syntax_error)
 			mini_check_consecutive_op_sintax(mini, mini->token_list);
+		if (!mini->syntax_error)
+			mini_check_pipe_space_pipe_sintax(mini, mini->token_list);
 	}
 }
 
@@ -52,7 +54,8 @@ void	mini_automaton(t_mini *mini, t_dfa *dfa)
 			mini_syntonize_index(dfa);
 			if (mini_is_error_state(dfa->state))
 			{
-				mini_print_sintax_error_message(dfa->state); 
+				mini_print_sintax_error_message(dfa->state);
+				mini->status = 2; 
 				mini->syntax_error = 1;
 				break;
 			}

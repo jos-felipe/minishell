@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/16 18:43:25 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:04:16 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_cmd
 	int				nbr_of_words;
 	char			**cmd_exec;
 	char			*cmd_path;
+	int				pid;
 	struct s_cmd 	*next;
 }		t_cmd;
 
@@ -154,6 +155,7 @@ void	mini_print_sintax_error_message(int state);
 void	mini_cut_string(t_mini *mini, t_dfa *dfa);
 void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list);
 void	mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list);
+void	mini_check_pipe_space_pipe_sintax(t_mini *mini, t_token *token_list);
 
 // 05_utils_3.c
 t_token	*mini_token_lstnew(void *token, int state);
@@ -229,12 +231,15 @@ void	mini_open_pipes(t_mini *mini);
 
 // 12_mini_execve.c
 void	mini_execve(t_mini *mini);
-void	mini_execve_child(t_cmd *cmd_exec_node);
+void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node);
 void	mini_manage_execve_fd(t_cmd *cmd_exec_node);
 void	mini_exit_if_fd_neg(t_cmd *cmd_exec_node);
 void	mini_close_all_fd(t_mini *mini);
 void	mini_close_node_fd(t_cmd *cmd_exec_node);
 void 	mini_close_pipe_node_fd(t_cmd *cmd_exec_node);
+void   	mini_wait_childs(t_mini *mini);
+void	command_not_found_handler(t_mini *mini, t_cmd *cmd_exec_node);
+void	get_captalized_errors(t_mini *mini, t_cmd *cmd_exec_node);
 
 // 98_builtin_export.c
 int	mini_export(t_token *arg, t_dict **env_list);

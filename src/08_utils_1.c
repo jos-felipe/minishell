@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:30:59 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/08 12:01:20 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:42:49 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_cmd	*mini_redir_lstnew(void)
 	new_node->cmd_exec = NULL;
 	new_node->cmd_path = NULL;
 	new_node->next = NULL;
+	new_node->pid = -1;
 	ft_collect_mem(new_node);
 	return (new_node);
 }
