@@ -20,15 +20,22 @@ class CommandRunner:
 	def run_command_with_input(self, test_description, args):
 		self.test_description_list.append(test_description)
 		self.args_list.append(args)
-		cmd_line = f"bash -c {builtin} {args}; echo ${args}"
-		# print(f"cmd_line: {cmd_line}")
+		
+		# Get the stdout
+		cmd_line = f"bash -c \'{builtin} {args}; echo ${args}\'"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
-		cmd_line = f"bash -c {builtin} {args}"
-		print(f"cmd_line: {cmd_line}")
+		
+		# Get the stderr
+		cmd_line = f"bash -c \'{builtin} {args}\'"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stderr_list.append(returned_instance.stderr)
-		self.returncode_list.append(returned_instance.returncode)
+		
+		# Get the return code
+		cmd_line = f"bash -c \'{builtin} {args}; echo $?\'"
+		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+		returncode = int(returned_instance.stdout)
+		self.returncode_list.append(returncode)
 
 # Valgrind
 valgrind = "valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp -q --log-file=valgrind.log"
@@ -47,9 +54,12 @@ trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subproc
 
 command_runner = CommandRunner()
 
-test_description = " - no name"
+test_description = "no name"
 args = ""
 command_runner.run_command_with_input(test_description, args)
+
+command_runner.run_command_with_input("invalid identifier", '???dfsafa')
+
 
 # Legacy
 test_description_list = command_runner.test_description_list
@@ -69,7 +79,6 @@ for input_data, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	
 	# Run the unit
 	cmd_line = f"./{unit}/unit.tester \'{builtin} {args}\' \'echo ${args}\'"
-	print(f"cmd_line: {cmd_line}")
 	output = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile.write(f"{output.stdout}\n")
 	outfile_ref.write(f"{output_ref}\n")
@@ -83,7 +92,7 @@ for input_data, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	errfile_ref.close()
 	
 	
-	print(f"{colours[3]}{i}/{len(args_list)}{test_description_list[i-1]}{colours[0]}")
+	print(f"{colours[3]}{i}/{len(args_list)} - {test_description_list[i-1]}{colours[0]}")
 
 	# Check for stdout
 	diff_returned = subprocess.run(f"diff {unit}/outfile_ref {unit}/outfile", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
