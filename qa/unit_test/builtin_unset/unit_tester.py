@@ -2,6 +2,7 @@
 
 # Unit name - the same as the directory name
 unit = 'builtin_unset'
+builtin = 'unset'
 
 # Design reference
 # https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-unset
@@ -19,9 +20,8 @@ class CommandRunner:
 	def run_command_with_input(self, test_description, args):
 		self.test_description_list.append(test_description)
 		self.args_list.append(args)
-		# cmd_line = f"{command} {args}"
-		cmd_line = f"bash -c unset {args}; echo ${args}"
-		print(f"cmd_line: {cmd_line}")
+		cmd_line = f"bash -c {builtin} {args}; echo ${args}"
+		# print(f"cmd_line: {cmd_line}")
 		returned_instance = subprocess.run(cmd_line, input=args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
 		self.stderr_list.append(returned_instance.stderr)
@@ -45,7 +45,7 @@ trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subproc
 command_runner = CommandRunner()
 
 test_description = " - no name"
-args = "\'\'"
+args = ""
 command_runner.run_command_with_input(test_description, args)
 
 # Legacy
@@ -65,7 +65,9 @@ for input_data, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	errfile_ref = open(f"{unit}/errfile_ref", "w")
 	
 	# Run the unit
-	output = subprocess.run(f"./{unit}/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	cmd_line = f"./{unit}/unit.tester \'{builtin} {args}\' \'echo ${args}\'"
+	print(f"cmd_line: {cmd_line}")
+	output = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile.write(f"{output.stdout}\n")
 	outfile_ref.write(f"{output_ref}\n")
 	errfile.write(f"{output.stderr}\n")
