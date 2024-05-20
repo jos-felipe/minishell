@@ -1,16 +1,27 @@
 #!/usr/bin/env python3
 
+# Unit name - the same as the directory name
+unit = 'echo'
+
 # https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bash-Builtins.html#index-echo
 
 import subprocess
-import difflib
 
-def string_difference(s1, s2):
-	differ = difflib.Differ()
-	diff = differ.compare(s1.splitlines(), s2.splitlines())
-	for line in diff:
-		if line.startswith('+') or line.startswith('-'):
-			print(line)
+class CommandRunner:
+	def __init__(self):
+		self.test_description_list = []
+		self.stdin_list = []
+		self.stdout_list = []
+		self.stderr_list = []
+		self.returncode_list = []
+
+	def run_command_with_input(self, test_description, command, input_string):
+		self.test_description_list.append(test_description)
+		self.stdin_list.append(input_string)
+		returned_instance = subprocess.run(command, input=input_string, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+		self.stdout_list.append(returned_instance.stdout)
+		self.stderr_list.append(returned_instance.stderr)
+		self.returncode_list.append(returned_instance.returncode)
 
 # Valgrind
 valgrind = "valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=readline.supp -q --log-file=valgrind.log"
@@ -23,144 +34,159 @@ CYAN = "\033[36;1;3;208m"
 YELLOW = "\033[33;1m"
 colours = [COLOR_LIMITER, RED, GREEN, CYAN, YELLOW]
 
-trash = subprocess.run("make -C echo", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 # Test description, Input Samples and Outputs references:
 
-#1
-test_description_list = [" - null value"]
-input_data_list = ["\'export var\' \'echo $var\'"]
-output_data_list = [f' ']
-err_data_list = [f'']
-exit_status_list = [0]
+test_description_list = [" - no opt and no str"]
+stdin = "\'echo\'"
+stdin_list = [stdin]
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list = [returned_instance.stdout]
+stderr_list = [returned_instance.stderr]
+returncode_list = [returned_instance.returncode]
 
-#2
-test_description_list.append(" - single word")
-input_data_list.append("\'export var=jojo\' \'echo $var\'")
-output_data_list.append(f'jojo ')
-err_data_list.append(f'')
-exit_status_list.append(0)
+test_description_list.append(" - one str")
+stdin = "\'echo 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - multiple words")
-input_data_list.append("\'export var=jojo kaka\' \'echo $var\'")
-output_data_list.append(f'jojo ')
-err_data_list.append(f'')
-exit_status_list.append(0)
+test_description_list.append(" - two str")
+stdin = "\'echo École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - null value variant")
-input_data_list.append("\'export var=\' \'echo $var\'")
-output_data_list.append(f' ')
-err_data_list.append(f'')
-exit_status_list.append(0)
+test_description_list.append(" - opt -n and two str")
+stdin = "\'echo -n École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - invalid identifier with value")
-input_data_list.append("\'export =jojo\'")
-output_data_list.append(f'')
-err_data_list.append(f'export: not a valid identifier\n')
-exit_status_list.append(1)
+# Encapusalate the test definition in a class/function
+# command_runner = CommandRunner()
 
-test_description_list.append(" - invalid identifier without value")
-input_data_list.append("\'export =\'")
-output_data_list.append(f'')
-err_data_list.append(f'export: not a valid identifier\n')
-exit_status_list.append(1)
+# 	command = "bash -c"
+# 	stdin = "\'echo -n École 42\'"
+# 	command_runner.run_command_with_input(command, stdin)
 
-test_description_list.append(" - multiple variables")
-input_data_list.append("\'export var1=kaka var2=jojo\' \'echo $var1 $var2\'")
-output_data_list.append(f'kaka jojo ')
-err_data_list.append(f'')
-exit_status_list.append(0)
+test_description_list.append(" - two str and opt -n")
+stdin = "\'echo École 42 -n\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - multiple variables plus invalid identifier")
-input_data_list.append("\'export var1 var2=jojo =\' \'echo $var1 $var2\'")
-output_data_list.append(f' jojo ')
-err_data_list.append(f'export: not a valid identifier\n')
-exit_status_list.append(1)
+test_description_list.append(" - opt - and two str")
+stdin = "\'echo - École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - update variable content")
-input_data_list.append("\'export LANG=pt\' \'echo $LANG\'")
-output_data_list.append(f'pt ')
-err_data_list.append(f'')
-exit_status_list.append(0)
+test_description_list.append(" - opt -nn and two str")
+stdin = "\'echo -nn École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - don't update if null address")
-input_data_list.append("\'export LANG\' \'echo $LANG\'")
-output_data_list.append(f'en_US.UTF-8 ')
-err_data_list.append(f'')
-exit_status_list.append(0)
+test_description_list.append(" - opt -nnm and two str")
+stdin = "\'echo -nnm École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - update if null value")
-input_data_list.append("\'export LANG=\' \'echo $LANG\'")
-output_data_list.append(f' ')
-err_data_list.append(f'')
-exit_status_list.append(0)
+test_description_list.append(" - opt -nmn and two str")
+stdin = "\'echo -nmn École 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - assign value using expansion")
-input_data_list.append("\'export var=$LANG\' \'echo $var\'")
-output_data_list.append(f'en_US.UTF-8 ')
-err_data_list.append(f'')
-exit_status_list.append(0)
+test_description_list.append(" - str, opt -n and str")
+stdin = "\'echo École -n 42\'"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c {stdin}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - assign value using invalid expansion")
-input_data_list.append("\'export var=$affsdf\' \'echo $var\'")
-output_data_list.append(f' ')
-err_data_list.append(f'')
-exit_status_list.append(0)
-
-test_description_list.append(" - variable name starting with number")
-input_data_list.append("\'export 1var=jojo\' \'echo $1var\'")
-output_data_list.append(f' ')
-err_data_list.append(f'export: not a valid identifier\n')
-exit_status_list.append(1)
-
-test_description_list.append(" - variable name ending with number")
-input_data_list.append("\'export var1=jojo\' \'echo $var1\'")
-output_data_list.append(f'jojo ')
-err_data_list.append(f'')
-exit_status_list.append(0)
-
-test_description_list.append(" - export with no options")
-input_data_list.append("\'export SHLVL=2\' \'export\'")
-export_status = subprocess.run('bash -c "export"', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-output_data_list.append(export_status.stdout)
-err_data_list.append(f'')
-exit_status_list.append(0)
-
-# waiting for fix on "" tokenizier
-# input_data_list.append("\'export var=\"jojo kaka\"\' \'echo $var\'")
-# output_data_list.append(f'jojo kaka ')
-#
-# input_data_list.append("\'export \"\"\' \'echo $var\'")
-# output_data_list.append(f' export: not a valid identifier')
-
+# Check for stdout, stderr and exit status
 i = 1
-for input_data, output_ref, err_ref in zip(input_data_list, output_data_list, err_data_list):
-	output = subprocess.run(f"./builtin_export/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-	outfile_content = output.stdout
-	errfile_content = output.stderr
-	print(f"{colours[3]}{i}/{len(input_data_list)}{test_description_list[i-1]}{colours[0]}")
-	if outfile_content == output_ref and errfile_content == err_ref and output.returncode == exit_status_list[i-1]:
-		print(f"{colours[2]}	OK{colours[0]}")
+for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list):
+	# Open files
+	outfile = open(f"{unit}/outfile", "w")
+	outfile_ref = open(f"{unit}/outfile_ref", "w")
+	errfile = open(f"{unit}/errfile", "w")
+	errfile_ref = open(f"{unit}/errfile_ref", "w")
+	
+	# Run the unit
+	output = subprocess.run(f"./{unit}/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	outfile.write(f"{output.stdout}\n")
+	outfile_ref.write(f"{output_ref}\n")
+	errfile.write(f"{output.stderr}\n")
+	errfile_ref.write(f"{err_ref}\n")
+
+	# Close files
+	outfile.close()
+	outfile_ref.close()
+	errfile.close()
+	errfile_ref.close()
+	
+	
+	print(f"{colours[3]}{i}/{len(stdin_list)}{test_description_list[i-1]}{colours[0]}")
+
+	# Check for stdout
+	diff_returned = subprocess.run(f"diff {unit}/outfile_ref {unit}/outfile", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	if diff_returned.returncode != 0:
+		print(f"{colours[1]}	KO - stdout{colours[0]}")
+		print(f"{colours[4]}stdout diff{colours[0]}")
+		print(f"{diff_returned.stdout}")
 	else:
-		print(f"{colours[1]}	KO{colours[0]}")
-		if outfile_content != output_ref:
-			print(f"{colours[4]}stdout Diff{colours[0]}")
-			print(string_difference(output_ref, outfile_content))
-		if errfile_content != err_ref:
-			print(f"{colours[4]}stderr Diff{colours[0]}")
-			print(string_difference(err_ref, errfile_content))
-		if output.returncode != exit_status_list[i-1]:
-			print(f"{colours[4]}exit status{colours[0]}")
-			print(f"Expected: {exit_status_list[i-1]}")
-			print(f"Got: {output.returncode}")
+		print(f"{colours[2]}	OK - stdout{colours[0]}")
+
+	# Check for stderr
+	diff_returned = subprocess.run(f"diff {unit}/errfile_ref {unit}/errfile", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	if diff_returned.returncode != 0:
+		print(f"{colours[1]}	KO - stderr{colours[0]}")
+		print(f"{colours[4]}stderr diff{colours[0]}")
+		print(f"{diff_returned.stdout}")
+	else:
+		print(f"{colours[2]}	OK - stderr{colours[0]}")
+
+	# Check for exit status
+	if output.returncode != returncode_list[i-1]:
+		print(f"{colours[4]}	KO - exit status{colours[0]}")
+		print(f"{colours[4]}exit status diff{colours[0]}")
+		print(f"Expected: {returncode_list[i-1]}")
+		print(f"Got: {output.returncode}")
+	else:
+		print(f"{colours[2]}	OK - exit status{colours[0]}")
 	
 	# Check for leaks
-	subprocess.run(f"{valgrind} ./builtin_export/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	subprocess.run(f"{valgrind} ./{unit}/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	valgrind_status = subprocess.run(f"./valgrind.sh", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	if (valgrind_status.stdout == '0\n'):
 		print(f"{colours[2]}	MOK{colours[0]}")
 	else:
 		print(f"{colours[1]}	MKO{colours[0]}")
+	print("\n------------------------------------\n")
 	i = i + 1
 
-trash = subprocess.run("make fclean -C echo", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+# Clean
+subprocess.run(f"rm {unit}/outfile {unit}/outfile_ref {unit}/errfile {unit}/errfile_ref", shell=True)
+trash = subprocess.run(f"make fclean -C {unit}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
