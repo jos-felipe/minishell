@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/20 15:21:07 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:31:35 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,9 @@ void 	mini_close_pipe_node_fd(t_cmd *cmd_exec_node);
 
 // 97_builtin_unset.c
 int	mini_unset(t_token *arg, t_dict **env_list);
+
+// 97_utils_1.c
+int	mini_valid_identifier(char *str, t_dict **env_list, int start, int state);
 
 // 98_builtin_export.c
 int	mini_export(t_token *arg, t_dict **env_list);
