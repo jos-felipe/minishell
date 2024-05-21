@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 09:16:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/21 11:43:59 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:06:29 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	mini_getenv(t_mini *mini)
 	int		len;
 	char	*var[2];
 
+	mini->env_list = NULL;
 	i = 0;
 	while (__environ[i])
 	{

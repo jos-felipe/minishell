@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:23:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/21 11:57:02 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:05:02 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	mini_init(t_mini *pipex)
 	pipex->cmd_line = NULL;
 	pipex->pathname = NULL;
 	pipex->token_list = NULL;
-	pipex->env_list = NULL;
+	// pipex->env_list = NULL;
 	pipex->cmd_exec_list = NULL;
 	pipex->syntax_error = 0;
 }
