@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   07_expansion.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 15:06:02 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:06:17 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ char	*mini_search_and_replace(t_mini *mini, char *sub_token)
 	t_dict	*current;
 	char	*new_sub_token;
 
+	if (sub_token[1] == '?')
+		return (mini_get_dollar_sign(mini, sub_token));
 	current = mini->env_list;
 	sub_token++;
 	new_sub_token = NULL;
@@ -78,4 +80,22 @@ char	*mini_search_and_replace(t_mini *mini, char *sub_token)
 		current = current->next;
 	}
 	return(new_sub_token);
+}
+
+char	*mini_get_dollar_sign(t_mini *mini, char *sub_token)
+{
+	char	*status;
+	char	*status_joined;
+	
+	status = ft_itoa(mini->status);
+	ft_collect_mem(status);
+	if (sub_token[2] != '\0')
+	{
+		sub_token++;
+		sub_token++;
+		status_joined = ft_strjoin(status, sub_token);
+		ft_collect_mem(status_joined);
+		return (status_joined);
+	}
+	return (status);
 }
