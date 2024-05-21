@@ -130,6 +130,30 @@ stdout_list.append(returned_instance.stdout)
 stderr_list.append(returned_instance.stderr)
 returncode_list.append(returned_instance.returncode)
 
+test_description_list.append(" - expand with invalid in the middle")
+stdin = "echo $abc^def"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - expand with invalid in the front")
+stdin = "echo $^abc"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - expand with invalid in the front")
+stdin = "echo $LANGUAGE^abc"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
 # Check for stdout, stderr and exit status
 i = 1
 for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list):

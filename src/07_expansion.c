@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/21 14:06:17 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:00:35 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*mini_search_and_replace(t_mini *mini, char *sub_token)
 
 	if (sub_token[1] == '?')
 		return (mini_get_dollar_sign(mini, sub_token));
+	if (mini_has_invalid_char(sub_token))
+		return (mini_expand_with_invalid(mini, sub_token));
 	current = mini->env_list;
 	sub_token++;
 	new_sub_token = NULL;
@@ -80,6 +82,18 @@ char	*mini_search_and_replace(t_mini *mini, char *sub_token)
 		current = current->next;
 	}
 	return(new_sub_token);
+}
+
+char	*mini_expand_with_invalid(t_mini *mini, char *sub_token)
+{
+	char	*str_after_invalid;
+	char	*str_before_invalid;
+	
+	if (mini_is_invalid_char(sub_token[1]))
+		return (sub_token);
+	str_after_invalid = mini_str_after_invalid_char(sub_token);
+	str_before_invalid = mini_str_before_invalid_char(sub_token);
+		
 }
 
 char	*mini_get_dollar_sign(t_mini *mini, char *sub_token)
