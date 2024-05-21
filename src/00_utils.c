@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:23:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/30 12:08:27 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:57:02 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@ void	mini_trashman_collector(t_list **list_memory, void *trash)
 		*list_memory = ft_lstnew(trash);
 }
 
-void	mini_safe_exit(t_mini *mini)
-{
-	clear_history();
-	mini_trashman(ft_get_mem_address());
-	exit(mini->status);
-}
+// void	mini_safe_exit(t_mini *mini)
+// {
+// 	clear_history();
+// 	mini_trashman(ft_get_mem_address());
+// 	// exit(mini->status);
+// }
 
-void	mini_ctrl_d_exit(t_mini *mini)
+void	mini_ctrl_d_exit()
 {
 	printf("exit\n");
-	mini_safe_exit(mini);	
+	clear_history();
+	mini_trashman(ft_get_mem_address());
+	// mini_safe_exit(mini);	
 }

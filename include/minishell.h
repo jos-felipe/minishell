@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/20 15:04:16 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:00:12 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../lib/includes/libft.h"
 # include "dictionary.h"
 # include "trashman.h"
+# include "trashman_env.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -106,7 +107,7 @@ typedef struct s_mini
 }				t_mini;
 
 // 00_utils.c
-void		mini_ctrl_d_exit(t_mini *mini);
+void		mini_ctrl_d_exit();
 
 // 01_prompt.c
 void		mini_prompt(t_mini *mini);
@@ -114,14 +115,14 @@ void		mini_prompt(t_mini *mini);
 // 01_utils.c
 void		mini_init(t_mini *pipex);
 void		mini_trashman_collector(t_list **list_memory, void *trash);
-void		mini_safe_exit(t_mini *mini);
+// void		mini_safe_exit(t_mini *mini);
 
 // 02_ctrl_signal.c
 void	mini_ctrl_signal(void);
 void	sig_handler(int signum);
 
 // 03_process_envp.c
-void	mini_process_envp(t_mini *pipex, char *envp[]);
+// void	mini_process_envp(t_mini *pipex, char *envp[]);
 void	mini_execute(t_mini *mini);
 
 // 03_utils
