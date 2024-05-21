@@ -1,0 +1,222 @@
+==43442== Invalid read of size 1
+==43442==    at 0x405738: ft_strlen (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402AC0: ft_strjoin_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4027DA: mini_expand_with_invalid (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402555: mini_search_and_replace (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4024D4: mini_sep_exp_join (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402438: mini_token_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4023AD: mini_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035E6: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==43442== 
+==43442== 
+==43442== Process terminating with default action of signal 11 (SIGSEGV)
+==43442==  Access not within mapped region at address 0x0
+==43442==    at 0x405738: ft_strlen (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402AC0: ft_strjoin_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4027DA: mini_expand_with_invalid (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402555: mini_search_and_replace (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4024D4: mini_sep_exp_join (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402438: mini_token_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4023AD: mini_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035E6: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==  If you believe this happened as a result of a stack
+==43442==  overflow in your program's main thread (unlikely but
+==43442==  possible), you can try to increase the size of the
+==43442==  main thread stack using the --main-stacksize= flag.
+==43442==  The main thread stack size used in this run was 8388608.
+==43442== 14 bytes in 1 blocks are still reachable in loss record 8 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4058C2: ft_substr (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x404429: mini_sub_tokenizier (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402488: mini_sep_exp_join (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402438: mini_token_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4023AD: mini_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035E6: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 14 bytes in 1 blocks are still reachable in loss record 9 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x404ED2: ft_calloc (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402895: mini_str_after_invalid_char (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4027AB: mini_expand_with_invalid (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402555: mini_search_and_replace (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4024D4: mini_sep_exp_join (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402438: mini_token_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4023AD: mini_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035E6: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 14 bytes in 1 blocks are still reachable in loss record 10 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x404ED2: ft_calloc (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4029A5: mini_str_before_invalid_char (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4027B8: mini_expand_with_invalid (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402555: mini_search_and_replace (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4024D4: mini_sep_exp_join (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402438: mini_token_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4023AD: mini_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035E6: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 16 bytes in 1 blocks are still reachable in loss record 13 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402BFD: ft_collect_mem (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035A1: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 16 bytes in 1 blocks are still reachable in loss record 14 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x404ED2: ft_calloc (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402CD7: mini_parser (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035DD: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 16 bytes in 1 blocks are still reachable in loss record 15 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402BFD: ft_collect_mem (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402CEF: mini_parser (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035DD: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 16 bytes in 1 blocks are still reachable in loss record 16 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402BFD: ft_collect_mem (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x404436: mini_sub_tokenizier (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402488: mini_sep_exp_join (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402438: mini_token_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4023AD: mini_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035E6: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 16 bytes in 1 blocks are still reachable in loss record 17 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x403645: mini_sub_token_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x404447: mini_sub_tokenizier (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402488: mini_sep_exp_join (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402438: mini_token_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4023AD: mini_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035E6: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 16 bytes in 1 blocks are still reachable in loss record 18 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402BFD: ft_collect_mem (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x403652: mini_sub_token_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x404447: mini_sub_tokenizier (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402488: mini_sep_exp_join (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402438: mini_token_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4023AD: mini_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035E6: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 16 bytes in 1 blocks are still reachable in loss record 19 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402BFD: ft_collect_mem (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4028A2: mini_str_after_invalid_char (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4027AB: mini_expand_with_invalid (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402555: mini_search_and_replace (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4024D4: mini_sep_exp_join (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402438: mini_token_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4023AD: mini_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035E6: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 16 bytes in 1 blocks are still reachable in loss record 20 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402BFD: ft_collect_mem (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4029B2: mini_str_before_invalid_char (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4027B8: mini_expand_with_invalid (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402555: mini_search_and_replace (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4024D4: mini_sep_exp_join (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402438: mini_token_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4023AD: mini_expansion (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035E6: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 19 bytes in 2 blocks are still reachable in loss record 23 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4058C2: ft_substr (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40461E: mini_cut_string (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x401EB7: mini_automaton (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x401CE9: mini_tokenizer (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035CA: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 32 bytes in 2 blocks are still reachable in loss record 28 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402BFD: ft_collect_mem (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x404634: mini_cut_string (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x401EB7: mini_automaton (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x401CE9: mini_tokenizer (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035CA: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 32 bytes in 2 blocks are still reachable in loss record 29 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402BFD: ft_collect_mem (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x404038: mini_token_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x404653: mini_cut_string (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x401EB7: mini_automaton (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x401CE9: mini_tokenizer (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035CA: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 32 bytes in 2 blocks are still reachable in loss record 30 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402BFD: ft_collect_mem (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402EBC: mini_t_token_dup (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402E00: mini_fill_cmd_array (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402CF8: mini_parser (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035DD: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 64 bytes in 2 blocks are still reachable in loss record 34 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x403FD8: mini_token_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x404653: mini_cut_string (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x401EB7: mini_automaton (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x401CE9: mini_tokenizer (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035CA: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 64 bytes in 2 blocks are still reachable in loss record 35 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x402E55: mini_t_token_dup (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402E00: mini_fill_cmd_array (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x402CF8: mini_parser (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4035DD: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 765 bytes in 57 blocks are still reachable in loss record 45 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4058C2: ft_substr (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4033BF: mini_getenv (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40357C: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 912 bytes in 57 blocks are still reachable in loss record 46 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40423D: ft_collect_mem_env (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x4033CC: mini_getenv (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40357C: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 912 bytes in 57 blocks are still reachable in loss record 47 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40423D: ft_collect_mem_env (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40341D: mini_getenv (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40357C: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 912 bytes in 57 blocks are still reachable in loss record 48 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4059D5: ft_lstnew (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40423D: ft_collect_mem_env (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40430A: ft_dictnew_env (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x403432: mini_getenv (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40357C: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 1,368 bytes in 57 blocks are still reachable in loss record 55 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4042E5: ft_dictnew_env (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x403432: mini_getenv (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40357C: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 
+==43442== 1,485 bytes in 57 blocks are still reachable in loss record 56 of 85
+==43442==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==43442==    by 0x4058C2: ft_substr (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x403410: mini_getenv (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442==    by 0x40357C: main (in /nfs/homes/gfantoni/programing/42/minishell_folder/minishell/minishell)
+==43442== 

@@ -146,7 +146,7 @@ stdout_list.append(returned_instance.stdout)
 stderr_list.append(returned_instance.stderr)
 returncode_list.append(returned_instance.returncode)
 
-test_description_list.append(" - expand with invalid in the front")
+test_description_list.append(" - simple expand with invalid in the middle")
 stdin = "echo $LANGUAGE^abc"
 stdin_list.append(stdin)
 returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)

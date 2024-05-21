@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/21 14:05:08 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:39:00 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,12 @@ void	mini_token_expansion(t_mini *mini, int i);
 char	*mini_sep_exp_join(t_mini *mini, char *token);
 char	*mini_search_and_replace(t_mini *mini, char *sub_token);
 char	*mini_get_dollar_sign(t_mini *mini, char *sub_token);
+int		mini_has_invalid_char(char *sub_token);
+char	*mini_expand_with_invalid(t_mini *mini, char *sub_token);
+int		mini_is_invalid_char(char c);
+char	*mini_str_after_invalid_char(char *sub_token);
+char	*mini_str_before_invalid_char(char *sub_token);
+char	*ft_strjoin_expansion(char const *s1, char const *s2);
 
 // 07_utils_1.c
 void	mini_getenv(t_mini *mini);
