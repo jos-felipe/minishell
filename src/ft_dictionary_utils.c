@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:44:30 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/08 17:38:20 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:20:09 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,25 @@ size_t	ft_max(size_t a, size_t b)
 	return (max);
 }
 
-
+int	ft_dictdel_entry(t_dict **dict, char *name)
+{
+	t_dict	*cur;
+	t_dict	*prev;
+	
+	cur = *dict;
+	prev = NULL;
+	while (cur)
+	{
+		if (!ft_strncmp(cur->key, name, ft_strlen(name)))
+		{
+			if (prev)
+				prev->next = cur->next;
+			else
+				*dict = cur->next;
+			return (1);
+		}
+		prev = cur;
+		cur = cur->next;
+	}
+	return (0);
+}

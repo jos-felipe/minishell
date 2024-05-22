@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/20 15:04:16 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/22 09:57:12 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,12 @@ void 	mini_close_pipe_node_fd(t_cmd *cmd_exec_node);
 void   	mini_wait_childs(t_mini *mini);
 void	command_not_found_handler(t_mini *mini, t_cmd *cmd_exec_node);
 void	get_captalized_errors(t_mini *mini, t_cmd *cmd_exec_node);
+
+// 97_builtin_unset.c
+int	mini_unset(t_token *arg, t_dict **env_list);
+
+// 97_utils_1.c
+int	mini_valid_identifier(char *str, t_dict **env_list, int start, int state);
 
 // 98_builtin_export.c
 int	mini_export(t_token *arg, t_dict **env_list);
