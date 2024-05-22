@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/21 19:41:48 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:07:51 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int		mini_has_invalid_char(char *sub_token)
 	{
 		if (sub_token[i] < 48 || 
 			(sub_token[i] > 57 && sub_token[i] < 65) || 
-			(sub_token[i] > 90 && sub_token[i] < 97) || 
+			(sub_token[i] > 90 && sub_token[i] < 95) || 
+			(sub_token[i] > 95 && sub_token[i] < 97) || 
 			sub_token[i] > 122)
 			return (1);
 		i++;
@@ -123,7 +124,8 @@ int		mini_is_invalid_char(char c)
 {
 	if (c < 48 || 
 		(c > 57 && c < 65) || 
-		(c > 90 && c < 97) || 
+		(c > 90 && c < 95) || 
+		(c > 95 && c < 97) || 
 		c > 122)
 		return (1);
 	return (0);
@@ -142,7 +144,8 @@ char	*mini_str_after_invalid_char(char *sub_token)
 	{
 		if (*sub_token < 48 || 
 			(*sub_token > 57 && *sub_token < 65) || 
-			(*sub_token > 90 && *sub_token < 97) || 
+			(*sub_token > 90 && *sub_token < 95) || 
+			(*sub_token > 95 && *sub_token < 97) || 
 			*sub_token > 122)
 			break;
 		sub_token++;
@@ -163,13 +166,14 @@ char	*mini_str_before_invalid_char(char *sub_token)
 	
 	str_before = ft_calloc(sizeof(char), ft_strlen(sub_token) + 1);
 	ft_collect_mem(str_before);
-	sub_token++;
-	i = 0;
+	str_before[0] = '$';
+	i = 1;
 	while (sub_token[i])
 	{
 		if (sub_token[i] < 48 || 
 			(sub_token[i] > 57 && sub_token[i] < 65) || 
-			(sub_token[i] > 90 && sub_token[i] < 97) || 
+			(sub_token[i] > 90 && sub_token[i] < 95) || 
+			(sub_token[i] > 95 && sub_token[i] < 97) || 
 			sub_token[i] > 122)
 			break;
 		str_before[i] = sub_token[i];
@@ -185,25 +189,20 @@ char	*ft_strjoin_expansion(char const *s1, char const *s2)
 	size_t	c;
 	size_t	z;
 
-	if (!s2)
-		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2);
+	len = ft_strlen(s2);
+	if (s1)
+		len += ft_strlen(s1);
 	new = (char *)ft_calloc(sizeof(char), (len + 1));
-	if (!new)
-		return (NULL);
 	c = 0;
 	if (s1)
 	{
-		while (s1[c] != '\0')
-		{
+		c = -1;
+		while (s1[++c] != '\0')
 			new[c] = s1[c];
-			c++;
-		}
 	}
 	z = 0;
 	while (s2[z] != '\0')
 		new[c++] = s2[z++];
-	new[c] = '\0';
 	return (new);
 }
 
