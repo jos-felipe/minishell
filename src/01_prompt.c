@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:34 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/12 10:29:41 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:00:43 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	mini_prompt(t_mini *mini)
 		if (mini->cmd_line == NULL)
 		{
 			printf("exit\n");
-			mini_safe_exit(mini);
+			// mini_safe_exit(mini);
 		}
 		add_history(mini->cmd_line);
 		mini_tokenizer(mini);

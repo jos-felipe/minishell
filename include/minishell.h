@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/22 09:57:12 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:39:00 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../lib/includes/libft.h"
 # include "dictionary.h"
 # include "trashman.h"
+# include "trashman_env.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -106,7 +107,7 @@ typedef struct s_mini
 }				t_mini;
 
 // 00_utils.c
-void		mini_ctrl_d_exit(t_mini *mini);
+void		mini_ctrl_d_exit();
 
 // 01_prompt.c
 void		mini_prompt(t_mini *mini);
@@ -114,14 +115,14 @@ void		mini_prompt(t_mini *mini);
 // 01_utils.c
 void		mini_init(t_mini *pipex);
 void		mini_trashman_collector(t_list **list_memory, void *trash);
-void		mini_safe_exit(t_mini *mini);
+// void		mini_safe_exit(t_mini *mini);
 
 // 02_ctrl_signal.c
 void	mini_ctrl_signal(void);
 void	sig_handler(int signum);
 
 // 03_process_envp.c
-void	mini_process_envp(t_mini *pipex, char *envp[]);
+// void	mini_process_envp(t_mini *pipex, char *envp[]);
 void	mini_execute(t_mini *mini);
 
 // 03_utils
@@ -185,6 +186,13 @@ void	mini_expansion(t_mini *mini);
 void	mini_token_expansion(t_mini *mini, int i);
 char	*mini_sep_exp_join(t_mini *mini, char *token);
 char	*mini_search_and_replace(t_mini *mini, char *sub_token);
+char	*mini_get_dollar_sign(t_mini *mini, char *sub_token);
+int		mini_has_invalid_char(char *sub_token);
+char	*mini_expand_with_invalid(t_mini *mini, char *sub_token);
+int		mini_is_invalid_char(char c);
+char	*mini_str_after_invalid_char(char *sub_token);
+char	*mini_str_before_invalid_char(char *sub_token);
+char	*ft_strjoin_expansion(char const *s1, char const *s2);
 
 // 07_utils_1.c
 void	mini_getenv(t_mini *mini);

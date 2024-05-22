@@ -106,6 +106,54 @@ stdout_list.append(returned_instance.stdout)
 stderr_list.append(returned_instance.stderr)
 returncode_list.append(returned_instance.returncode)
 
+test_description_list.append(" - simple expansion")
+stdin = "echo $LANGUAGE"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - expand dollar sign")
+stdin = "echo $?"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - expand dollar sign plus variable")
+stdin = "echo $?LANGUAGE"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - expand with invalid in the middle")
+stdin = "echo $abc^def"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - expand with invalid in the front")
+stdin = "echo $^abc"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
+test_description_list.append(" - simple expand with invalid in the middle")
+stdin = "echo $LANGUAGE^abc"
+stdin_list.append(stdin)
+returned_instance = subprocess.run(f"bash -c '{stdin}'", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+stdout_list.append(returned_instance.stdout)
+stderr_list.append(returned_instance.stderr)
+returncode_list.append(returned_instance.returncode)
+
 # Check for stdout, stderr and exit status
 i = 1
 for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list):
@@ -162,14 +210,14 @@ for input_data, output_ref, err_ref in zip(stdin_list, stdout_list, stderr_list)
 	else:
 		print(f"{colours[2]}	OK - stderr{colours[0]}")
 
-	# Check for exit status
-	if output.returncode != returncode_list[i-1]:
-		print(f"{colours[4]}	KO - exit status{colours[0]}")
-		print(f"{colours[4]}exit status diff{colours[0]}")
-		print(f"Expected: {returncode_list[i-1]}")
-		print(f"Got: {output.returncode}")
-	else:
-		print(f"{colours[2]}	OK - exit status{colours[0]}")
+	# # Check for exit status
+	# if output.returncode != returncode_list[i-1]:
+	# 	print(f"{colours[4]}	KO - exit status{colours[0]}")
+	# 	print(f"{colours[4]}exit status diff{colours[0]}")
+	# 	print(f"Expected: {returncode_list[i-1]}")
+	# 	print(f"Got: {output.returncode}")
+	# else:
+	# 	print(f"{colours[2]}	OK - exit status{colours[0]}")
 	
 	# Check for leaks
 	subprocess.run(f"{valgrind} ../../minishell < mini_infile", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)

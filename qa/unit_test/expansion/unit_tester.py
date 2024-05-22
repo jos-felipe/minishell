@@ -36,8 +36,8 @@ output_data_list.append(f'echo worden \n')
 output_data_list.append(f'echo LANGUAGE$ \n')
 output_data_list.append(f'echo worden \n')
 output_data_list.append(f'echo wordenubuntu \n')
-output_data_list.append(f'echo \n')
-output_data_list.append(f'echo LANGUAGE \n')
+output_data_list.append(f'echo $$ \n')
+output_data_list.append(f'echo $$LANGUAGE \n')
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):

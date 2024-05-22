@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   07_utils_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 09:16:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:06:29 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	mini_getenv(t_mini *mini)
 	int		len;
 	char	*var[2];
 
+	mini->env_list = NULL;
 	i = 0;
 	while (__environ[i])
 	{
@@ -27,12 +28,12 @@ void	mini_getenv(t_mini *mini)
 		if (len > -1)
 		{
 			var[0] = ft_substr(__environ[i], start, len);
-			ft_collect_mem(var[0]);
+			ft_collect_mem_env(var[0]);
 			start = len + 1;
 			len = ft_strlen(__environ[i]) - start;
 			var[1] = ft_substr(__environ[i], start, len);
-			ft_collect_mem(var[1]);
-			ft_dictadd_back(&mini->env_list, ft_dictnew(var));
+			ft_collect_mem_env(var[1]);
+			ft_dictadd_back(&mini->env_list, ft_dictnew_env(var));
 		}
 		i++;
 	}

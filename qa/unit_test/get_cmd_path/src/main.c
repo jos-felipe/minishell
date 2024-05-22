@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/09 18:39:53 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:37:10 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ int main(int argc, char *argv[], char *envp[])
 	mini_get_cmd_exec_path(&mini);
 	unit_print_cmd_exec_path(&mini.cmd_exec_list);
 	ft_free_trashman(ft_get_mem_address());
+	ft_free_trashman_env(ft_get_mem_address_env());
 	return (0);
 }
