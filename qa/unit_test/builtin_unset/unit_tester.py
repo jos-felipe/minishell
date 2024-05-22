@@ -57,7 +57,7 @@ command_runner = CommandRunner()
 command_runner.run_command_with_input("no name", "")
 command_runner.run_command_with_input("valid identifier", 'SHLVL')
 command_runner.run_command_with_input("inexistent identifier", 'asdfssd')
-command_runner.run_command_with_input("invalid parameter name", '%@!')
+command_runner.run_command_with_input("invalid identifier", '%@!')
 
 
 # Legacy
