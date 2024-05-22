@@ -22,7 +22,7 @@ class CommandRunner:
 		self.args_list.append(args)
 		
 		# Get the stdout
-		cmd_line = f"bash -c \'{builtin} {args}; echo ${args}\'"
+		cmd_line = f"bash -c \'{builtin} {args}\'"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
 		
@@ -32,9 +32,11 @@ class CommandRunner:
 		self.stderr_list.append(returned_instance.stderr)
 		
 		# Get the return code
-		cmd_line = f"bash -c \'{builtin} {args}; echo $?\'"
+		# cmd_line = f"bash -c \'{builtin} {args}; echo $?\'"
+		cmd_line = f"{builtin} {args}"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-		returncode = int(returned_instance.stdout)
+		# returncode = int(returned_instance.stdout)
+		returncode = returned_instance.returncode
 		self.returncode_list.append(returncode)
 
 # Valgrind
@@ -54,11 +56,7 @@ trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subproc
 
 command_runner = CommandRunner()
 
-command_runner.run_command_with_input("no name", "")
-command_runner.run_command_with_input("valid identifier", 'SHLVL')
-command_runner.run_command_with_input("inexistent identifier", 'asdfssd')
-command_runner.run_command_with_input("invalid identifier", '%@!')
-
+command_runner.run_command_with_input("with no options", "")
 
 # Legacy
 test_description_list = command_runner.test_description_list
@@ -77,7 +75,7 @@ for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	errfile_ref = open(f"{unit}/errfile_ref", "w")
 	
 	# Run the unit
-	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\' \'echo ${arg}\'"
+	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\'"
 	output = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile.write(f"{output.stdout}\n")
 	outfile_ref.write(f"{output_ref}\n")
