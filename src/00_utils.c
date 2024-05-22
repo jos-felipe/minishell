@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:23:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/21 13:05:02 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:36:36 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	mini_init(t_mini *pipex)
 {
 	pipex->path = NULL;
 	pipex->lst_memory = NULL;
-	pipex->status = 0;
+	// pipex->status = 0;
 	pipex->cmd_line = NULL;
 	pipex->pathname = NULL;
 	pipex->token_list = NULL;

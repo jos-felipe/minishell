@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/21 11:54:37 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:41:08 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int main(void)
 
 	mini_ctrl_signal();
 	mini_getenv(&mini);
+	mini.status = 0;
 	while (42)
 	{
 		mini_init(&mini);
@@ -38,7 +39,6 @@ int main(void)
 			mini_execute(&mini);
 		}
 		ft_free_trashman(ft_get_mem_address());
-		mini.status = ft_get_exit_status(mini.status);
 	}
 	ft_free_trashman_env(ft_get_mem_address_env());
 }
