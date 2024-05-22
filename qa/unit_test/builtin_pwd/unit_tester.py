@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 # Unit name - the same as the directory name
-unit = 'builtin_unset'
-builtin = 'unset'
+unit = 'builtin_pwd'
+builtin = 'pwd'
 
 # Design reference
-# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-unset
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-pwd
 
 import subprocess
 

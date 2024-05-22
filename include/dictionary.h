@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:28:50 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/20 15:17:12 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:06:50 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	ft_dict_print(t_dict *dict);
 int		ft_dict_update(t_dict *dict, char **var);
 int		ft_dictdel_entry(t_dict **dict, char *name);
 size_t	ft_max(size_t a, size_t b);
+char	*ft_dict_get_value(t_dict *dict, char *key);
 
 #endif

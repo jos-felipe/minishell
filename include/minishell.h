@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/21 19:39:00 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:00:00 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,9 @@ void 	mini_close_pipe_node_fd(t_cmd *cmd_exec_node);
 void   	mini_wait_childs(t_mini *mini);
 void	command_not_found_handler(t_mini *mini, t_cmd *cmd_exec_node);
 void	get_captalized_errors(t_mini *mini, t_cmd *cmd_exec_node);
+
+// 96_builtin_pwd.c
+int	mini_pwd(t_token *arg, t_dict **env_list);
 
 // 97_builtin_unset.c
 int	mini_unset(t_token *arg, t_dict **env_list);
