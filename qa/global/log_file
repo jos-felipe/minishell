@@ -1,0 +1,28 @@
+1.
+command:
+echo 42
+expected output:
+42
+
+output received:
+42
+
+expected status: 0
+
+status received: 0
+
+
+2.
+command:
+ERR
+expected output:
+minishell: ERR: command not found
+
+output received:
+minishell: ERR: command not found
+
+expected status: 127
+
+status received: 127
+
+
