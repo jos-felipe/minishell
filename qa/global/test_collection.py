@@ -57,10 +57,6 @@ def test_collection():
 	output_ref_list.append(f"minishell: syntax error near unexpected token\n")
 	output_exit_code.append("2\n")
 
-	input_list.append("echo a | > outfile")
-	output_ref_list.append(f"")
-	output_exit_code.append("0\n")
-
 	input_list.append("echo a > | echo b")
 	output_ref_list.append(f"minishell: syntax error near unexpected token\n")
 	output_exit_code.append("2\n")
@@ -68,5 +64,13 @@ def test_collection():
 	input_list.append("echo a >>> outfile")
 	output_ref_list.append(f"minishell: syntax error near unexpected token\n")
 	output_exit_code.append("2\n")
+
+	input_list.append("echo a | > outfile")
+	output_ref_list.append(f"")
+	output_exit_code.append("0\n")
+
+	input_list.append("> outfile")
+	output_ref_list.append(f"")
+	output_exit_code.append("0\n")
 
 	return input_list, output_ref_list, output_exit_code
