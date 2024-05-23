@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 import subprocess
-import os
+
+from test_collection import test_collection
 
 # Colours
 GREEN = "\033[32;1m"
@@ -13,56 +14,9 @@ colours = [GREEN, RED, COLOR_LIMITER]
 trash = subprocess.run("make -C ../../", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 # Remove log_file
 subprocess.run("rm log_file", shell=True)
-# define user variable
-user = os.environ['USER']
 
-# TESTS
-#1
-input_list = ["echo 42"]
-output_ref_list = ["42\n"]
-output_exit_code = ["0\n"]
-
-#2
-input_list.append("ERR")
-output_ref_list.append("minishell: ERR: command not found\n")
-output_exit_code.append("127\n")
-
-# Expansion
-# 3
-input_list.append("echo $USER")
-output_ref_list.append(f"{user}\n")
-output_exit_code.append("0\n")
-
-# 4
-input_list.append("echo $?USER")
-output_ref_list.append("0USER\n")
-output_exit_code.append("0\n")
-
-# 5
-input_list.append("echo $abc^def")
-output_ref_list.append("^def\n")
-output_exit_code.append("0\n")
-
-# 6
-input_list.append("echo $^def")
-output_ref_list.append("$^def\n")
-output_exit_code.append("0\n")
-
-# 7
-input_list.append("echo $USER^def")
-output_ref_list.append(f"{user}^def\n")
-output_exit_code.append("0\n")
-
-# Command error
-# 8
-input_list.append("echo a | ERR b | echo c")
-output_ref_list.append(f"minishell: ERR: command not found\nc\n")
-output_exit_code.append("0\n")
-
-# 9
-input_list.append("echo a | echo b | ERR c")
-output_ref_list.append(f"minishell: ERR: command not found\n")
-output_exit_code.append("127\n")
+# Get test collection lists
+input_list, output_ref_list, output_exit_code = test_collection()
 
 # Iteration
 i = 1
