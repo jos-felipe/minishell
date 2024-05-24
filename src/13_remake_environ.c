@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 18:42:16 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/24 19:34:55 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/24 19:51:26 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	mini_remake_environ(t_mini *mini)
 	env_list = mini->env_list;
 	env_size = mini_get_env_list_size(env_list);
 	mini_environ = (char **)ft_calloc(sizeof(char *), env_size + 1);
+	ft_collect_mem(mini_environ);
 	i = 0;
 	while (env_list)
 	{
