@@ -65,6 +65,6 @@ for command, reference, reference_exit_code in zip(input_list, output_ref_list, 
     i = i + 1
 
 # Clean directory
-file_paths = [" ", "filename", "fdasdfsa", "file", "infile1", "infile2", "outfile1", "tudo", "outfile3", "ref_file", "outfile", "result", "status_file", "status_outfile", "status_ref_file", "status_result", "valgrind.log"]
+file_paths = [" ", "filename", "fdasdfsa", "file", "infile1", "infile2", "outfile1", "tudo", "outfile3", "ref_file", "outfile", "result", "status_file", "status_outfile", "status_ref_file", "status_result", "valgrind.log", "outfile_2", "outfile_3"]
 rm_command = ["rm", "-f"] + file_paths
 subprocess.run(rm_command)
