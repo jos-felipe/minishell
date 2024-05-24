@@ -31,6 +31,10 @@ def test_collection():
 	output_ref_list.append(f"{user}^def\n")
 	output_exit_code.append("0\n")
 
+	input_list.append("echo oi$USER")
+	output_ref_list.append(f"oi{user}\n")
+	output_exit_code.append("0\n")
+
 	# Command error
 	input_list.append("ERR")
 	output_ref_list.append("minishell: ERR: command not found\n")
