@@ -61,15 +61,15 @@ def test_collection():
 	output_ref_list.append(f"minishell: syntax error near unexpected token\n")
 	output_exit_code.append("2\n")
 
-	input_list.append("echo a >>> outfile")
+	input_list.append("echo a >>> outfile_1")
 	output_ref_list.append(f"minishell: syntax error near unexpected token\n")
 	output_exit_code.append("2\n")
 
-	input_list.append("echo a | > outfile")
+	input_list.append("echo a | > outfile_2")
 	output_ref_list.append(f"")
 	output_exit_code.append("0\n")
 
-	input_list.append("> outfile")
+	input_list.append("> outfile_3")
 	output_ref_list.append(f"")
 	output_exit_code.append("0\n")
 
