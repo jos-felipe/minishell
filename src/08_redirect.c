@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:13:42 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/30 15:15:02 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/25 11:55:26 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ void	mini_handle_in_redir(t_cmd *redir_node, char *file)
 	if (redir_node->input_fd != 0)
 		close(redir_node->input_fd);
 	fd = open(file, O_RDONLY);
-	if (fd < 0)
+	if (fd < 0 && access(file, F_OK))
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: No such file or directory\n", file);
+	else if (fd < 0 && access(file, R_OK))
 		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied\n", file);
 	redir_node->input_fd = fd;
 }

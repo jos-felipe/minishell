@@ -16,7 +16,7 @@ def test_collection():
 
 	# File error
 	input_list.append("< no_infile cat")
-	output_ref_list.append(f"minishell: no_infile: no such file or directory\n")
+	output_ref_list.append(f"minishell: no_infile: No such file or directory\n")
 	output_exit_code.append("1\n")
 
 	input_list.append("< no_perm_infile cat")
