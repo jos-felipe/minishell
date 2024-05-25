@@ -10,6 +10,19 @@ def test_collection():
 	output_ref_list = ["42\n"]
 	output_exit_code = ["0\n"]
 
+	input_list.append("< infile_1 cat")
+	output_ref_list.append(f"melvin\n")
+	output_exit_code.append("0\n")
+
+	# File error
+	input_list.append("< no_infile cat")
+	output_ref_list.append(f"minishell: no_infile: no such file or directory\n")
+	output_exit_code.append("1\n")
+
+	input_list.append("< no_perm_infile cat")
+	output_ref_list.append(f"minishell: no_perm_infile: Permission denied\n")
+	output_exit_code.append("1\n")
+
 	# Expansion
 	input_list.append("echo $USER")
 	output_ref_list.append(f"{user}\n")

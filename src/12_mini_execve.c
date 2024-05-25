@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/24 19:36:15 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/25 10:47:18 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	mini_manage_execve_fd(t_cmd *cmd_exec_node)
 void	mini_exit_if_fd_neg(t_cmd *cmd_exec_node)
 {
 	ft_free_trashman(ft_get_mem_address());
+	ft_free_trashman_env(ft_get_mem_address_env());
 	mini_close_node_fd(cmd_exec_node);
 	exit(1);
 }

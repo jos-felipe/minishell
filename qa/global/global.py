@@ -15,6 +15,9 @@ trash = subprocess.run("make -C ../../", shell=True, stdout=subprocess.PIPE, std
 # Remove log_file
 subprocess.run("rm log_file", shell=True)
 
+# Prepare environment
+subprocess.run("touch infile_1 no_perm_infile && echo melvin > infile_1 && chmod -r no_perm_infile", shell=True)
+
 # Get test collection lists
 input_list, output_ref_list, output_exit_code = test_collection()
 
@@ -65,6 +68,6 @@ for command, reference, reference_exit_code in zip(input_list, output_ref_list, 
     i = i + 1
 
 # Clean directory
-file_paths = [" ", "filename", "fdasdfsa", "file", "infile1", "infile2", "outfile1", "tudo", "outfile3", "ref_file", "outfile", "result", "status_file", "status_outfile", "status_ref_file", "status_result", "valgrind.log", "outfile_2", "outfile_3"]
+file_paths = ["outfile", "file", "ref_file", "status_ref_file", "result",  "status_result", "valgrind.log", "outfile_2", "outfile_3", "infile_1", "no_perm_infile"]
 rm_command = ["rm", "-f"] + file_paths
 subprocess.run(rm_command)
