@@ -14,7 +14,23 @@ def test_collection():
 	output_ref_list.append(f"melvin\n")
 	output_exit_code.append("0\n")
 
+	input_list.append("< infile_1 cat | echo")
+	output_ref_list.append(f"\n")
+	output_exit_code.append("0\n")
+
 	# File error
+	input_list.append("cat > .")
+	output_ref_list.append(f"minishell: .: Is a directory\n")
+	output_exit_code.append("1\n")
+
+	input_list.append("cat > /")
+	output_ref_list.append(f"minishell: /: Is a directory\n")
+	output_exit_code.append("1\n")
+
+	input_list.append("cat > usr/local/bin")
+	output_ref_list.append(f"minishell: usr/local/bin: No such file or directory\n")
+	output_exit_code.append("1\n")
+
 	input_list.append("< no_infile cat")
 	output_ref_list.append(f"minishell: no_infile: No such file or directory\n")
 	output_exit_code.append("1\n")
