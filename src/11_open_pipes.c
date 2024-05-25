@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:47:08 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/08 12:04:31 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/25 17:46:24 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	mini_open_pipes(t_mini *mini)
 {
 	t_cmd	*cmd_exec_node;
 	int		r_and_w_pipe[2];
+	// dup2
 	
 	cmd_exec_node = mini->cmd_exec_list;
 	while (cmd_exec_node->next)
