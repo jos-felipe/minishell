@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:23:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/24 19:23:17 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:27:00 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void	mini_ctrl_d_exit()
 {
 	printf("exit\n");
 	clear_history();
-	mini_trashman(ft_get_mem_address());
+	// mini_trashman(ft_get_mem_address());
 	// mini_safe_exit(mini);	
 }
