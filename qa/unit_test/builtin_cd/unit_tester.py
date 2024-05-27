@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 # Unit name - the same as the directory name
-unit = 'builtin_pwd'
-builtin = 'pwd'
+unit = 'builtin_cd'
+builtin = 'cd'
 
 # Design reference
-# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-pwd
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-cd
 
 import subprocess
 
@@ -22,7 +22,7 @@ class CommandRunner:
 		self.args_list.append(args)
 		
 		# Get the stdout
-		cmd_line = f"bash -c \'{builtin} {args}\'"
+		cmd_line = f"bash -c \'{builtin} {args}; echo $PWD; echo $OLDPWD\'"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
 		
@@ -77,7 +77,7 @@ for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	errfile_ref = open(f"{unit}/errfile_ref", "w")
 	
 	# Run the unit
-	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\'"
+	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\' \'echo $PWD\' \'echo $OLDPWD\'"
 	output = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile.write(f"{output.stdout}\n")
 	outfile_ref.write(f"{output_ref}\n")
