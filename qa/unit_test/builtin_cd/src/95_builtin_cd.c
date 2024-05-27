@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:34:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/27 15:22:21 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:43:39 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 int	mini_cd(t_token *arg, t_dict **dict)
 {
 	char	*directory;
-	char	*old_directory;
 	
+	directory = NULL;
 	if (!arg)
 		directory = getenv("HOME");
 	else
-		directory = arg->token;
+	{
+		if (!ft_strncmp(arg->token, "-", ft_strlen(arg->token)))
+			directory = getenv("OLDPWD");
+		else
+			directory = arg->token;
+	}
 	return (mini_chdir_and_env_sync(*dict, directory));
 }
 
