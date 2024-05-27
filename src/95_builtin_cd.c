@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:34:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/27 15:13:45 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:22:21 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,12 @@ int	mini_cd(t_token *arg, t_dict **dict)
 {
 	char	*directory;
 	char	*old_directory;
-	int		ret;
-
-	ret = 0;
+	
 	if (!arg)
-		mini_cd_go_home(*dict);
+		directory = getenv("HOME");
 	else
-	{
 		directory = arg->token;
-		mini_cd_sync(*dict, directory);
-	}
-	return (0);
+	return (mini_chdir_and_env_sync(*dict, directory));
 }
 
 void	mini_cd_go_home(t_dict *dict)
@@ -66,3 +61,22 @@ int	mini_cd_sync(t_dict *dict, char *directory)
 	return (ret);
 }
 
+int	mini_chdir_and_env_sync(t_dict *dict, char *directory)
+{
+	int		ret;
+	char	*var[2];
+	
+	var[0] = "OLDPWD";
+	var[1] = getcwd(NULL, 0);
+	ft_collect_mem_env(var[1]);
+	ret = chdir(directory);
+		if (!ret)
+		{
+			ft_dict_update(dict, var);
+			var[0] = "PWD";
+			var[1] = getcwd(NULL, 0);
+			ft_collect_mem_env(var[1]);
+			ft_dict_update(dict, var);
+		}
+	return (ret);
+}
