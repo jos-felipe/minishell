@@ -57,6 +57,7 @@ trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subproc
 command_runner = CommandRunner()
 
 command_runner.run_command_with_input("with no options", "")
+command_runner.run_command_with_input("with options", "/tmp")
 
 # Legacy
 test_description_list = command_runner.test_description_list
@@ -67,6 +68,7 @@ returncode_list = command_runner.returncode_list
 
 # Check for stdout, stderr and exit status
 i = 1
+print(f"{colours[3]}*** {unit} unit test ***{colours[0]}")
 for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	# Open files
 	outfile = open(f"{unit}/outfile", "w")
