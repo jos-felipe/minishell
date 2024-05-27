@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/22 12:07:51 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:02:29 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	mini_expansion(t_mini *mini)
 		i++;
 		cmd = mini->commands[i];
 	}
+	mini_split_expansion_in_nodes(mini);
 }
 
 void	mini_token_expansion(t_mini *mini, int i)
