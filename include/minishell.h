@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/27 13:41:47 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:55:20 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,7 @@ void	mini_remake_environ(t_mini *mini);
 // 95_builtin_cd.c
 int		mini_cd(t_token *arg, t_dict **env_list);
 void	mini_cd_go_home(t_dict *dict);
+int	mini_cd_sync(t_dict *dict, char *directory);
 
 // 96_builtin_pwd.c
 int	mini_pwd(t_token *arg, t_dict **env_list);
