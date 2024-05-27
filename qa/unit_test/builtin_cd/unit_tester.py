@@ -22,7 +22,7 @@ class CommandRunner:
 		self.args_list.append(args)
 		
 		# Get the stdout
-		cmd_line = f"bash -c \'pwd; {builtin} {args}; pwd\'"
+		cmd_line = f"bash -c \'pwd -P; {builtin} -P {args}; pwd -P\'"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
 		
@@ -58,8 +58,8 @@ command_runner = CommandRunner()
 
 command_runner.run_command_with_input("directory is not supplied", "")
 command_runner.run_command_with_input("‘..’ appears in directory", "..")
-command_runner.run_command_with_input("directory is ‘-’", "-")
 command_runner.run_command_with_input("regular directory", "/tmp")
+command_runner.run_command_with_input("directory is ‘-’", "-")
 
 # Legacy
 test_description_list = command_runner.test_description_list
@@ -79,7 +79,7 @@ for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	errfile_ref = open(f"{unit}/errfile_ref", "w")
 	
 	# Run the unit
-	cmd_line = f"./{unit}/unit.tester \'echo $PWD\' \'{builtin} {arg}\' \'echo $PWD\'"
+	cmd_line = f"./{unit}/unit.tester \'pwd\' \'{builtin} {arg}\' \'pwd\'"
 	output = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile.write(f"{output.stdout}\n")
 	outfile_ref.write(f"{output_ref}\n")
