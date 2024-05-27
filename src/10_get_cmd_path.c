@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:27:24 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/20 14:29:21 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:01:53 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	mini_get_cmd_exec_path(t_mini *mini)
 	cmd_exec_node = mini->cmd_exec_list;
 	while (cmd_exec_node)
 	{
-		if (cmd_exec_node->nbr_of_words)
+		if (cmd_exec_node->nbr_of_words && cmd_exec_node->cmd_exec[0])
 			cmd_exec_node->cmd_path = mini_get_cmd_path(cmd_exec_node);
 		cmd_exec_node = cmd_exec_node->next;
 	}

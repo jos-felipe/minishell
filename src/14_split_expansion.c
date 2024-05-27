@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:56:57 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/27 15:39:02 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:41:16 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	mini_find_space(t_mini *mini, int i)
 	t_token	*token_node;
 	
 	token_node = mini->commands[i];
-	while (token_node)
+	while (token_node && token_node->token)
 	{
 		if (ft_strchr(token_node->token, ' '))
 		{

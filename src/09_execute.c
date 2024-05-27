@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 10:11:27 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/24 18:42:06 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:51:16 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ void mini_unite_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node)
 		token_node->specie == APPEND)
 		{
 			token_node = token_node->next->next;
+			continue;
+		}
+		if (token_node->token == NULL)
+		{
+			token_node = token_node->next;
 			continue;
 		}
 		mini_match_cmd_exec_word(token_node->token, cmd_exec_node, i);

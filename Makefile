@@ -6,7 +6,7 @@
 #    By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:03:46 by josfelip          #+#    #+#              #
-#    Updated: 2024/05/27 15:40:45 by gfantoni         ###   ########.fr        #
+#    Updated: 2024/05/27 16:29:30 by gfantoni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ $(NAME): $(OBJECTS)
 
 $(OBJ_PATH)%.o: $(SOURCES_PATH)%.c $(HEADER)
 	@echo $(GREEN)[Compiling]$(COLOR_LIMITER) $(WHITE)$(notdir $(<))...$(COLOR_LIMITER)
-	$(CC) -c $< -o $@ -I $(HEADER_PATH)
+	$(CC) -c $(DFLAGS) $< -o $@ -I $(HEADER_PATH)
 	@echo " "
 
 clean:
