@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/24 19:33:58 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/27 10:18:40 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,9 @@ void	get_captalized_errors(t_mini *mini, t_cmd *cmd_exec_node);
 
 // 13_mini_remake_environ.c
 void	mini_remake_environ(t_mini *mini);
+
+// 96_builtin_pwd.c
+int	mini_pwd(t_token *arg, t_dict **env_list);
 
 // 97_builtin_unset.c
 int	mini_unset(t_token *arg, t_dict **env_list);
