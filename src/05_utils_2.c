@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/28 13:45:27 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:23:29 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,16 @@ void	mini_check_sintax(t_mini *mini, t_token *token_list)
 	}
 	while (token_list)
 	{
-		// if (mini_is_heredoc(token_list))
-		// {
-		// 	if (mini_is_valid_heredoc(token_list))
-		// 		mini_handle_heredoc(mini, token_list);
-		// 	else
-				
-			
-		// }
+		if (token_list->specie == HERE_DOC)
+		{
+			if (mini_is_valid_heredoc(token_list->next))
+				mini_handle_heredoc(mini, token_list);
+			else
+			{
+				mini_set_syntax_error(mini);
+				return;		
+			}
+		}
 		if (mini_pipe_syntax(token_list) || mini_consecutive_op_syntax(token_list) || 
 			mini_pipe_space_pipe_syntax(token_list))
 		{
