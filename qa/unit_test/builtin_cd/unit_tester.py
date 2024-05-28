@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 # Unit name - the same as the directory name
-unit = 'builtin_pwd'
-builtin = 'pwd'
+unit = 'builtin_cd'
+builtin = 'cd'
 
 # Design reference
-# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-pwd
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-cd
 
 import subprocess
 
@@ -22,7 +22,7 @@ class CommandRunner:
 		self.args_list.append(args)
 		
 		# Get the stdout
-		cmd_line = f"bash -c \'{builtin} -P {args}\'"
+		cmd_line = f"bash -c \'pwd -P; {builtin} -P {args}; pwd -P\'"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
 		
@@ -56,8 +56,10 @@ trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subproc
 
 command_runner = CommandRunner()
 
-command_runner.run_command_with_input("with no options", "")
-command_runner.run_command_with_input("with options", "/tmp")
+command_runner.run_command_with_input("directory is not supplied", "")
+command_runner.run_command_with_input("‘..’ appears in directory", "..")
+command_runner.run_command_with_input("regular directory", "/tmp")
+command_runner.run_command_with_input("directory is ‘-’", "-")
 
 # Legacy
 test_description_list = command_runner.test_description_list
@@ -77,7 +79,7 @@ for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	errfile_ref = open(f"{unit}/errfile_ref", "w")
 	
 	# Run the unit
-	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\'"
+	cmd_line = f"./{unit}/unit.tester \'pwd\' \'{builtin} {arg}\' \'pwd\'"
 	output = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile.write(f"{output.stdout}\n")
 	outfile_ref.write(f"{output_ref}\n")

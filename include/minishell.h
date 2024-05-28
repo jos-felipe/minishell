@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/27 15:40:03 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/28 09:45:54 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,9 @@ void	mini_remake_environ(t_mini *mini);
 
 // 14_split_expansion.c
 void	mini_split_expansion_in_nodes(t_mini *mini);
+
+// 95_builtin_cd.c
+int		mini_cd(t_token *arg, t_dict **env_list);
 
 // 96_builtin_pwd.c
 int	mini_pwd(t_token *arg, t_dict **env_list);
