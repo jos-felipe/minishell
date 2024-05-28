@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/28 09:45:54 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:44:53 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int		mini_is_error_state(int num);
 // 05_utils_2.c
 void	mini_print_sintax_error_message(int state);
 void	mini_cut_string(t_mini *mini, t_dfa *dfa);
-void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list);
+void	mini_check_sintax(t_mini *mini, t_token *token_list);
 void	mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list);
 void	mini_check_pipe_space_pipe_sintax(t_mini *mini, t_token *token_list);
 

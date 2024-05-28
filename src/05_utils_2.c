@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/20 14:52:10 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:52:50 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,30 @@ void	mini_cut_string(t_mini *mini, t_dfa *dfa)
 	dfa->quote = 0;
 }
 
-void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list)
+static int mini_pipe_syntax(t_token *token_node)
+{
+	if (token_node->token[0] == '|' && token_node->next == NULL)
+		return (1);
+	return (0);
+}
+
+static int mini_consecutive_op_syntax(t_token *token_node)
+{
+	if (token_node->gender == OPERATOR && token_node->specie != PIPE)
+		if (token_node->next && token_node->next->gender == OPERATOR)
+			return (1);
+	return (0);
+}
+
+static int mini_pipe_space_pipe_syntax(t_token *token_node)
+{
+	if (token_node->next)
+		if (token_node->token[0] == '|' && token_node->next->token[0] == '|')
+			return (1);
+	return (0);
+}
+
+void	mini_check_sintax(t_mini *mini, t_token *token_list)
 {
 	if (token_list->token[0] == '|')
 	{
@@ -42,7 +65,8 @@ void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list)
 	}
 	while (token_list)
 	{
-		if (token_list->token[0] == '|' && token_list->next == NULL)
+		if (mini_pipe_syntax(token_list) || mini_consecutive_op_syntax(token_list) ||
+			mini_pipe_space_pipe_syntax(token_list))
 		{
 			ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");
 			mini->syntax_error = 1;
@@ -53,35 +77,37 @@ void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list)
 	}
 }
 
-void	mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list)
-{
-	while (token_list)
-	{
-		if (token_list->gender == OPERATOR && token_list->specie != PIPE)
-		{
-			if (token_list->next && token_list->next->gender == OPERATOR)
-			{
-				ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");
-				mini->syntax_error = 1;
-				mini->status = 2; 
-				return;
-			}
-		}
-		token_list = token_list->next;
-	}
-}
 
-void	mini_check_pipe_space_pipe_sintax(t_mini *mini, t_token *token_list)
-{
-	while (token_list->next)
-	{
-		if (token_list->token[0] == '|' && token_list->next->token[0] == '|')
-		{
-			ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");
-			mini->syntax_error = 1;
-			mini->status = 2; 
-			return;
-		}
-		token_list = token_list->next;
-	}
-}
+// void	mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list)
+// {
+// 	while (token_list)
+// 	{
+// 		if (token_list->gender == OPERATOR && token_list->specie != PIPE)
+// 		{
+// 			if (token_list->next && token_list->next->gender == OPERATOR)
+// 			{
+// 				ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");
+// 				mini->syntax_error = 1;
+// 				mini->status = 2; 
+// 				return;
+// 			}
+// 		}
+// 		token_list = token_list->next;
+// 	}
+// }
+
+
+// void	mini_check_pipe_space_pipe_sintax(t_mini *mini, t_token *token_list)
+// {
+// 	while (token_list->next)
+// 	{
+// 		if (token_list->token[0] == '|' && token_list->next->token[0] == '|')
+// 		{
+// 			ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");
+// 			mini->syntax_error = 1;
+// 			mini->status = 2; 
+// 			return;
+// 		}
+// 		token_list = token_list->next;
+// 	}
+// }
