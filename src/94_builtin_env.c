@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   95_builtin_cd.c                                    :+:      :+:    :+:   */
+/*   94_builtin_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:34:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/27 17:20:46 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/28 11:40:18 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include "../include/dictionary.h"
+#include "../include/builtins.h"
 
-static int	mini_chdir_and_env_sync(t_dict *dict, char *directory, int print);
+// static int	mini_chdir_and_env_sync(t_dict *dict, char *directory, int print);
 
-int	mini_cd(t_token *arg, t_dict **dict)
+int	mini_env(t_token *arg, t_dict **dict)
 {
-	char	*directory;
+	/* char	*directory;
 	int		print;
 	
 	directory = NULL;
@@ -34,11 +33,12 @@ int	mini_cd(t_token *arg, t_dict **dict)
 		else
 			directory = arg->token;
 	}
-	return (mini_chdir_and_env_sync(*dict, directory, print));
+	return (mini_chdir_and_env_sync(*dict, directory, print)); */
+	return (0);
 }
 
 
-static int	mini_chdir_and_env_sync(t_dict *dict, char *directory, int print)
+/* static int	mini_chdir_and_env_sync(t_dict *dict, char *directory, int print)
 {
 	int		ret;
 	char	*var[2];
@@ -58,4 +58,4 @@ static int	mini_chdir_and_env_sync(t_dict *dict, char *directory, int print)
 			ft_dict_update(dict, var);
 		}
 	return (ret);
-}
+} */
