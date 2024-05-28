@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/28 12:52:50 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:45:27 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,34 @@ static int mini_pipe_space_pipe_syntax(t_token *token_node)
 	return (0);
 }
 
+static void	mini_set_syntax_error(t_mini *mini)
+{
+	ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");	
+	mini->syntax_error = 1;
+	mini->status = 2; 
+}
+
 void	mini_check_sintax(t_mini *mini, t_token *token_list)
 {
 	if (token_list->token[0] == '|')
 	{
-		ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");	
-		mini->syntax_error = 1;
-		mini->status = 2; 
+		mini_set_syntax_error(mini);
 		return;
 	}
 	while (token_list)
 	{
-		if (mini_pipe_syntax(token_list) || mini_consecutive_op_syntax(token_list) ||
+		// if (mini_is_heredoc(token_list))
+		// {
+		// 	if (mini_is_valid_heredoc(token_list))
+		// 		mini_handle_heredoc(mini, token_list);
+		// 	else
+				
+			
+		// }
+		if (mini_pipe_syntax(token_list) || mini_consecutive_op_syntax(token_list) || 
 			mini_pipe_space_pipe_syntax(token_list))
 		{
-			ft_printf_fd(STDERR_FILENO, "minishell: syntax error near unexpected token\n");
-			mini->syntax_error = 1;
-			mini->status = 2; 
+			mini_set_syntax_error(mini);
 			return;
 		}
 		token_list = token_list->next;
