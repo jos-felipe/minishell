@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/25 17:58:23 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:28:52 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node)
 {
 	mini_close_pipes(mini, cmd_exec_node);
 	mini_manage_execve_fd(cmd_exec_node);
-	if (cmd_exec_node->cmd_exec)
+	if (cmd_exec_node->cmd_path)
 	{
 		execve(cmd_exec_node->cmd_path, cmd_exec_node->cmd_exec, mini->mini_environ);
 		command_not_found_handler(mini, cmd_exec_node);
