@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:34:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/28 11:40:18 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/28 11:44:28 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	mini_env(t_token *arg, t_dict **dict)
 			directory = arg->token;
 	}
 	return (mini_chdir_and_env_sync(*dict, directory, print)); */
+	ft_printf("Hello World!");
 	return (0);
 }
 
