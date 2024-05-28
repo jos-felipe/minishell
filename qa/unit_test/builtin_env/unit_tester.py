@@ -25,7 +25,7 @@ class CommandRunner:
 		self.args_list.append(args)
 		
 		# Get the stdout
-		cmd_line = f"bash -c \'{builtin} {args}\'"
+		cmd_line = f"bash -c \'{builtin} {args} | sort\'"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
 		
