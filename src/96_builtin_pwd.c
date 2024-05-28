@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:34:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/22 15:37:01 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:41:19 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 int		mini_pwd(t_token *arg, t_dict **dict)
 {
-	ft_printf("%s\n", ft_dict_get_value(*dict, "PWD"));
+	char	*cwd;
+	
+	cwd = getcwd(NULL, 0);
+	ft_collect_mem_env(cwd);
+	ft_printf("%s\n", cwd);
 	return (0);
 }

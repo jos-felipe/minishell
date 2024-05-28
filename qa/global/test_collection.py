@@ -40,6 +40,14 @@ def test_collection():
 	output_exit_code.append("1\n")
 
 	# Expansion
+	input_list.append("echo $nada")
+	output_ref_list.append(f"\n")
+	output_exit_code.append("0\n")
+
+	input_list.append("$nada")
+	output_ref_list.append(f"")
+	output_exit_code.append("0\n")
+
 	input_list.append("echo $USER")
 	output_ref_list.append(f"{user}\n")
 	output_exit_code.append("0\n")
