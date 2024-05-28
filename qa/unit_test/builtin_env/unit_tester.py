@@ -58,9 +58,6 @@ trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subproc
 # Test description, Input Samples and Outputs references:
 command_runner = CommandRunner()
 command_runner.run_command_with_input("no operand nor command name", "")
-# command_runner.run_command_with_input("‘..’ appears in directory", "..")
-# command_runner.run_command_with_input("regular directory", "/tmp")
-# command_runner.run_command_with_input("directory is ‘-’", "-")
 
 # Legacy
 test_description_list = command_runner.test_description_list
