@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 
 # Unit name - the same as the directory name
-unit = 'builtin_cd'
-builtin = 'cd'
+unit = 'builtin_env'
+builtin = 'env'
+
+# Description
+# env with no options or arguments
 
 # Design reference
-# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-cd
+# https://www.gnu.org/software/coreutils/manual/html_node/env-invocation.html#env-invocation
 
 import subprocess
 
@@ -22,7 +25,7 @@ class CommandRunner:
 		self.args_list.append(args)
 		
 		# Get the stdout
-		cmd_line = f"bash -c \'pwd -P; {builtin} -P {args}; pwd -P\'"
+		cmd_line = f"bash -c \'{builtin} {args}\'"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
 		
@@ -53,13 +56,11 @@ colours = [COLOR_LIMITER, RED, GREEN, CYAN, YELLOW]
 trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 # Test description, Input Samples and Outputs references:
-
 command_runner = CommandRunner()
-
-command_runner.run_command_with_input("directory is not supplied", "")
-command_runner.run_command_with_input("‘..’ appears in directory", "..")
-command_runner.run_command_with_input("regular directory", "/tmp")
-command_runner.run_command_with_input("directory is ‘-’", "-")
+command_runner.run_command_with_input("no operand nor command name", "")
+# command_runner.run_command_with_input("‘..’ appears in directory", "..")
+# command_runner.run_command_with_input("regular directory", "/tmp")
+# command_runner.run_command_with_input("directory is ‘-’", "-")
 
 # Legacy
 test_description_list = command_runner.test_description_list
@@ -79,7 +80,7 @@ for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	errfile_ref = open(f"{unit}/errfile_ref", "w")
 	
 	# Run the unit
-	cmd_line = f"./{unit}/unit.tester \'pwd\' \'{builtin} {arg}\' \'pwd\'"
+	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\'"
 	output = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile.write(f"{output.stdout}\n")
 	outfile_ref.write(f"{output_ref}\n")
@@ -134,5 +135,5 @@ for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	i = i + 1
 
 # Clean
-subprocess.run(f"rm {unit}/outfile {unit}/outfile_ref {unit}/errfile {unit}/errfile_ref", shell=True)
-trash = subprocess.run(f"make fclean -C {unit}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+# subprocess.run(f"rm {unit}/outfile {unit}/outfile_ref {unit}/errfile {unit}/errfile_ref", shell=True)
+# trash = subprocess.run(f"make fclean -C {unit}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
