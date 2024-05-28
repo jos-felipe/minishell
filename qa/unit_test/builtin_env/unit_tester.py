@@ -80,7 +80,7 @@ for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	errfile_ref = open(f"{unit}/errfile_ref", "w")
 	
 	# Run the unit
-	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\'"
+	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\' | grep -v \'_=\'"
 	output = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile.write(f"{output.stdout}\n")
 	outfile_ref.write(f"{output_ref}\n")
@@ -92,8 +92,8 @@ for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	outfile_ref.close()
 	errfile.close()
 	errfile_ref.close()
-	
-	
+
+	# Print the test description	
 	print(f"{colours[3]}{i}/{len(args_list)} - {test_description_list[i-1]}{colours[0]}")
 
 	# Check for stdout
