@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:23:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/27 11:27:00 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:45:25 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	mini_init(t_mini *pipex)
 	pipex->cmd_exec_list = NULL;
 	pipex->syntax_error = 0;
 	pipex->mini_environ = NULL;
+	pipex->hd_file_index = 0;
 }
 
 void	mini_trashman_collector(t_list **list_memory, void *trash)
