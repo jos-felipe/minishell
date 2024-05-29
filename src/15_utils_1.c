@@ -6,15 +6,18 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:23:01 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/29 16:47:36 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:50:42 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static char *debug_join_check(t_token *token_node);
+// static char *debug_join_check(t_token *token_node);
 static void mini_init_hd(t_mini *hd, char *line);
 static void mini_hd_tokenizer(t_mini *hd);
+static void mini_hd_parser(t_mini *hd);
+static char *mini_join_exp_list(t_token *token_node);
+
 
 char	*mini_hd_expansion(char *line)
 {
@@ -24,26 +27,33 @@ char	*mini_hd_expansion(char *line)
 	if (!ft_strchr(line, '$'))
 		return (line);
 	mini_init_hd(&hd, line);
+	mini_getenv(&hd);
 	mini_hd_tokenizer(&hd);
-	// mini_hd_parser(&hd);
-	// mini_expansion(&hd);
-	// exp_line = mini_join_exp_list(&hd);
-	exp_line = debug_join_check(hd.token_list);
+	mini_hd_parser(&hd);
+	mini_expansion(&hd);
+	exp_line = mini_join_exp_list(hd.commands[0]);
+	// exp_line = debug_join_check(hd.commands[0]);
 	return (exp_line);
 }
 
-static char *debug_join_check(t_token *token_node)
+static char *mini_join_exp_list(t_token *token_node)
 {
 	char *str;
-	int i = 0;
+	char *tmp;
 
 	str = NULL;
 	while (token_node)
 	{
-		i++;
+		if (!str)
+			tmp = ft_strdup("");
+		else
+			tmp = ft_strjoin(str, " ");
+		str = ft_strjoin(tmp, token_node->token);
+		free(tmp);
+		ft_collect_mem(str);
 		token_node = token_node->next;
 	}
-	return (ft_itoa(i));
+	return (str);
 }
 
 static void mini_init_hd(t_mini *hd, char *line)
@@ -68,5 +78,13 @@ static void mini_hd_tokenizer(t_mini *hd)
 	mini_init_dfa(&dfa);
 	mini_automaton(hd, &dfa);
 }
+
+static void mini_hd_parser(t_mini *hd)
+{
+	hd->commands = (t_token **)ft_calloc(sizeof(t_token *), 2);
+	ft_collect_mem(hd->commands);
+	hd->commands[0] = hd->token_list;
+}
+
 
 
