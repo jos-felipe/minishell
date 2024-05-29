@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_utils_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/28 14:23:29 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:31:09 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	mini_check_sintax(t_mini *mini, t_token *token_list)
 		if (token_list->specie == HERE_DOC)
 		{
 			if (mini_is_valid_heredoc(token_list->next))
-				mini_handle_heredoc(mini, token_list);
+				mini_handle_heredoc(mini, token_list->next);
 			else
 			{
 				mini_set_syntax_error(mini);
