@@ -6,32 +6,23 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:34:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/28 14:51:49 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/29 08:10:28 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/builtins.h"
+#include "../include/trashman.h"
 
-// static void	mini_printenv(t_dict *dict);
-
-int			mini_exit(t_token *arg, t_dict **dict)
+void	mini_exit(t_token *arg, int status_last_cmd)
 {
-	if (!arg)
-		ft_printf("Hello World!");
-	return (0);
+	int	status;
+	
+	status = status_last_cmd;
+	if (arg)
+		status = ft_atoi(arg->token);
+	ft_free_trashman(ft_get_mem_address());
+	ft_free_trashman_env(ft_get_mem_address_env());
+	exit(status);
 }
 
-/* static void	mini_printenv(t_dict *dict)
-{
-	t_dict	*cur;
-	
-	cur = ft_dictsort(dict);
-	while (cur)
-	{
-		if (cur->value)
-			ft_printf("%s=%s\n", cur->key, cur->value);
-		else
-			ft_printf("%s\n", cur->key);
-		cur = cur->next;
-	}
-} */
+
