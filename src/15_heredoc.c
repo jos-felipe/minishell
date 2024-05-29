@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   15_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:23:01 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/29 14:19:16 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:06:08 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 static int mini_create_file(t_mini *mini);
-static void mini_line_to_file(char *line, int hd_file_fd);
 
 int	mini_is_valid_heredoc(t_token *token_node)
 {
@@ -48,7 +47,7 @@ void	mini_handle_heredoc(t_mini *mini, t_token *token_node)
 			break ;
 		}
 		exp_line = mini_hd_expansion(line);
-		mini_line_to_file(exp_line, hd_file_fd);
+		ft_printf_fd(hd_file_fd, "%s\n", exp_line);
 		free(line);
 	}
 	// close(pipe_fd[1]);
@@ -68,9 +67,4 @@ static int mini_create_file(t_mini *mini)
 	ft_collect_mem(file_name);
 	mini->hd_file_index++;
 	return (fd);
-}
-
-static void mini_line_to_file(char *line, int hd_file_fd)
-{
-	ft_printf_fd(hd_file_fd, "%s\n", line);	
 }
