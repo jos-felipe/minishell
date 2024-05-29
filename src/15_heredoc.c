@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:23:01 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/29 13:50:32 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:19:16 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	mini_is_valid_heredoc(t_token *token_node)
 void	mini_handle_heredoc(t_mini *mini, t_token *token_node)
 {
 	char	*line;
+	char	*exp_line;
 	char	*word;
 	int		hd_file_fd;
 
-	line = NULL;
 	word = token_node->token;
 	hd_file_fd = mini_create_file(mini);
 	while (1)
@@ -47,8 +47,8 @@ void	mini_handle_heredoc(t_mini *mini, t_token *token_node)
 			close(hd_file_fd);
 			break ;
 		}
-		// ft_putstr_fd(line, pipe_fd[1]);
-		mini_line_to_file(line, hd_file_fd);
+		exp_line = mini_hd_expansion(line);
+		mini_line_to_file(exp_line, hd_file_fd);
 		free(line);
 	}
 	// close(pipe_fd[1]);

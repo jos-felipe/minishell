@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/29 12:45:04 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:22:11 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,9 @@ void	mini_split_expansion_in_nodes(t_mini *mini);
 // 15_heredoc.c
 int		mini_is_valid_heredoc(t_token *token_node);
 void	mini_handle_heredoc(t_mini *mini, t_token *token_node);
+
+// 15_utils.c
+char	*mini_hd_expansion(char *line);
 
 // 95_builtin_cd.c
 int		mini_cd(t_token *arg, t_dict **env_list);
