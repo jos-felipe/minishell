@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 # Unit name - the same as the directory name
-unit = 'builtin_env'
-builtin = 'env'
+unit = 'builtin_exit'
+builtin = 'exit'
 
-# Description
-# env with no options or arguments
+# Specification
+# exit with no options
 
 # Design reference
-# https://www.gnu.org/software/coreutils/manual/html_node/env-invocation.html#env-invocation
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/Bourne-Shell-Builtins.html#index-exit
 
 import subprocess
 
@@ -25,7 +25,7 @@ class CommandRunner:
 		self.args_list.append(args)
 		
 		# Get the stdout
-		cmd_line = f"bash -c \'{builtin} {args} | sort | grep -v \'^_=\'\'"
+		cmd_line = f"bash -c \'{builtin} {args}\'"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		self.stdout_list.append(returned_instance.stdout)
 		
@@ -35,10 +35,8 @@ class CommandRunner:
 		self.stderr_list.append(returned_instance.stderr)
 		
 		# Get the return code
-		# cmd_line = f"bash -c \'{builtin} {args}; echo $?\'"
 		cmd_line = f"{builtin} {args}"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-		# returncode = int(returned_instance.stdout)
 		returncode = returned_instance.returncode
 		self.returncode_list.append(returncode)
 
@@ -55,9 +53,9 @@ colours = [COLOR_LIMITER, RED, GREEN, CYAN, YELLOW]
 
 trash = subprocess.run(f"make -C {unit}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
-# Test description, Input Samples and Outputs references:
+# Test cases:
 command_runner = CommandRunner()
-command_runner.run_command_with_input("no operand nor command name", "")
+command_runner.run_command_with_input("with no options", "")
 
 # Legacy
 test_description_list = command_runner.test_description_list
@@ -77,7 +75,7 @@ for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 	errfile_ref = open(f"{unit}/errfile_ref", "w")
 	
 	# Run the unit
-	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\' | grep -v \'_=\'"
+	cmd_line = f"./{unit}/unit.tester \'{builtin} {arg}\'"
 	output = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile.write(f"{output.stdout}\n")
 	outfile_ref.write(f"{output_ref}\n")
