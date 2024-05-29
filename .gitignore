@@ -70,4 +70,5 @@ log_file
 # Logs from unit test
 outfile*
 errfile*
+status*
 
