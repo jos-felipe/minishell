@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   93_builtin_exit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 14:28:50 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/29 08:36:09 by josfelip         ###   ########.fr       */
+/*   Created: 2024/05/20 14:34:02 by josfelip          #+#    #+#             */
+/*   Updated: 2024/05/29 08:10:28 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "../include/builtins.h"
+#include "../include/trashman.h"
 
-# include "../include/minishell.h"
+void	mini_exit(t_token *arg, int status_last_cmd)
+{
+	int	status;
+	
+	status = status_last_cmd;
+	if (arg)
+		status = ft_atoi(arg->token);
+	ft_free_trashman(ft_get_mem_address());
+	ft_free_trashman_env(ft_get_mem_address_env());
+	exit(status);
+}
 
-int		mini_env(t_token *arg, t_dict **dict);
-void	mini_exit(t_token *arg, int status_last_cmd);
 
-#endif
