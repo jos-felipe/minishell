@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:13:42 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/30 12:10:17 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:17:50 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	mini_handle_heredoc_redir(t_cmd *redir_node, char *file)
 	if (redir_node->input_fd != 0)
 		close(redir_node->input_fd);
 	fd = open(file, O_RDONLY);
+	unlink(file);
 	if (fd < 0 && access(file, F_OK))
 		ft_printf_fd(STDERR_FILENO, "minishell: %s: No such file or directory\n", file);
 	else if (fd < 0 && mini_is_dir(file))
