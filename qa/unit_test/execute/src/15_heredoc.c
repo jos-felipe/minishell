@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:23:01 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/30 11:55:19 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:03:00 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	mini_handle_heredoc(t_mini *mini, t_token *token_node)
 		line = readline("> ");
 		if (line == NULL)
 		{
-			ft_printf_fd(STDERR_FILENO, "minishell: warning: here-document delimited by end-of-file (wanted `%s\')", word);
+			ft_printf_fd(STDERR_FILENO, "minishell: warning: here-document delimited by end-of-file (wanted `%s\')\n", word);
 			free(line);
 			close(hd_file_fd);
 			break ;
