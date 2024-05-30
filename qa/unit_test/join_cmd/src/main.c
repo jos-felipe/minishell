@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/21 12:37:27 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:08:30 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ void	unit_print_cmd_exec_list(t_cmd **head)
 	}
 }
 
-void	mini_init(t_mini *pipex)
-{
+// void	mini_init(t_mini *pipex)
+// {
 
-	pipex->path = NULL;
-	pipex->lst_memory = NULL;
-	pipex->status = 0;
-	pipex->cmd_line = NULL;
-	pipex->pathname = NULL;
-	pipex->token_list = NULL;
-	pipex->env_list = NULL;
-	pipex->cmd_exec_list = NULL;
-	pipex->syntax_error = 0;
-}
+// 	pipex->path = NULL;
+// 	pipex->lst_memory = NULL;
+// 	pipex->status = 0;
+// 	pipex->cmd_line = NULL;
+// 	pipex->pathname = NULL;
+// 	pipex->token_list = NULL;
+// 	pipex->env_list = NULL;
+// 	pipex->cmd_exec_list = NULL;
+// 	pipex->syntax_error = 0;
+// }
 
 int main(int argc, char *argv[], char *envp[])
 {
