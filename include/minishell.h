@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/30 12:10:21 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:31:33 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_token
 	char 					*token;
 	enum e_token_gender		gender;
 	enum e_token_specie		specie;
+	int						was_quoted;
 	struct s_token 			*next;
 	struct s_token 			*prev;
 }	t_token;

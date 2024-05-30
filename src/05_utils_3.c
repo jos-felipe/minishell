@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:48:39 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/02 18:43:14 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:31:43 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_token	*mini_token_lstnew(void *token, int state)
 	mini_get_token_specie(state, new_node);
 	new_node->next = NULL;
 	new_node->prev = NULL;
+	new_node->was_quoted = state;
 	ft_collect_mem(new_node);
 	return (new_node);
 }
