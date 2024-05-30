@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/29 14:22:11 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:10:21 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ void	mini_find_redirect(t_mini *mini, int i);
 void	mini_handle_out_redir(t_cmd *cmd_node, char *file);
 void	mini_handle_in_redir(t_cmd *cmd_node, char *file);
 void	mini_handle_append_redir(t_cmd *cmd_node, char *file);
+void	mini_handle_heredoc_redir(t_cmd *redir_node, char *file);
 
 // 08_utils_1.c
 t_cmd	*mini_redir_lstnew(void);

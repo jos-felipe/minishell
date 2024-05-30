@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 10:11:27 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/27 16:51:16 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:13:20 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	mini_count_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node)
 	{
 		if (token_node->specie == OUT_REDIRECT ||
 		token_node->specie == IN_REDIRECT ||
-		token_node->specie == APPEND)
+		token_node->specie == APPEND ||
+		token_node->specie == HERE_DOC)
 		{
 			token_node = token_node->next->next;
 			continue;
@@ -72,7 +73,8 @@ void mini_unite_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node)
 	{
 		if (token_node->specie == OUT_REDIRECT ||
 		token_node->specie == IN_REDIRECT ||
-		token_node->specie == APPEND)
+		token_node->specie == APPEND ||
+		token_node->specie == HERE_DOC)
 		{
 			token_node = token_node->next->next;
 			continue;
