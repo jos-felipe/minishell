@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/28 09:45:54 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:31:33 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_token
 	char 					*token;
 	enum e_token_gender		gender;
 	enum e_token_specie		specie;
+	int						was_quoted;
 	struct s_token 			*next;
 	struct s_token 			*prev;
 }	t_token;
@@ -105,6 +106,7 @@ typedef struct s_mini
 	t_cmd 	*cmd_exec_list;
 	int		syntax_error;
 	char	**mini_environ;
+	int		hd_file_index;
 }				t_mini;
 
 // 00_utils.c
@@ -155,7 +157,7 @@ int		mini_is_error_state(int num);
 // 05_utils_2.c
 void	mini_print_sintax_error_message(int state);
 void	mini_cut_string(t_mini *mini, t_dfa *dfa);
-void	mini_check_pipe_sintax(t_mini *mini, t_token *token_list);
+void	mini_check_sintax(t_mini *mini, t_token *token_list);
 void	mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list);
 void	mini_check_pipe_space_pipe_sintax(t_mini *mini, t_token *token_list);
 
@@ -218,6 +220,7 @@ void	mini_find_redirect(t_mini *mini, int i);
 void	mini_handle_out_redir(t_cmd *cmd_node, char *file);
 void	mini_handle_in_redir(t_cmd *cmd_node, char *file);
 void	mini_handle_append_redir(t_cmd *cmd_node, char *file);
+void	mini_handle_heredoc_redir(t_cmd *redir_node, char *file);
 
 // 08_utils_1.c
 t_cmd	*mini_redir_lstnew(void);
@@ -255,6 +258,13 @@ void	mini_remake_environ(t_mini *mini);
 
 // 14_split_expansion.c
 void	mini_split_expansion_in_nodes(t_mini *mini);
+
+// 15_heredoc.c
+int		mini_is_valid_heredoc(t_token *token_node);
+void	mini_handle_heredoc(t_mini *mini, t_token *token_node);
+
+// 15_utils.c
+char	*mini_hd_expansion(char *line);
 
 // 95_builtin_cd.c
 int		mini_cd(t_token *arg, t_dict **env_list);
