@@ -71,3 +71,9 @@ for command, reference, reference_exit_code in zip(input_list, output_ref_list, 
 file_paths = ["outfile", "file", "ref_file", "status_ref_file", "result",  "status_result", "valgrind.log", "outfile_2", "outfile_3", "infile_1", "no_perm_infile"]
 rm_command = ["rm", "-f"] + file_paths
 subprocess.run(rm_command)
+
+############################################################################################################
+
+from run_unit_tests import run_unit_tests
+
+status = run_unit_tests()
