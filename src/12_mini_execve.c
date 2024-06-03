@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/03 10:42:43 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:20:16 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,12 @@ void	mini_close_pipes(t_mini *mini, t_cmd *current)
 
 void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node, int i)
 {
+	t_token *token_lst;
+	
 	mini_close_pipes(mini, cmd_exec_node);
 	mini_manage_execve_fd(cmd_exec_node);
-	if (cmd_exec_node->cmd_path && !mini_cmd_selection(mini->commands[i], mini))
+	token_lst = mini_exec_interface(cmd_exec_node->cmd_exec);
+	if (cmd_exec_node->cmd_path && !mini_cmd_selection(token_lst, mini))
 	{
 		execve(cmd_exec_node->cmd_path, cmd_exec_node->cmd_exec, mini->mini_environ);
 		command_not_found_handler(mini, cmd_exec_node);

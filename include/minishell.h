@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/03 10:34:42 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:23:34 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,9 @@ void   	mini_wait_childs(t_mini *mini);
 void	command_not_found_handler(t_mini *mini, t_cmd *cmd_exec_node);
 void	get_captalized_errors(t_mini *mini, t_cmd *cmd_exec_node);
 int		mini_cmd_selection(t_token *token_lst, t_mini *mini);
+
+// 12_utils_1.c
+t_token	*mini_exec_interface(char **cmd_exec);
 
 
 // 13_mini_remake_environ.c
