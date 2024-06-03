@@ -3,28 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   12_mini_execve.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/28 10:28:52 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:42:43 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include <errno.h>
+#include "../include/builtins.h"
 
 void	mini_execve(t_mini *mini)
 {
 	t_cmd	*cmd_exec_node;
+	int		i;
 	
 	cmd_exec_node = mini->cmd_exec_list;
+	i = 0;
 	while (cmd_exec_node)
 	{
 		cmd_exec_node->pid = fork();
 		if (cmd_exec_node->pid == 0)
-			mini_execve_child(mini, cmd_exec_node);
+			mini_execve_child(mini, cmd_exec_node, i);
 		// mini_close_pipe_node_fd(cmd_exec_node);
 		cmd_exec_node = cmd_exec_node->next;
+		i++;
 	}
 	mini_close_all_fd(mini);
 	mini_wait_childs(mini);
@@ -47,11 +51,11 @@ void	mini_close_pipes(t_mini *mini, t_cmd *current)
 	}
 }
 
-void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node)
+void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node, int i)
 {
 	mini_close_pipes(mini, cmd_exec_node);
 	mini_manage_execve_fd(cmd_exec_node);
-	if (cmd_exec_node->cmd_path)
+	if (cmd_exec_node->cmd_path && !mini_cmd_selection(mini->commands[i], mini))
 	{
 		execve(cmd_exec_node->cmd_path, cmd_exec_node->cmd_exec, mini->mini_environ);
 		command_not_found_handler(mini, cmd_exec_node);
@@ -188,4 +192,30 @@ void   mini_wait_childs(t_mini *mini)
     }
     if (WIFEXITED(status))
         mini->status = WEXITSTATUS(status);
+}
+
+int	mini_cmd_selection(t_token *token_lst, t_mini *mini)
+{
+	char	*cmd;
+	t_token	*arg;
+	int		executed;
+
+	cmd = token_lst->token;
+	arg = token_lst->next;
+	executed = 1;
+	if (!ft_strncmp(cmd, "export", 6))
+		mini_export(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "echo", 4))
+		mini_echo(arg);
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+		mini_pwd(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+		mini_cd(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+		mini_env(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		mini_exit(arg, mini->status);
+	else
+		executed = 0;
+	return (executed);
 }
