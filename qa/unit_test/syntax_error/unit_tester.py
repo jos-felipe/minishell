@@ -65,7 +65,7 @@ output_data_list.append(["E", f'minishell: syntax error near unexpected token\n'
 
 i = 1
 for input_data, output_ref in zip(input_data_list, output_data_list):
-	output = subprocess.run(f"{valgrind} ./syntax_error/syntax_error {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	output = subprocess.run(f"{valgrind} ./syntax_error/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile_content = output.stdout
 	if output_ref[0] == "E":
 		outfile_content = output.stderr

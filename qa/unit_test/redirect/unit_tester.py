@@ -66,7 +66,7 @@ output_data_list.append(f'0|4\n')
 i = 1
 
 for input_data, output_ref in zip(input_data_list, output_data_list):
-	output = subprocess.run(f"{valgrind} ./{name}/{name} {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	output = subprocess.run(f"{valgrind} ./{name}/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile_content = output.stdout
 	if outfile_content == output_ref:
 		print(f"{colours[0]}{i}/{len(input_data_list)}.	OK  {colours[2]}")

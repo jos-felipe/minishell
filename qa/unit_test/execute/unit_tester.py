@@ -35,7 +35,7 @@ output_data_list.append(f'APPLE. BANANA. CARROT. BREAD$\n')
 i = 1
 
 for input_data, output_ref in zip(input_data_list, output_data_list):
-	trash = subprocess.run(f"{valgrind} ./{name}/{name} {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	trash = subprocess.run(f"{valgrind} ./{name}/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	output = subprocess.run(f"cat outfile", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	outfile_content = output.stdout
 	if outfile_content == output_ref:
