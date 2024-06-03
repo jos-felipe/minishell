@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/30 11:08:44 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:13:21 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "./include/minishell.h"
 
 // void	unit_print_cmd_exec_path(char *cmd_exec_path)
 // {
@@ -38,20 +38,6 @@ void	unit_print_cmd_exec_path(t_cmd **head)
 		node = node->next;
 	}
 }
-
-// void	mini_init(t_mini *pipex)
-// {
-
-// 	pipex->path = NULL;
-// 	pipex->lst_memory = NULL;
-// 	pipex->status = 0;
-// 	pipex->cmd_line = NULL;
-// 	pipex->pathname = NULL;
-// 	pipex->token_list = NULL;
-// 	pipex->env_list = NULL;
-// 	pipex->cmd_exec_list = NULL;
-// 	pipex->syntax_error = 0;
-// }
 
 int main(int argc, char *argv[], char *envp[])
 {

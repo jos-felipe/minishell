@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/03 12:44:36 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:07:28 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,7 @@ void	unit_print_array_list(t_mini *mini)
 		i++;
 	}
 }
-// void	mini_init(t_mini *mini)
-// {
 
-// 	mini->path = NULL;
-// 	mini->lst_memory = NULL;
-// 	mini->cmd_line = NULL;
-// 	mini->pathname = NULL;
-// 	mini->token_list = NULL;
-// 	mini->commands = NULL;
-// 	mini->syntax_error = 0;
-// }
 
 void	unit_cmd_selection(t_token *token_lst, t_mini *mini)
 {

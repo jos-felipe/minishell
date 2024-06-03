@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/30 10:57:15 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:13:21 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "./include/minishell.h"
 
 void	unit_print_token_list(t_token *node)
 {
@@ -20,16 +20,6 @@ void	unit_print_token_list(t_token *node)
 		node = node->next;
 	}
 }
-
-// void	mini_init(t_mini *pipex)
-// {
-// 	pipex->lst_memory = NULL;
-// 	pipex->status = 0;
-// 	pipex->cmd_line = NULL;
-// 	pipex->pathname = NULL;
-// 	pipex->token_list = NULL;
-// 	pipex->syntax_error = 0;
-// }
 
 int main(int argc, char *argv[], char *envp[])
 {
