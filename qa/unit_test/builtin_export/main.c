@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/03 16:13:21 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:33:35 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int main(int argc, char *argv[], char *envp[])
 		unit_cmd_router(&mini);
 	}
 	ft_free_trashman(ft_get_mem_address());
+	ft_free_trashman_env(ft_get_mem_address_env());
 	return (mini.status);
 }

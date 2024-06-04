@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/03 11:20:16 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:25:25 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,22 @@ void	mini_execve(t_mini *mini)
 {
 	t_cmd	*cmd_exec_node;
 	int		i;
+	t_token *token_lst;
 	
 	cmd_exec_node = mini->cmd_exec_list;
 	i = 0;
 	while (cmd_exec_node)
 	{
-		cmd_exec_node->pid = fork();
-		if (cmd_exec_node->pid == 0)
-			mini_execve_child(mini, cmd_exec_node, i);
-		// mini_close_pipe_node_fd(cmd_exec_node);
-		cmd_exec_node = cmd_exec_node->next;
-		i++;
+		token_lst = mini_exec_interface(cmd_exec_node->cmd_exec);
+		if (!mini_cmd_selection(token_lst, mini))
+		{
+			cmd_exec_node->pid = fork();
+			if (cmd_exec_node->pid == 0)
+				mini_execve_child(mini, cmd_exec_node, i);
+			// mini_close_pipe_node_fd(cmd_exec_node);
+			cmd_exec_node = cmd_exec_node->next;
+			i++;
+		}
 	}
 	mini_close_all_fd(mini);
 	mini_wait_childs(mini);
