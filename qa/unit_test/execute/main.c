@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/03 16:13:21 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:49:47 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int main(int argc, char *argv[], char *envp[])
 	t_mini	mini;
 
 	mini_init(&mini);
+	mini.status = 0;
 	mini_getenv(&mini);
 	mini.cmd_line = argv[1];
 	mini_tokenizer(&mini);
