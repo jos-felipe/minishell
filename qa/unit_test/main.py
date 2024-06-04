@@ -53,8 +53,13 @@ status = 0
 # if _status != 0:
 # 	status = 1
 
-from builtin_exit.unit_tester import unit_exit
-_status = unit_exit()
+# from builtin_exit.unit_tester import unit_exit
+# _status = unit_exit()
+# if _status != 0:
+# 	status = 1
+
+from builtin_unset.unit_tester import unit_unset
+_status = unit_unset()
 if _status != 0:
 	status = 1
 
