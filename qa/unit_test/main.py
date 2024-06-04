@@ -44,4 +44,9 @@ _status = unit_echo()
 if _status != 0:
 	status = 1
 
+from builtin_env.unit_tester import unit_env
+_status = unit_env()
+if _status != 0:
+	status = 1
+
 print(f"Status: {status}")
