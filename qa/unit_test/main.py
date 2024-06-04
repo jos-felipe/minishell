@@ -28,11 +28,13 @@ print("\nUNIT TEST\n")
 
 status = 0
 
-print("Builtin pwd")
+# print("Builtin pwd")
 from builtin_pwd.unit_tester import unit_pwd
 _status = unit_pwd()
 if _status != 0:
 	status = 1
 
-print("exit status")
-# from exit_status import unit_tester
+from builtin_cd.unit_tester import unit_cd
+_status = unit_cd()
+if _status != 0:
+	status = 1
