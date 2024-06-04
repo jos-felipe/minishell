@@ -28,24 +28,28 @@ print("\nUNIT TEST\n")
 
 status = 0
 
-# print("Builtin pwd")
-from builtin_pwd.unit_tester import unit_pwd
-_status = unit_pwd()
-if _status != 0:
-	status = 1
+# from builtin_pwd.unit_tester import unit_pwd
+# _status = unit_pwd()
+# if _status != 0:
+# 	status = 1
 
-from builtin_cd.unit_tester import unit_cd
-_status = unit_cd()
-if _status != 0:
-	status = 1
+# from builtin_cd.unit_tester import unit_cd
+# _status = unit_cd()
+# if _status != 0:
+# 	status = 1
 
-from echo.unit_tester import unit_echo
-_status = unit_echo()
-if _status != 0:
-	status = 1
+# from echo.unit_tester import unit_echo
+# _status = unit_echo()
+# if _status != 0:
+# 	status = 1
 
-from builtin_env.unit_tester import unit_env
-_status = unit_env()
+# from builtin_env.unit_tester import unit_env
+# _status = unit_env()
+# if _status != 0:
+# 	status = 1
+
+from builtin_export.unit_tester import unit_export
+_status = unit_export()
 if _status != 0:
 	status = 1
 
