@@ -48,8 +48,13 @@ status = 0
 # if _status != 0:
 # 	status = 1
 
-from builtin_export.unit_tester import unit_export
-_status = unit_export()
+# from builtin_export.unit_tester import unit_export
+# _status = unit_export()
+# if _status != 0:
+# 	status = 1
+
+from builtin_exit.unit_tester import unit_exit
+_status = unit_exit()
 if _status != 0:
 	status = 1
 
