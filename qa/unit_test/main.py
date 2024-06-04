@@ -38,3 +38,10 @@ from builtin_cd.unit_tester import unit_cd
 _status = unit_cd()
 if _status != 0:
 	status = 1
+
+from echo.unit_tester import unit_echo
+_status = unit_echo()
+if _status != 0:
+	status = 1
+
+print(f"Status: {status}")
