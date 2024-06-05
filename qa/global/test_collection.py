@@ -18,6 +18,11 @@ def test_collection():
 	output_ref_list.append(f"\n")
 	output_exit_code.append("0\n")
 
+	# Export
+	input_list.append("export foo=bar\nexport foo=bar2 | echo $foo")
+	output_ref_list.append(f"bar\n")
+	output_exit_code.append("0\n")
+
 	# File error
 	input_list.append("cat > .")
 	output_ref_list.append(f"minishell: .: Is a directory\n")
