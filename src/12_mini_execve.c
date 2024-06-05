@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   12_mini_execve.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/04 11:25:25 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:30:30 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,16 @@ void	mini_execve(t_mini *mini)
 	i = 0;
 	while (cmd_exec_node)
 	{
-		token_lst = mini_exec_interface(cmd_exec_node->cmd_exec);
-		if (!mini_cmd_selection(token_lst, mini))
-		{
-			cmd_exec_node->pid = fork();
-			if (cmd_exec_node->pid == 0)
-				mini_execve_child(mini, cmd_exec_node, i);
-			// mini_close_pipe_node_fd(cmd_exec_node);
-			cmd_exec_node = cmd_exec_node->next;
-			i++;
-		}
+		// token_lst = mini_exec_interface(cmd_exec_node->cmd_exec);
+		// if (!mini_cmd_selection(token_lst, mini))
+		cmd_exec_node->pid = fork();
+		if (cmd_exec_node->pid == 0)
+			mini_execve_child(mini, cmd_exec_node, i);
+		cmd_exec_node = cmd_exec_node->next;
+		i++;
 	}
 	mini_close_all_fd(mini);
 	mini_wait_childs(mini);
-	// waitpid(pid, &mini->status, 0);
 }
 
 void	mini_close_pipes(t_mini *mini, t_cmd *current)
@@ -62,15 +58,13 @@ void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node, int i)
 	
 	mini_close_pipes(mini, cmd_exec_node);
 	mini_manage_execve_fd(cmd_exec_node);
-	token_lst = mini_exec_interface(cmd_exec_node->cmd_exec);
-	if (cmd_exec_node->cmd_path && !mini_cmd_selection(token_lst, mini))
+	if (cmd_exec_node->cmd_path)
 	{
 		execve(cmd_exec_node->cmd_path, cmd_exec_node->cmd_exec, mini->mini_environ);
 		command_not_found_handler(mini, cmd_exec_node);
 	}
 	ft_free_trashman(ft_get_mem_address());
 	ft_free_trashman_env(ft_get_mem_address_env());
-	// mini_close_node_fd(cmd_exec_node);
     exit(mini->status);
 }
 
