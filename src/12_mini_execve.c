@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/05 14:30:30 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:38:51 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,41 @@ void	mini_execve(t_mini *mini)
 	t_cmd	*cmd_exec_node;
 	int		i;
 	t_token *token_lst;
+	int		compound_cmd;
 	
 	cmd_exec_node = mini->cmd_exec_list;
 	i = 0;
+	compound_cmd = 0;
 	while (cmd_exec_node)
 	{
-		// token_lst = mini_exec_interface(cmd_exec_node->cmd_exec);
-		// if (!mini_cmd_selection(token_lst, mini))
-		cmd_exec_node->pid = fork();
-		if (cmd_exec_node->pid == 0)
-			mini_execve_child(mini, cmd_exec_node, i);
+		token_lst = mini_exec_interface(cmd_exec_node->cmd_exec);
+		// printf("cmd_exec[0]: %s\n", cmd_exec_node->cmd_exec[0]);
+		// printf("cmd_exec[1]: %s\n", cmd_exec_node->cmd_exec[1]);
+		// printf("token: %s\n", token_lst->token);
+		// printf("token->next: %s\n", token_lst->next->token);
+		if (cmd_exec_node->next)
+			compound_cmd = 1;
+		if (compound_cmd)
+		{
+			cmd_exec_node->pid = fork();
+			if (cmd_exec_node->pid == 0)
+				mini_execve_child(mini, cmd_exec_node, i);	
+		}
+		else
+		{
+			if (!mini_cmd_selection(token_lst, mini))
+			{
+				cmd_exec_node->pid = fork();
+				if (cmd_exec_node->pid == 0)
+					mini_execve_child(mini, cmd_exec_node, i);	
+			}
+		}
+		// if (!cmd_exec_node->next && !mini_cmd_selection(token_lst, mini))
+		// {
+		// 	cmd_exec_node->pid = fork();
+		// 	if (cmd_exec_node->pid == 0)
+		// 		mini_execve_child(mini, cmd_exec_node, i);	
+		// }
 		cmd_exec_node = cmd_exec_node->next;
 		i++;
 	}
@@ -205,16 +230,16 @@ int	mini_cmd_selection(t_token *token_lst, t_mini *mini)
 	cmd = token_lst->token;
 	arg = token_lst->next;
 	executed = 1;
-	if (!ft_strncmp(cmd, "export", 6))
-		mini_export(arg, &mini->env_list);
-	else if (!ft_strncmp(cmd, "echo", 4))
-		mini_echo(arg);
+	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+		mini->status = mini_export(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+		mini->status = mini_echo(arg);
 	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
-		mini_pwd(arg, &mini->env_list);
+		mini->status = mini_pwd(arg, &mini->env_list);
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
-		mini_cd(arg, &mini->env_list);
+		mini->status = mini_cd(arg, &mini->env_list);
 	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
-		mini_env(arg, &mini->env_list);
+		mini->status = mini_env(arg, &mini->env_list);
 	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
 		mini_exit(arg, mini->status);
 	else
