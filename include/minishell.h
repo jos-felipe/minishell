@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/03 11:23:34 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:40:36 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ void	mini_open_pipes(t_mini *mini);
 
 // 12_mini_execve.c
 void	mini_execve(t_mini *mini);
-void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node, int i);
+void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node, t_token *token_node);
 void	mini_manage_execve_fd(t_cmd *cmd_exec_node);
 void	mini_exit_if_fd_neg(t_cmd *cmd_exec_node);
 void	mini_close_all_fd(t_mini *mini);
