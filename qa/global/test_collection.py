@@ -18,6 +18,14 @@ def test_collection():
 	output_ref_list.append(f"\n")
 	output_exit_code.append("0\n")
 
+	input_list.append("")
+	output_ref_list.append(f"")
+	output_exit_code.append("0\n")
+
+	input_list.append(" ")
+	output_ref_list.append(f"")
+	output_exit_code.append("0\n")
+
 	# Export
 	input_list.append("export foo=bar\nexport foo=bar2 | echo $foo")
 	output_ref_list.append(f"bar\n")

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_utils_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/29 11:31:09 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:24:02 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	mini_set_syntax_error(t_mini *mini)
 
 void	mini_check_sintax(t_mini *mini, t_token *token_list)
 {
-	if (token_list->token[0] == '|')
+	if (token_list && token_list->token[0] == '|')
 	{
 		mini_set_syntax_error(mini);
 		return;

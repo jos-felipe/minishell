@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/05 17:08:06 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:39:05 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ int main(void)
 			mini_ctrl_d_exit();
 			break;
 		}
+		if (mini.cmd_line[0] == '\0')
+			continue;
 		add_history(mini.cmd_line);
 		mini_tokenizer(&mini);
-		if (!mini.syntax_error)
+		if (!mini.syntax_error && mini.token_list)
 		{
 			mini_parser(&mini);
 			mini_expansion(&mini);
