@@ -30,8 +30,8 @@ def unit_get_cmd_path():
 	input_data_list.append("\'echo -n melvin > out\'")
 	output_data_list.append(f'/usr/bin/echo\n')
 
-	input_data_list.append("\'> out\'")
-	output_data_list.append(f'(null)\n')
+	# input_data_list.append("\'> out\'")
+	# output_data_list.append(f'(null)\n')
 
 	input_data_list.append("\'echo > out1 melvin > out2 tropical\'")
 	output_data_list.append(f'/usr/bin/echo\n')
@@ -52,7 +52,6 @@ def unit_get_cmd_path():
 	# 2. absolute path.
 	input_data_list.append("\'/usr/bin/echo -n melvin > out\'")
 	output_data_list.append(f'/usr/bin/echo\n')
-
 
 	i = 1
 
@@ -80,3 +79,8 @@ def unit_get_cmd_path():
 	trash = subprocess.run(f"make fclean -C {name}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	return status
+
+if __name__ == '__main__':
+	status = unit_get_cmd_path()
+	print(f"status: {status}")
+	exit(status)

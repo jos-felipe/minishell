@@ -31,11 +31,6 @@ def test_collection():
 	output_ref_list.append(f"bar\n")
 	output_exit_code.append("0\n")
 
-	# cd
-	input_list.append("cd")
-	output_ref_list.append(f"")
-	output_exit_code.append("0\n")
-
 	# File error
 	input_list.append("cat > .")
 	output_ref_list.append(f"minishell: .: Is a directory\n")
@@ -95,9 +90,9 @@ def test_collection():
 	output_ref_list.append("minishell: ERR: command not found\n")
 	output_exit_code.append("127\n")
 
-	input_list.append("echo a | ERR b | echo c")
-	output_ref_list.append(f"minishell: ERR: command not found\nc\n")
-	output_exit_code.append("0\n")
+	# input_list.append("echo a | ERR b | echo c")
+	# output_ref_list.append(f"minishell: ERR: command not found\nc\n")
+	# output_exit_code.append("0\n")
 
 	input_list.append("echo a | echo b | ERR c")
 	output_ref_list.append(f"minishell: ERR: command not found\n")

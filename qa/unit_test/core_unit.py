@@ -57,3 +57,6 @@ from exit_status.unit_tester import unit_exit_status
 _status = unit_exit_status()
 if _status != 0:
 	status = 1
+
+print(f"status: {status}\n")
+exit(status)
