@@ -1,0 +1,17 @@
+name: Builtins
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: builtins
+      run: sudo apt update && sudo apt install valgrind && cd qa/unit_test && /usr/bin/env python3 builtin_unit.py

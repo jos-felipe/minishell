@@ -6,7 +6,7 @@
 #    By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:03:46 by josfelip          #+#    #+#              #
-#    Updated: 2024/04/18 12:48:29 by josfelip         ###   ########.fr        #
+#    Updated: 2024/06/03 12:33:32 by josfelip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,8 @@ libft:
 $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)
 
-$(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) -L $(LIB_PATH) -lft -lreadline
+$(NAME): $(OBJECTS) $(OBJ_PATH)main.o
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) $(OBJ_PATH)main.o -L $(LIB_PATH) -lft -lreadline
 	@echo $(CYAN)" ----------------------------------------------"$(COLOR_LIMITER)
 	@echo $(CYAN)"| unit.tester executable was created successfully!! |"$(COLOR_LIMITER)
 	@echo $(CYAN)"----------------------------------------------"$(COLOR_LIMITER)
@@ -54,6 +54,11 @@ $(NAME): $(OBJECTS)
 $(OBJ_PATH)%.o: $(SOURCES_PATH)%.c $(HEADER)
 	@echo $(GREEN)[Compiling]$(COLOR_LIMITER) $(WHITE)$(notdir $(<))...$(COLOR_LIMITER)
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER_PATH)
+	@echo " "
+
+$(OBJ_PATH)main.o: main.c $(HEADER)
+	@echo $(GREEN)[Compiling]$(COLOR_LIMITER) $(WHITE)$(notdir $(<))...$(COLOR_LIMITER)
+	$(CC) -c $(DFLAGS) $< -o $@ -I $(HEADER_PATH)
 	@echo " "
 
 clean:

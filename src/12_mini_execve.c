@@ -6,29 +6,120 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/28 10:28:52 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:46:09 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include <errno.h>
+#include "../include/builtins.h"
+
+static int	mini_is_simple_cmd(t_cmd *cmd_exec_node)
+{
+	if (cmd_exec_node->next)
+		return (0);
+	return (1);
+}
+
+static int mini_is_builtin(t_token *token_lst)
+{
+	char	*cmd;
+	int		is_builtin;
+
+	is_builtin = 0;
+	if (!token_lst)
+		return (is_builtin);
+	cmd = token_lst->token;
+	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		is_builtin = 1;
+	return (is_builtin);
+}
+
+static void mini_exec_builtin(t_token *token_lst, t_mini *mini)
+{
+	char	*cmd;
+	t_token	*arg;
+
+	cmd = token_lst->token;
+	arg = token_lst->next;
+	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+		mini->status = mini_export(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+		mini->status = mini_echo(arg);
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+		mini->status = mini_pwd(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+		mini->status = mini_cd(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+		mini->status = mini_env(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		mini_exit(arg, mini->status);
+}
+
+static void mini_exec_fork(t_mini *mini, t_cmd *cmd_exec_node, t_token *token_node)
+{
+	cmd_exec_node->pid = fork();
+	if (cmd_exec_node->pid == 0)
+		mini_execve_child(mini, cmd_exec_node, token_node);
+}
 
 void	mini_execve(t_mini *mini)
 {
 	t_cmd	*cmd_exec_node;
+	t_token *token_lst;
+	int		i;
+	int		is_simple_cmd;
+	int		is_builtin;
 	
 	cmd_exec_node = mini->cmd_exec_list;
+	is_simple_cmd = mini_is_simple_cmd(cmd_exec_node);
+	i = 0;
 	while (cmd_exec_node)
 	{
-		cmd_exec_node->pid = fork();
-		if (cmd_exec_node->pid == 0)
-			mini_execve_child(mini, cmd_exec_node);
-		// mini_close_pipe_node_fd(cmd_exec_node);
+		token_lst = mini_exec_interface(cmd_exec_node->cmd_exec);
+		is_builtin = mini_is_builtin(token_lst);
+		if (is_simple_cmd && is_builtin)
+			mini_exec_builtin(token_lst, mini);
+		else
+			mini_exec_fork(mini, cmd_exec_node, token_lst);
+		// if (cmd_exec_node->next)
+		// 	compound_cmd = 1;
+		// if (compound_cmd)
+		// {
+		// 	cmd_exec_node->pid = fork();
+		// 	if (cmd_exec_node->pid == 0)
+		// 		mini_execve_child(mini, cmd_exec_node, i);
+		// }
+		// else
+		// {
+		// 	if (!mini_cmd_selection(token_lst, mini))
+		// 	{
+		// 		cmd_exec_node->pid = fork();
+		// 		if (cmd_exec_node->pid == 0)
+		// 			mini_execve_child(mini, cmd_exec_node, i);	
+		// 	}
+		// }
+		// // if (!cmd_exec_node->next && !mini_cmd_selection(token_lst, mini))
+		// // {
+		// // 	cmd_exec_node->pid = fork();
+		// // 	if (cmd_exec_node->pid == 0)
+		// // 		mini_execve_child(mini, cmd_exec_node, i);	
+		// // }
 		cmd_exec_node = cmd_exec_node->next;
+		i++;
 	}
 	mini_close_all_fd(mini);
 	mini_wait_childs(mini);
-	// waitpid(pid, &mini->status, 0);
 }
 
 void	mini_close_pipes(t_mini *mini, t_cmd *current)
@@ -47,18 +138,19 @@ void	mini_close_pipes(t_mini *mini, t_cmd *current)
 	}
 }
 
-void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node)
+void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node, t_token *token_node)
 {
+	t_token *token_lst;
+	
 	mini_close_pipes(mini, cmd_exec_node);
 	mini_manage_execve_fd(cmd_exec_node);
-	if (cmd_exec_node->cmd_path)
+	if (cmd_exec_node->cmd_path && !mini_cmd_selection(token_node, mini))
 	{
 		execve(cmd_exec_node->cmd_path, cmd_exec_node->cmd_exec, mini->mini_environ);
 		command_not_found_handler(mini, cmd_exec_node);
 	}
 	ft_free_trashman(ft_get_mem_address());
 	ft_free_trashman_env(ft_get_mem_address_env());
-	// mini_close_node_fd(cmd_exec_node);
     exit(mini->status);
 }
 
@@ -188,4 +280,30 @@ void   mini_wait_childs(t_mini *mini)
     }
     if (WIFEXITED(status))
         mini->status = WEXITSTATUS(status);
+}
+
+int	mini_cmd_selection(t_token *token_lst, t_mini *mini)
+{
+	char	*cmd;
+	t_token	*arg;
+	int		executed;
+
+	cmd = token_lst->token;
+	arg = token_lst->next;
+	executed = 1;
+	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+		mini->status = mini_export(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+		mini->status = mini_echo(arg);
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+		mini->status = mini_pwd(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+		mini->status = mini_cd(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+		mini->status = mini_env(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		mini_exit(arg, mini->status);
+	else
+		executed = 0;
+	return (executed);
 }

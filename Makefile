@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+         #
+#    By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:03:46 by josfelip          #+#    #+#              #
-#    Updated: 2024/05/28 12:46:12 by gfantoni         ###   ########.fr        #
+#    Updated: 2024/06/03 12:35:00 by josfelip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,14 +55,19 @@ debug:
 $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)
 
-$(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) -L $(LIB_PATH) -lft -lreadline
+$(NAME): $(OBJECTS) $(OBJ_PATH)main.o
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) $(OBJ_PATH)main.o -L $(LIB_PATH) -lft -lreadline
 	@echo $(CYAN)" ----------------------------------------------"$(COLOR_LIMITER)
 	@echo $(CYAN)"| MINISHELL executable was created successfully!! |"$(COLOR_LIMITER)
 	@echo $(CYAN)"----------------------------------------------"$(COLOR_LIMITER)
 	@echo " "
 
 $(OBJ_PATH)%.o: $(SOURCES_PATH)%.c $(HEADER)
+	@echo $(GREEN)[Compiling]$(COLOR_LIMITER) $(WHITE)$(notdir $(<))...$(COLOR_LIMITER)
+	$(CC) -c $(DFLAGS) $< -o $@ -I $(HEADER_PATH)
+	@echo " "
+
+$(OBJ_PATH)main.o: main.c $(HEADER)
 	@echo $(GREEN)[Compiling]$(COLOR_LIMITER) $(WHITE)$(notdir $(<))...$(COLOR_LIMITER)
 	$(CC) -c $(DFLAGS) $< -o $@ -I $(HEADER_PATH)
 	@echo " "
