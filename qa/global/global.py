@@ -10,6 +10,9 @@ RED = "\033[31;1m"
 COLOR_LIMITER = "\033[0m"
 colours = [GREEN, RED, COLOR_LIMITER]
 
+# exit status
+status = 0
+
 # Make
 trash = subprocess.run("make -C ../../", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 # Remove log_file
@@ -42,6 +45,7 @@ for command, reference, reference_exit_code in zip(input_list, output_ref_list, 
         print(f"{colours[0]}{i}/{len(input_list)}.\n	OK  {colours[2]}")
     else:
         print(f"{colours[1]}{i}/{len(input_list)}.\n	KO  {colours[2]}")
+        status = 1
 
 	# Run valgrind via valgrind.sh 
     valgrind_status = subprocess.run('./valgrind.sh', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
@@ -49,6 +53,7 @@ for command, reference, reference_exit_code in zip(input_list, output_ref_list, 
         print(f"{colours[0]}	MOK  {colours[2]}")
     else:
         print(f"{colours[1]}	MKO  {colours[2]}")
+        status = 1
 
 	# Compare status result and status reference via status.sh
     status = subprocess.run("./status.sh", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
@@ -56,6 +61,7 @@ for command, reference, reference_exit_code in zip(input_list, output_ref_list, 
         print(f"{colours[0]}	EOK  {colours[2]}")
     else:
         print(f"{colours[1]}	EKO  {colours[2]}")
+        status = 1
 
 	# Build log_file
     with open("result", "r") as result_file:
@@ -72,8 +78,5 @@ file_paths = ["outfile", "file", "ref_file", "status_ref_file", "result",  "stat
 rm_command = ["rm", "-f"] + file_paths
 subprocess.run(rm_command)
 
-############################################################################################################
-
-# from run_unit_tests import run_unit_tests
-
-# status = run_unit_tests()
+print(f"status: {status}\n")
+exit(status)
