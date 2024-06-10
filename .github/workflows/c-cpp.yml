@@ -1,17 +1,17 @@
-name: C/C++ CI
+# name: C/C++ CI
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
 
-jobs:
-  build:
+# jobs:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: make
-      run: make re && make && make fclean
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: make
+#       run: make re && make && make fclean

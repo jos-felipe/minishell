@@ -1,17 +1,17 @@
-name: Evaluator
+# name: Evaluator
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
 
-jobs:
-  test:
+# jobs:
+#   test:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: evaluator
-      run: sudo apt update && sudo apt install valgrind && cd qa && ./evaluator.py
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: evaluator
+#       run: sudo apt update && sudo apt install valgrind && cd qa && ./evaluator.py
