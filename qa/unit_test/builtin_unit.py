@@ -40,3 +40,4 @@ if _status != 0:
 	status = 1
 
 print(f"Status: {status}")
+exit(status)
