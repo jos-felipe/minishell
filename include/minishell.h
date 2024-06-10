@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/05 20:40:36 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:21:06 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,10 @@ void	mini_lstdelone(t_token *lst);
 void	debug_print_split(char **str); // FOR DEBUG ONLY
 void	debug_print_list(t_token **head); // FOR DEBUG ONLY
 
+// 05_utils_5.c
+int	mini_was_quoted(int state);
+void	mini_handle_export_arg(t_mini *mini);
+
 // 06_parser.c
 void	mini_parser(t_mini *mini);
 void	mini_fill_cmd_array(t_mini  *mini);
@@ -263,6 +267,7 @@ void	mini_remake_environ(t_mini *mini);
 
 // 14_split_expansion.c
 void	mini_split_expansion_in_nodes(t_mini *mini);
+void	mini_find_space(t_mini *mini, int i);
 
 // 15_heredoc.c
 int		mini_is_valid_heredoc(t_token *token_node);
