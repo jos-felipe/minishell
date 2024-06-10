@@ -32,9 +32,10 @@ class CommandRunner:
 		self.stderr_list.append(returned_instance.stderr)
 		
 		# Get the return code
-		cmd_line = f"bash -c \'{builtin} {args}; echo $?\'"
+		cmd_line = f"bash -c \'{builtin} {args}\'"
+		# cmd_line = f"{builtin} {args}"
 		returned_instance = subprocess.run(cmd_line, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-		returncode = int(returned_instance.stdout)
+		returncode = int(returned_instance.returncode)
 		self.returncode_list.append(returncode)
 
 def unit_unset():
@@ -72,6 +73,7 @@ def unit_unset():
 
 	# Check for stdout, stderr and exit status
 	i = 1
+	print(f"{colours[3]}*** {unit} unit test ***{colours[0]}")
 	for arg, output_ref, err_ref in zip(args_list, stdout_list, stderr_list):
 		# Open files
 		outfile = open(f"{unit}/outfile", "w")
@@ -143,3 +145,7 @@ def unit_unset():
 	trash = subprocess.run(f"make fclean -C {unit}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	return status
+
+if __name__ == '__main__':
+	status = unit_unset()
+	exit(status)
