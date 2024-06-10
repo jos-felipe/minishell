@@ -173,3 +173,5 @@ def unit_export():
 	trash = subprocess.run("make fclean -C builtin_export", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	return status
+
+unit_export()
