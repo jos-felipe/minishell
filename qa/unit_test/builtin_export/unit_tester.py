@@ -130,8 +130,11 @@ def unit_export():
 	exit_status_list.append(0)
 
 	# waiting for fix on "" tokenizier
-	# input_data_list.append("\'export var=\"jojo kaka\"\' \'echo $var\'")
-	# output_data_list.append(f'jojo kaka ')
+	test_description_list.append(" - export with quotes")
+	input_data_list.append("\'export var=\"jojo kaka\"\' \'echo $var\'")
+	output_data_list.append(f'jojo kaka ')
+	err_data_list.append(f'')
+	exit_status_list.append(0)
 	#
 	# input_data_list.append("\'export \"\"\' \'echo $var\'")
 	# output_data_list.append(f' export: not a valid identifier')
