@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/05 20:46:09 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:02:28 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static void mini_exec_builtin(t_token *token_lst, t_mini *mini)
 
 static void mini_exec_fork(t_mini *mini, t_cmd *cmd_exec_node, t_token *token_node)
 {
+	mini->int_action.sa_handler = sig_handler_fork;
+	sigaction(SIGINT, &mini->int_action, NULL);
 	cmd_exec_node->pid = fork();
 	if (cmd_exec_node->pid == 0)
 		mini_execve_child(mini, cmd_exec_node, token_node);
