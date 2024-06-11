@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/11 14:02:28 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:11:47 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,8 @@ void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node, t_token *token_node)
 {
 	t_token *token_lst;
 	
+	mini->quit_action.sa_handler = SIG_DFL;
+	sigaction(SIGQUIT, &mini->quit_action, NULL);
 	mini_close_pipes(mini, cmd_exec_node);
 	mini_manage_execve_fd(cmd_exec_node);
 	if (cmd_exec_node->cmd_path && !mini_cmd_selection(token_node, mini))

@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/11 13:31:36 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:03:23 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_mini
 	char	**mini_environ;
 	int		hd_file_index;
 	struct  sigaction	int_action;
+	struct  sigaction	quit_action;
 }				t_mini;
 
 // 00_utils.c

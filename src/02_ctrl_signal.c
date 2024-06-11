@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:42:04 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/11 14:19:38 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:01:49 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ void	mini_ctrl_signal(t_mini *mini)
 	// sigaction(SIGINT, NULL, &old_int_action);
 	// if (old_int_action.sa_handler != SIG_IGN)
 	mini->int_action = int_action;
+	mini->quit_action = quit_action;
 }

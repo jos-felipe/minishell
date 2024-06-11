@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/11 14:31:31 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:06:49 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int main(void)
 	{
 		mini.int_action.sa_handler = sig_handler;
 		sigaction(SIGINT, &mini.int_action, NULL);
+		mini.quit_action.sa_handler = SIG_IGN;
+		sigaction(SIGQUIT, &mini.quit_action, NULL);
 		mini_init(&mini);
 		mini.cmd_line = readline("prompt > ");
 		ft_collect_mem(mini.cmd_line);
