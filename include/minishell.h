@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/10 17:21:06 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:31:36 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_mini
 	int		syntax_error;
 	char	**mini_environ;
 	int		hd_file_index;
+	struct  sigaction	int_action;
 }				t_mini;
 
 // 00_utils.c
@@ -121,8 +122,9 @@ void		mini_trashman_collector(t_list **list_memory, void *trash);
 // void		mini_safe_exit(t_mini *mini);
 
 // 02_ctrl_signal.c
-void	mini_ctrl_signal(void);
+void	mini_ctrl_signal(t_mini *mini);
 void	sig_handler(int signum);
+void	sig_handler_fork(int signum);
 
 // 03_process_envp.c
 // void	mini_process_envp(t_mini *pipex, char *envp[]);
