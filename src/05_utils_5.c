@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_utils_5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:28:04 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/10 16:36:39 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:02:33 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ void	mini_handle_export_arg(t_mini *mini)
 	t_token *token_node;
 
 	token_node = mini->token_list;
+	// ft_printf("token_node: %s, token_node->next: %s, token_node->next: %s", token_node->token, token_node->next->token, token_node->next->next->token);
 	while (token_node)
 	{
-		if (token_node->gender == WORD && mini_last_char_is_equal(token_node->token) && token_node->next->was_quoted)
+		if (token_node->gender == WORD && mini_last_char_is_equal(token_node->token) && token_node->next && token_node->next->was_quoted)
 		{
 			token_node->token = mini_join_export_arg(token_node->token, token_node->next->token);
 			token_node->next = NULL;
