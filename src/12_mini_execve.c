@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/12 11:22:18 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:40:14 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void mini_exec_builtin(t_token *token_lst, t_mini *mini)
 
 static void mini_exec_fork(t_mini *mini, t_cmd *cmd_exec_node, t_token *token_node)
 {
-	mini->int_action.sa_handler = sig_handler_fork;
+	mini->int_action.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &mini->int_action, NULL);
 	cmd_exec_node->pid = fork();
 	if (cmd_exec_node->pid == 0)
@@ -94,29 +94,6 @@ void	mini_execve(t_mini *mini)
 			mini_exec_builtin(token_lst, mini);
 		else
 			mini_exec_fork(mini, cmd_exec_node, token_lst);
-		// if (cmd_exec_node->next)
-		// 	compound_cmd = 1;
-		// if (compound_cmd)
-		// {
-		// 	cmd_exec_node->pid = fork();
-		// 	if (cmd_exec_node->pid == 0)
-		// 		mini_execve_child(mini, cmd_exec_node, i);
-		// }
-		// else
-		// {
-		// 	if (!mini_cmd_selection(token_lst, mini))
-		// 	{
-		// 		cmd_exec_node->pid = fork();
-		// 		if (cmd_exec_node->pid == 0)
-		// 			mini_execve_child(mini, cmd_exec_node, i);	
-		// 	}
-		// }
-		// // if (!cmd_exec_node->next && !mini_cmd_selection(token_lst, mini))
-		// // {
-		// // 	cmd_exec_node->pid = fork();
-		// // 	if (cmd_exec_node->pid == 0)
-		// // 		mini_execve_child(mini, cmd_exec_node, i);	
-		// // }
 		cmd_exec_node = cmd_exec_node->next;
 		i++;
 	}
@@ -144,6 +121,8 @@ void	mini_execve_child(t_mini *mini, t_cmd *cmd_exec_node, t_token *token_node)
 {
 	t_token *token_lst;
 	
+	mini->int_action.sa_handler = SIG_DFL;
+	sigaction(SIGINT, &mini->int_action, NULL);
 	mini->quit_action.sa_handler = SIG_DFL;
 	sigaction(SIGQUIT, &mini->quit_action, NULL);
 	mini_close_pipes(mini, cmd_exec_node);
@@ -281,12 +260,18 @@ void   mini_wait_childs(t_mini *mini)
     while (cmd_exec_node)
     {
         waitpid(cmd_exec_node->pid, &status, 0);
-		if (WTERMSIG(status) == SIGQUIT)
-			printf("\n");
         cmd_exec_node = cmd_exec_node->next;
     }
     if (WIFEXITED(status))
         mini->status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+	{
+		printf("\n");
+		if (WTERMSIG(status) == SIGQUIT)
+			mini->status = 131;
+		else if (WTERMSIG(status) == SIGINT)
+			mini->status = 130;
+	}
 }
 
 int	mini_cmd_selection(t_token *token_lst, t_mini *mini)
