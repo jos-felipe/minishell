@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/11 16:11:47 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:22:18 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,7 @@ void 	mini_close_pipe_node_fd(t_cmd *cmd_exec_node)
 void   mini_wait_childs(t_mini *mini)
 {
     int     status;
+	int		signal;
     t_cmd	*cmd_exec_node;
 
     status = 0;
@@ -280,6 +281,8 @@ void   mini_wait_childs(t_mini *mini)
     while (cmd_exec_node)
     {
         waitpid(cmd_exec_node->pid, &status, 0);
+		if (WTERMSIG(status) == SIGQUIT)
+			printf("\n");
         cmd_exec_node = cmd_exec_node->next;
     }
     if (WIFEXITED(status))
