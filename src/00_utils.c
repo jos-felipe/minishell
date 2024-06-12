@@ -6,11 +6,18 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:23:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/11 14:30:21 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:55:27 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+t_mini	*get_mini_address(void)
+{
+	static t_mini	mini;
+
+	return (&mini);
+}
 
 void	mini_init(t_mini *mini)
 {
