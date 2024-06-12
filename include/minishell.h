@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/11 16:03:23 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:55:54 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_mini
 
 // 00_utils.c
 void		mini_ctrl_d_exit();
+t_mini		*get_mini_address(void);
 
 // 01_prompt.c
 void		mini_prompt(t_mini *mini);
