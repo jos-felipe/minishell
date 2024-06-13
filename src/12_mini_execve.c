@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/12 16:40:14 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:44:06 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,19 @@ void 	mini_close_pipe_node_fd(t_cmd *cmd_exec_node)
 	if (cmd_exec_node->write_pipe != -1)
 		close(cmd_exec_node->write_pipe);
 }
-
+static void mini_get_status(t_mini *mini, int status)
+{
+	if (WIFEXITED(status))
+        mini->status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+	{
+		printf("\n");
+		if (WTERMSIG(status) == SIGQUIT)
+			mini->status = 131;
+		else if (WTERMSIG(status) == SIGINT)
+			mini->status = 130;
+	}
+}
 void   mini_wait_childs(t_mini *mini)
 {
     int     status;
@@ -260,18 +272,19 @@ void   mini_wait_childs(t_mini *mini)
     while (cmd_exec_node)
     {
         waitpid(cmd_exec_node->pid, &status, 0);
+		mini_get_status(mini, status);
         cmd_exec_node = cmd_exec_node->next;
     }
-    if (WIFEXITED(status))
-        mini->status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-	{
-		printf("\n");
-		if (WTERMSIG(status) == SIGQUIT)
-			mini->status = 131;
-		else if (WTERMSIG(status) == SIGINT)
-			mini->status = 130;
-	}
+    // if (WIFEXITED(status))
+    //     mini->status = WEXITSTATUS(status);
+	// else if (WIFSIGNALED(status))
+	// {
+	// 	printf("\n");
+	// 	if (WTERMSIG(status) == SIGQUIT)
+	// 		mini->status = 131;
+	// 	else if (WTERMSIG(status) == SIGINT)
+	// 		mini->status = 130;
+	// }
 }
 
 int	mini_cmd_selection(t_token *token_lst, t_mini *mini)
