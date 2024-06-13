@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/06 14:24:02 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:03:03 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,18 @@ static void	mini_set_syntax_error(t_mini *mini)
 
 void	mini_check_sintax(t_mini *mini, t_token *token_list)
 {
+	int		stdin_backup;
+	int		stdout_backup;
+	
 	if (token_list && token_list->token[0] == '|')
 	{
 		mini_set_syntax_error(mini);
 		return;
 	}
+	stdin_backup = dup(STDIN_FILENO);
+	stdout_backup = dup(STDOUT_FILENO);
+	mini->int_action.sa_handler = sig_handler_heredoc;
+	sigaction(SIGINT, &mini->int_action, NULL);
 	while (token_list)
 	{
 		if (token_list->specie == HERE_DOC)
@@ -88,6 +95,10 @@ void	mini_check_sintax(t_mini *mini, t_token *token_list)
 		}
 		token_list = token_list->next;
 	}
+	dup2(stdin_backup, STDIN_FILENO);
+	dup2(stdout_backup, STDOUT_FILENO);
+	close(stdin_backup);
+	close(stdout_backup);
 }
 
 

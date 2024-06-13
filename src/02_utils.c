@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:12:28 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/12 17:05:01 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:21:14 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,16 @@ void	sig_handler(int signum)
 	}
 }
 
-// void	sig_handler_fork(int signum)
-// {
-// 	if (signum == SIGINT)
-// 	{
-// 		ft_printf_fd(STDERR_FILENO, "\n");
-// 	}
-// }
+void    sig_handler_heredoc(int signum)
+{
+	t_mini	*mini;
+	
+    if (signum == SIGINT)
+    {
+        write(STDIN_FILENO, "\n", 1);
+        close(STDIN_FILENO);
+        close(STDOUT_FILENO);
+		mini = get_mini_address();
+		mini->status = 130;
+    }
+}

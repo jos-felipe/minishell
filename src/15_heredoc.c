@@ -6,13 +6,14 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:23:01 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/10 15:40:03 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:13:42 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 static int mini_create_file(t_mini *mini, t_token *token_node);
+// static int mini_prepare_hd_signal(t_mini *mini);
 
 int	mini_is_valid_heredoc(t_token *token_node)
 {
@@ -27,7 +28,11 @@ void	mini_handle_heredoc(t_mini *mini, t_token *token_node)
 	char	*exp_line;
 	char	*word;
 	int		hd_file_fd;
+	// int		stdin_backup;
 
+	// stdin_backup = dup(STDERR_FILENO);
+	// mini->int_action.sa_handler = sig_handler_heredoc;
+	// sigaction(SIGINT, &mini->int_action, NULL);
 	word = token_node->token;
 	hd_file_fd = mini_create_file(mini, token_node);
 	while (1)
@@ -35,7 +40,8 @@ void	mini_handle_heredoc(t_mini *mini, t_token *token_node)
 		line = readline("> ");
 		if (line == NULL)
 		{
-			ft_printf_fd(STDERR_FILENO, "minishell: warning: here-document delimited by end-of-file (wanted `%s\')\n", word);
+			if (mini->status != 130)
+				ft_printf_fd(STDERR_FILENO, "minishell: warning: here-document delimited by end-of-file (wanted `%s\')\n", word);
 			free(line);
 			close(hd_file_fd);
 			break ;
@@ -53,6 +59,7 @@ void	mini_handle_heredoc(t_mini *mini, t_token *token_node)
 		ft_printf_fd(hd_file_fd, "%s\n", exp_line);
 		free(line);
 	}
+	// dup2(stdin_backup, STDIN_FILENO);
 	// close(pipe_fd[1]);
 	// pipex->fd_in = pipe_fd[0];
 }

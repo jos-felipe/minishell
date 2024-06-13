@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/12 14:55:54 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:29:41 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void		mini_trashman_collector(t_list **list_memory, void *trash);
 // 02_ctrl_signal.c
 void	mini_ctrl_signal(t_mini *mini);
 void	sig_handler(int signum);
-void	sig_handler_fork(int signum);
+void    sig_handler_heredoc(int signum);
 
 // 03_process_envp.c
 // void	mini_process_envp(t_mini *pipex, char *envp[]);
