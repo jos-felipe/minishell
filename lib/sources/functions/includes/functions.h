@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:48:11 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/24 10:20:35 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:23:55 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 long		ft_math_sqrt(long nb, long kick);
 
 // MINISHELL
-int	ft_printf_fd(int fd, const char *format, ...);
+int			ft_printf_fd(int fd, const char *format, ...);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:44 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/10 15:27:26 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:04:20 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	mini_tokenizer(t_mini *mini)
 {
-	t_dfa dfa;
-	
+	t_dfa	dfa;
+
 	mini_init_dfa(&dfa);
 	if (mini->cmd_line)
 	{
@@ -25,10 +25,6 @@ void	mini_tokenizer(t_mini *mini)
 		if (!mini->syntax_error)
 			mini_check_sintax(mini, mini->token_list);
 		mini_handle_export_arg(mini);
-		// if (!mini->syntax_error)
-		// 	mini_check_consecutive_op_sintax(mini, mini->token_list);
-		// if (!mini->syntax_error)
-		// 	mini_check_pipe_space_pipe_sintax(mini, mini->token_list);
 	}
 }
 
@@ -49,16 +45,17 @@ void	mini_automaton(t_mini *mini, t_dfa *dfa)
 	{
 		if (dfa->state == 0)
 			dfa->start = dfa->i;
-		dfa->state = mini_get_next_state(dfa->state, mini_get_column(mini->cmd_line[dfa->i]));
+		dfa->state = mini_get_next_state(dfa->state, \
+		mini_get_column(mini->cmd_line[dfa->i]));
 		if (mini_is_end_state(dfa->state) && dfa->state != NULL_CHAR)
 		{
 			mini_syntonize_index(dfa);
 			if (mini_is_error_state(dfa->state))
 			{
 				mini_print_sintax_error_message(dfa->state);
-				mini->status = 2; 
+				mini->status = 2;
 				mini->syntax_error = 1;
-				break;
+				break ;
 			}
 			mini_cut_string(mini, dfa);
 		}
@@ -68,17 +65,19 @@ void	mini_automaton(t_mini *mini, t_dfa *dfa)
 
 int	mini_get_next_state(int state, int column)
 {
-	static int truth_table[7][8] = {
-									{001, 002, 003, 004, 005, 006, 000, 666},
-									{001, 100, 100, 100, 100, 100, 100, 100},
-									{101, 102, 101, 101, 101, 101, 101, 101},
-									{103, 103, 104, 103, 103, 103, 103, 103},
-									{004, 004, 004, 107, 004, 004, 004, 200},
-									{005, 005, 005, 005, 108, 005, 005, 200},
-									{105, 105, 105, 105, 105, 001, 105, 201},
-								  };
+	static int	truth_table[7][8] = {
+	{001, 002, 003, 004, 005, 006, 000, 666},
+	{001, 100, 100, 100, 100, 100, 100, 100},
+	{101, 102, 101, 101, 101, 101, 101, 101},
+	{103, 103, 104, 103, 103, 103, 103, 103},
+	{004, 004, 004, 107, 004, 004, 004, 200},
+	{005, 005, 005, 005, 108, 005, 005, 200},
+	{105, 105, 105, 105, 105, 001, 105, 201}
+	};
+
 	return (truth_table[state][column]);
 }
+
 int	mini_get_column(char c)
 {
 	if (c == '>')
