@@ -95,3 +95,8 @@ def unit_syntax_error():
 	trash = subprocess.run("make fclean -C syntax_error", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	return status
+
+if __name__ == '__main__':
+	status = unit_syntax_error()
+	print(f"status: {status}")
+	exit(status)

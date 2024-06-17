@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/06 14:39:05 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:26:05 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int main(void)
 		if (!mini.syntax_error && mini.token_list)
 		{
 			mini_parser(&mini);
+			// printf("token 0: %s token 1: %s\n", mini.token_list->token, mini.token_list->next->token);
+			// printf("token 0: %s token 1: %s\n", mini.commands[0]->token, mini.commands[0]->next->token);
 			mini_expansion(&mini);
+			// printf("token 0: %s token 1: %s\n", mini.commands[0]->token, mini.commands[0]->next->token);
 			mini_redirect(&mini);
 			mini_execute(&mini);
 		}

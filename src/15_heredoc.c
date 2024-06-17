@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:23:01 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/30 17:39:37 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:40:03 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	mini_handle_heredoc(t_mini *mini, t_token *token_node)
 			close(hd_file_fd);
 			break ;
 		}
-		if (token_node->was_quoted == 107 || token_node->was_quoted == 108)
+		if (token_node->was_quoted)
 			exp_line = line;
 		else
 			exp_line = mini_hd_expansion(line);

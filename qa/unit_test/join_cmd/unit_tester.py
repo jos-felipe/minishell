@@ -69,3 +69,8 @@ def unit_join_cmd():
 	trash = subprocess.run(f"make fclean -C {name}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	return status
+
+if __name__ == '__main__':
+	status = unit_join_cmd()
+	print(f"status: {status}")
+	exit(status)
