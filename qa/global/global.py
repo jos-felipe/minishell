@@ -73,6 +73,9 @@ for command, reference, reference_exit_code in zip(input_list, output_ref_list, 
 
     i = i + 1
 
+# Display log_file in the output
+# subprocess.run("cat log_file", shell=True)
+
 # Clean directory
 file_paths = ["outfile", "file", "ref_file", "status_ref_file", "result",  "status_result", "valgrind.log", "outfile_2", "outfile_3", "infile_1", "no_perm_infile"]
 rm_command = ["rm", "-f"] + file_paths

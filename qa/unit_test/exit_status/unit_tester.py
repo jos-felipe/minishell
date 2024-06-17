@@ -84,4 +84,7 @@ def unit_exit_status():
 	
 	return status
 
-nada = unit_exit_status()
+if __name__ == '__main__':
+	status = unit_exit_status()
+	print(f"status: {status}")
+	exit(status)

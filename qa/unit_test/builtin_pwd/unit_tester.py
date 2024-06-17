@@ -144,3 +144,7 @@ def unit_pwd():
 	trash = subprocess.run(f"make fclean -C {unit}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	return status
+
+if __name__ == "__main__":
+	status = unit_pwd()
+	exit(status)

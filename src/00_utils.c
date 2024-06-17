@@ -6,25 +6,32 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:23:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/29 12:45:25 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:55:27 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	mini_init(t_mini *pipex)
+t_mini	*get_mini_address(void)
 {
-	pipex->path = NULL;
-	pipex->lst_memory = NULL;
-	// pipex->status = 0;
-	pipex->cmd_line = NULL;
-	pipex->pathname = NULL;
-	pipex->token_list = NULL;
-	// pipex->env_list = NULL;
-	pipex->cmd_exec_list = NULL;
-	pipex->syntax_error = 0;
-	pipex->mini_environ = NULL;
-	pipex->hd_file_index = 0;
+	static t_mini	mini;
+
+	return (&mini);
+}
+
+void	mini_init(t_mini *mini)
+{
+	mini->path = NULL;
+	mini->lst_memory = NULL;
+	// mini->status = 0;
+	mini->cmd_line = NULL;
+	mini->pathname = NULL;
+	mini->token_list = NULL;
+	// mini->env_list = NULL;
+	mini->cmd_exec_list = NULL;
+	mini->syntax_error = 0;
+	mini->mini_environ = NULL;
+	mini->hd_file_index = 0;
 }
 
 void	mini_trashman_collector(t_list **list_memory, void *trash)

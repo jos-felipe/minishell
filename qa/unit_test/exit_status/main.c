@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/04 14:55:12 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:41:07 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int main(int argc, char *argv[], char *envp[])
 {
 	t_mini	mini;
 
+	mini_ctrl_signal(&mini);
 	mini_init(&mini);
 	mini.status = 0;
 	mini_getenv(&mini);
