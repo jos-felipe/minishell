@@ -6,13 +6,13 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 10:11:27 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/30 12:13:20 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:29:38 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void mini_execute(t_mini *mini)
+void	mini_execute(t_mini *mini)
 {
 	mini_build_cmd_exec(mini);
 	mini_get_cmd_exec_path(mini);
@@ -21,7 +21,7 @@ void mini_execute(t_mini *mini)
 	mini_execve(mini);
 }
 
-void mini_build_cmd_exec(t_mini *mini)
+void	mini_build_cmd_exec(t_mini *mini)
 {
 	int		i;
 	t_token	*token_node;
@@ -44,17 +44,17 @@ void mini_build_cmd_exec(t_mini *mini)
 void	mini_count_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node)
 {
 	int	i;
-	
+
 	i = 0;
 	while (token_node)
 	{
-		if (token_node->specie == OUT_REDIRECT ||
-		token_node->specie == IN_REDIRECT ||
-		token_node->specie == APPEND ||
-		token_node->specie == HERE_DOC)
+		if (token_node->specie == OUT_REDIRECT
+			|| token_node->specie == IN_REDIRECT
+			|| token_node->specie == APPEND
+			|| token_node->specie == HERE_DOC)
 		{
 			token_node = token_node->next->next;
-			continue;
+			continue ;
 		}
 		i++;
 		token_node = token_node->next;
@@ -62,27 +62,28 @@ void	mini_count_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node)
 	cmd_exec_node->nbr_of_words = i;
 }
 
-void mini_unite_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node)
+void	mini_unite_cmd_exec_words(t_token *token_node, t_cmd *cmd_exec_node)
 {
 	int		i;
-	
-	cmd_exec_node->cmd_exec = ft_calloc(sizeof(char *), cmd_exec_node->nbr_of_words + 1);
+
+	cmd_exec_node->cmd_exec = ft_calloc(sizeof(char *),
+			cmd_exec_node->nbr_of_words + 1);
 	ft_collect_mem(cmd_exec_node->cmd_exec);
 	i = 0;
 	while (token_node)
 	{
-		if (token_node->specie == OUT_REDIRECT ||
-		token_node->specie == IN_REDIRECT ||
-		token_node->specie == APPEND ||
-		token_node->specie == HERE_DOC)
+		if (token_node->specie == OUT_REDIRECT
+			|| token_node->specie == IN_REDIRECT
+			|| token_node->specie == APPEND
+			|| token_node->specie == HERE_DOC)
 		{
 			token_node = token_node->next->next;
-			continue;
+			continue ;
 		}
 		if (token_node->token == NULL)
 		{
 			token_node = token_node->next;
-			continue;
+			continue ;
 		}
 		mini_match_cmd_exec_word(token_node->token, cmd_exec_node, i);
 		i++;

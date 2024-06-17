@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:27:24 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/27 17:01:53 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:30:24 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	mini_get_cmd_exec_path(t_mini *mini)
 {
 	t_cmd	*cmd_exec_node;
-	
+
 	cmd_exec_node = mini->cmd_exec_list;
 	while (cmd_exec_node)
 	{
@@ -28,8 +28,8 @@ void	mini_get_cmd_exec_path(t_mini *mini)
 
 char	*mini_get_cmd_path(t_cmd *cmd_exec_node)
 {
-	t_get_cmd_path tmp_struct;
-	int i;
+	t_get_cmd_path	tmp_struct;
+	int				i;
 
 	tmp_struct.cmd_name = cmd_exec_node->cmd_exec[0];
 	if (tmp_struct.cmd_name[0] == '.' && tmp_struct.cmd_name[1] == '/')
