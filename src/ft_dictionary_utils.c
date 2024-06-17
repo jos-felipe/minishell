@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:44:30 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/22 15:11:51 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:26:39 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_dict_print(t_dict *dict)
 {
 	t_dict	*cur;
-	
+
 	cur = dict;
 	while (cur)
 	{
@@ -68,7 +68,7 @@ int	ft_dictdel_entry(t_dict **dict, char *name)
 {
 	t_dict	*cur;
 	t_dict	*prev;
-	
+
 	cur = *dict;
 	prev = NULL;
 	while (cur)
@@ -90,16 +90,16 @@ int	ft_dictdel_entry(t_dict **dict, char *name)
 char	*ft_dict_get_value(t_dict *dict, char *key)
 {
 	char	*value;
-	
+
 	value = NULL;
 	while (dict->key)
 	{
 		if (!ft_strncmp(dict->key, key, ft_strlen(key)))
 		{
 			value = dict->value;
-			break;
+			break ;
 		}
 		dict = dict->next;
 	}
-	return(value);
+	return (value);
 }
