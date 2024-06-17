@@ -6,14 +6,14 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:14:49 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/15 17:20:30 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:25:48 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/dictionary.h"
 
-int		mini_echo(t_token *arg)
+int	mini_echo(t_token *arg)
 {
 	int	new_line;
 
@@ -38,7 +38,7 @@ int		mini_echo(t_token *arg)
 
 int	mini_add_new_line(char *str)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (str[i] == '\0')

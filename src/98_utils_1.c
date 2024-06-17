@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   11_utils_1.c                                       :+:      :+:    :+:   */
+/*   98_utils_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/08 11:59:55 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:25:03 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 int	mini_env_identifier(char *str, t_dict **env_list, int start, int state)
 {
-	char				*new_entry[2];
-	size_t		i;
+	char	*new_entry[2];
+	size_t	i;
 
 	new_entry[1] = NULL;
 	i = -1;
@@ -45,7 +45,6 @@ int	mini_env_identifier(char *str, t_dict **env_list, int start, int state)
 	ft_dict_insert(env_list, new_entry);
 	return (0);
 }
-
 
 int	mini_env_get_next_state(int state, int column)
 {

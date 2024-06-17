@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:26:06 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/29 12:28:16 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:27:13 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_dict_insert(t_dict **dict, char **var)
 {
 	if (var[1])
 	{
-		if(!ft_dict_update(*dict, var))
-		ft_dictadd_back(dict, ft_dictnew(var));
+		if (!ft_dict_update(*dict, var))
+			ft_dictadd_back(dict, ft_dictnew(var));
 	}
 }
 
@@ -63,7 +63,7 @@ t_dict	*ft_dictlast(t_dict *dict)
 int	ft_dict_update(t_dict *dict, char **var)
 {
 	t_dict	*cur;
-	
+
 	cur = dict;
 	while (cur)
 	{
