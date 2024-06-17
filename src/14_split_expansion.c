@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:56:57 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 14:52:50 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:36:19 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	mini_find_space(t_mini *mini, int i)
 void	mini_split_and_link(t_token *token_node)
 {
 	int		i;
-	t_token *saved_next;
-	t_token *token_node_new_curr;
-	t_token *token_node_curr;
-	char 	**splited_token;
+	t_token	*saved_next;
+	t_token	*token_node_new_curr;
+	t_token	*token_node_curr;
+	char	**splited_token;
 
 	token_node_curr = token_node;
 	saved_next = token_node->next;
