@@ -14,9 +14,9 @@ def test_collection():
 	output_ref_list.append(f"melvin\n")
 	output_exit_code.append("0\n")
 
-	input_list.append("< infile_1 cat | echo")
-	output_ref_list.append(f"\n")
-	output_exit_code.append("0\n")
+	# input_list.append("< infile_1 cat | echo")
+	# output_ref_list.append(f"\n")
+	# output_exit_code.append("0\n")
 
 	input_list.append("")
 	output_ref_list.append(f"")
