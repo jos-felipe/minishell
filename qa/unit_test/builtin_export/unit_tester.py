@@ -124,7 +124,7 @@ def unit_export():
 
 	test_description_list.append(" - export with no options")
 	input_data_list.append("\'export SHLVL=2\' \'export\'")
-	export_status = subprocess.run('bash -c "export"', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+	export_status = subprocess.run('bash -c "export | LC_COLLATE=C sort"', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	output_data_list.append(export_status.stdout)
 	err_data_list.append(f'')
 	exit_status_list.append(0)
@@ -140,6 +140,7 @@ def unit_export():
 	# output_data_list.append(f' export: not a valid identifier')
 
 	i = 1
+	print(f"{colours[3]}*** builtin_export unit test ***{colours[0]}")
 	for input_data, output_ref, err_ref in zip(input_data_list, output_data_list, err_data_list):
 		output = subprocess.run(f"./builtin_export/unit.tester {input_data}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 		outfile_content = output.stdout
