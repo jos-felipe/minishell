@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 18:50:27 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:56:34 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	mini_print_sintax_error_message(int state)
 {
 	if (state == 200)
-		ft_printf_fd(STDERR_FILENO, "minishell: syntax error:\
+		ft_printf_fd(STDERR_FILENO, "minishell: syntax error: \
 unterminated quoted string\n");
 	else if (state == 201)
-		ft_printf_fd(STDERR_FILENO, "minishell: syntax error\
+		ft_printf_fd(STDERR_FILENO, "minishell: syntax error \
 near unexpected token\n");
 	else if (state == 202)
-		ft_printf_fd(STDERR_FILENO, "minishell: syntax error:\
+		ft_printf_fd(STDERR_FILENO, "minishell: syntax error: \
 not a bonus project '||'\n");
 }
 
@@ -61,7 +61,7 @@ static int	mini_pipe_space_pipe_syntax(t_token *token_node)
 
 static void	mini_set_syntax_error(t_mini *mini)
 {
-	ft_printf_fd(STDERR_FILENO, "minishell: syntax error\
+	ft_printf_fd(STDERR_FILENO, "minishell: syntax error \
 near unexpected token\n");
 	mini->syntax_error = 1;
 	mini->status = 2;
