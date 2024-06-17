@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   12_mini_execve.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/13 17:44:06 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:34:34 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int mini_is_builtin(t_token *token_lst)
 		is_builtin = 1;
 	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
 		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+		is_builtin = 1;
 	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
 		is_builtin = 1;
 	return (is_builtin);
@@ -62,6 +64,8 @@ static void mini_exec_builtin(t_token *token_lst, t_mini *mini)
 		mini->status = mini_cd(arg, &mini->env_list);
 	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
 		mini->status = mini_env(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+		mini->status = mini_unset(arg, &mini->env_list);
 	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
 		mini_exit(arg, mini->status);
 }
