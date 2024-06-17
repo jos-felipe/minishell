@@ -52,3 +52,8 @@ def unit_parser():
 	trash = subprocess.run("make fclean -C parser", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	return status
+
+if __name__ == '__main__':
+	status = unit_parser()
+	print(f"status: {status}")
+	exit(status)

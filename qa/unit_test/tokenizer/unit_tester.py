@@ -78,3 +78,8 @@ def unit_tokenizer():
 	trash = subprocess.run("make fclean -C tokenizer", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
 	return status
+
+if __name__ == '__main__':
+	status = unit_tokenizer()
+	print(f"status: {status}")
+	exit(status)

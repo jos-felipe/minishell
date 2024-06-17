@@ -92,3 +92,8 @@ def unit_redirect():
 	trash = subprocess.run(f"rm out out1 out2 in1 in2 inblock", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	trash = subprocess.run(f"make fclean -C {name}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	return status
+
+if __name__ == '__main__':
+	status = unit_redirect()
+	print(f"status: {status}")
+	exit(status)
