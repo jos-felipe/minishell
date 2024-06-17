@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:50:56 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/15 18:51:29 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:47:49 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	mini_lstdelone(t_token *lst)
 	}
 }
 
-void	debug_print_split(char **str) // FOR DEBUG ONLY
+void	debug_print_split(char **str)
 {
 	while (*str)
 	{
@@ -45,9 +45,9 @@ void	debug_print_split(char **str) // FOR DEBUG ONLY
 	printf("\n");
 }
 
-void	debug_print_list(t_token **head) // FOR DEBUG ONLY
+void	debug_print_list(t_token **head)
 {
-	t_token *node;
+	t_token	*node;
 
 	node = *head;
 	while (node)
