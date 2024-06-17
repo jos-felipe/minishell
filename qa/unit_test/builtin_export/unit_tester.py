@@ -123,7 +123,7 @@ def unit_export():
 	exit_status_list.append(0)
 
 	test_description_list.append(" - export with no options")
-	input_data_list.append("\'export SHLVL=2\' \'export\'")
+	input_data_list.append("\'export SHLVL=2\' \'export\' \'sort\'")
 	export_status = subprocess.run('bash -c "export | LC_COLLATE=C sort"', stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 	output_data_list.append(export_status.stdout)
 	err_data_list.append(f'')
