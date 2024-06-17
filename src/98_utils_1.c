@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/17 12:25:03 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:35:17 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,12 @@ int	mini_env_identifier(char *str, t_dict **env_list, int start, int state)
 
 int	mini_env_get_next_state(int state, int column)
 {
-	static int truth_table[3][5] =	{
-										{200, 001, 200, 200, 200},
-										{200, 001, 001, 100, 100},
-										{002, 002, 002, 002, 300}
-									};
+	static int	truth_table[3][5] = {
+	{200, 001, 200, 200, 200},
+	{200, 001, 001, 100, 100},
+	{002, 002, 002, 002, 300}
+	};
+
 	return (truth_table[state][column]);
 }
 

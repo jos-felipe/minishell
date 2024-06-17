@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:28:50 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/22 15:06:50 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:41:20 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../lib/includes/libft.h"
 
-typedef struct	s_dict
+typedef struct s_dict
 {
 	char			*key;
 	char			*value;
