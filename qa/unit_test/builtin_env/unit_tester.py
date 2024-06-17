@@ -61,7 +61,7 @@ def unit_env():
 
 	# Test description, Input Samples and Outputs references:
 	command_runner = CommandRunner()
-	command_runner.run_command_with_input("no operand nor command name", "")
+	# command_runner.run_command_with_input("no operand nor command name", "")
 
 	# Legacy
 	test_description_list = command_runner.test_description_list
