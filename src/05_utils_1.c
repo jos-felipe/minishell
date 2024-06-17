@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_utils_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:18:47 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/15 18:47:20 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:45:04 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	mini_is_end_state(int num)
 	return (0);
 }
 
-void mini_syntonize_index(t_dfa *dfa)
+void	mini_syntonize_index(t_dfa *dfa)
 {
 	if (mini_is_back_state(dfa->state))
 		dfa->i--;
@@ -50,4 +50,3 @@ int	mini_is_error_state(int num)
 		return (1);
 	return (0);
 }
-
