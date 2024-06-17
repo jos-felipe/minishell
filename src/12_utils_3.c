@@ -1,88 +1,108 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   12_utils_3.c                                       :+:      :+:    :+:   */
+/*   12_utils_5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 13:50:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 14:06:09 by gfantoni         ###   ########.fr       */
+/*   Created: 2024/06/17 13:49:08 by gfantoni          #+#    #+#             */
+/*   Updated: 2024/06/17 14:09:59 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/builtins.h"
 
-void	mini_manage_execve_fd(t_cmd *cmd_exec_node)
+void	mini_exec_builtin(t_token *token_lst, t_mini *mini)
 {
-	if (cmd_exec_node->input_fd < 0 || cmd_exec_node->output_fd < 0)
-		mini_exit_if_fd_neg(cmd_exec_node);
-	if (cmd_exec_node->input_fd > 0)
-	{
-		dup2(cmd_exec_node->input_fd, STDIN_FILENO);
-		close(cmd_exec_node->read_pipe);
-		close(cmd_exec_node->input_fd);
-	}
-	else if (cmd_exec_node->input_fd == 0 && cmd_exec_node->read_pipe != -1)
-	{
-		dup2(cmd_exec_node->read_pipe, STDIN_FILENO);
-		close(cmd_exec_node->read_pipe);
-	}
-	if (cmd_exec_node->output_fd > 1)
-	{
-		dup2(cmd_exec_node->output_fd, STDOUT_FILENO);
-		close(cmd_exec_node->write_pipe);
-		close(cmd_exec_node->output_fd);
-	}
-	else if (cmd_exec_node->output_fd == 1 && cmd_exec_node->write_pipe != -1)
-	{
-		dup2(cmd_exec_node->write_pipe, STDOUT_FILENO);
-		close(cmd_exec_node->write_pipe);
-	}
+	char	*cmd;
+	t_token	*arg;
+
+	cmd = token_lst->token;
+	arg = token_lst->next;
+	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+		mini->status = mini_export(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+		mini->status = mini_echo(arg);
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+		mini->status = mini_pwd(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+		mini->status = mini_cd(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+		mini->status = mini_env(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+		mini->status = mini_unset(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		mini_exit(arg, mini->status);
 }
 
-void	mini_exit_if_fd_neg(t_cmd *cmd_exec_node)
+int	mini_is_simple_cmd(t_cmd *cmd_exec_node)
 {
-	mini_close_node_fd(cmd_exec_node);
-	ft_free_trashman(ft_get_mem_address());
-	ft_free_trashman_env(ft_get_mem_address_env());
-	exit(1);
+	if (cmd_exec_node->next)
+		return (0);
+	return (1);
 }
 
-void	command_not_found_handler(t_mini *mini, t_cmd *cmd_exec_node)
+t_token	*mini_exec_interface(char **cmd_exec)
 {
-	if (ft_strchr(cmd_exec_node->cmd_path, '/')
-		|| cmd_exec_node->cmd_path[0] == '.')
-		get_captalized_errors(mini, cmd_exec_node);
+	t_token	*token_lst;
+	int		i;
+
+	token_lst = NULL;
+	i = 0;
+	while (cmd_exec && cmd_exec[i])
+		mini_token_lstadd_back(&token_lst, mini_token_lstnew(cmd_exec[i++], 0));
+	return (token_lst);
+}
+
+int	mini_is_builtin(t_token *token_lst)
+{
+	char	*cmd;
+	int		is_builtin;
+
+	is_builtin = 0;
+	if (!token_lst)
+		return (is_builtin);
+	cmd = token_lst->token;
+	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+		is_builtin = 1;
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		is_builtin = 1;
+	return (is_builtin);
+}
+
+int	mini_cmd_selection(t_token *token_lst, t_mini *mini)
+{
+	char	*cmd;
+	t_token	*arg;
+	int		executed;
+
+	cmd = token_lst->token;
+	arg = token_lst->next;
+	executed = 1;
+	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+		mini->status = mini_export(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+		mini->status = mini_echo(arg);
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+		mini->status = mini_pwd(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+		mini->status = mini_cd(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+		mini->status = mini_env(arg, &mini->env_list);
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		mini_exit(arg, mini->status);
 	else
-	{
-		ft_printf_fd(2, "%s: %s: %s\n", "minishell", cmd_exec_node->cmd_path,
-			"command not found");
-		mini->status = 127;
-	}
-}
-
-void	get_captalized_errors(t_mini *mini, t_cmd *cmd_exec_node)
-{
-	int		status;
-	char	*error_msg;
-
-	if (access(cmd_exec_node->cmd_path, F_OK) < 0)
-	{
-		error_msg = "No such file or directory";
-		status = 127;
-	}
-	else if (access(cmd_exec_node->cmd_path, X_OK) == 0)
-	{
-		error_msg = "Is a directory";
-		status = 126;
-	}
-	else
-	{
-		error_msg = "Permission denied";
-		status = 126;
-	}
-	ft_printf_fd(2, "%s: %s: %s\n", "minishell",
-		cmd_exec_node->cmd_path, error_msg);
-	mini->status = status;
+		executed = 0;
+	return (executed);
 }
