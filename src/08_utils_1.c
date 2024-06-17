@@ -6,50 +6,94 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:30:59 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/05/15 16:42:49 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:27:01 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_cmd	*mini_redir_lstnew(void)
+int	mini_is_dir(char *file)
 {
-	t_cmd	*new_node;
-
-	new_node = malloc(sizeof(t_cmd));
-	if (new_node == NULL)
-		return (NULL);
-	new_node->input_fd = 0;
-	new_node->output_fd = 1;
-	new_node->read_pipe = -1;
-	new_node->write_pipe = -1;
-	new_node->nbr_of_words = 0;
-	new_node->cmd_exec = NULL;
-	new_node->cmd_path = NULL;
-	new_node->next = NULL;
-	new_node->pid = -1;
-	ft_collect_mem(new_node);
-	return (new_node);
+	if (file[0] == '.' && file[1] == '\0')
+		return (1);
+	if (file[0] == '/')
+		return (1);
+	return (0);
 }
 
-void	mini_redir_lstadd_back(t_cmd **lst, t_cmd *new)
+void	mini_handle_out_redir(t_cmd *redir_node, char *file)
 {
-	t_cmd	*last_node;
+	int	fd;
 
-	if (*lst == NULL)
-	{
-		*lst = new;
+	if (redir_node->input_fd < 0 || redir_node->output_fd < 0)
 		return ;
-	}
-	last_node = mini_redir_lstlast(*lst);
-	last_node->next = new;
+	if (redir_node->output_fd != 1)
+		close(redir_node->output_fd);
+	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 420);
+	if (fd < 0 && access(file, F_OK))
+		ft_printf_fd(STDERR_FILENO,
+			"minishell: %s: No such file or directory\n", file);
+	else if (fd < 0 && mini_is_dir(file))
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Is a directory\n", file);
+	else if (fd < 0 && access(file, W_OK))
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied\n", file);
+	redir_node->output_fd = fd;
 }
 
-t_cmd	*mini_redir_lstlast(t_cmd *lst)
+void	mini_handle_in_redir(t_cmd *redir_node, char *file)
 {
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	int	fd;
+
+	if (redir_node->input_fd < 0 || redir_node->output_fd < 0)
+		return ;
+	if (redir_node->input_fd != 0)
+		close(redir_node->input_fd);
+	fd = open(file, O_RDONLY);
+	if (fd < 0 && access(file, F_OK))
+		ft_printf_fd(STDERR_FILENO,
+			"minishell: %s: No such file or directory\n", file);
+	else if (fd < 0 && mini_is_dir(file))
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Is a directory\n", file);
+	else if (fd < 0 && access(file, R_OK))
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied\n", file);
+	redir_node->input_fd = fd;
+}
+
+void	mini_handle_append_redir(t_cmd *redir_node, char *file)
+{
+	int	fd;
+
+	if (redir_node->input_fd < 0 || redir_node->output_fd < 0)
+		return ;
+	if (redir_node->output_fd != 1)
+		close(redir_node->output_fd);
+	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 420);
+	if (fd < 0 && access(file, F_OK))
+		ft_printf_fd(STDERR_FILENO,
+			"minishell: %s: No such file or directory\n", file);
+	else if (fd < 0 && mini_is_dir(file))
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Is a directory\n", file);
+	else if (fd < 0 && access(file, W_OK))
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied\n", file);
+	redir_node->output_fd = fd;
+}
+
+void	mini_handle_heredoc_redir(t_cmd *redir_node, char *file)
+{
+	int	fd;
+
+	if (redir_node->input_fd < 0 || redir_node->output_fd < 0)
+		return ;
+	if (redir_node->input_fd != 0)
+		close(redir_node->input_fd);
+	fd = open(file, O_RDONLY);
+	unlink(file);
+	if (fd < 0 && access(file, F_OK))
+		ft_printf_fd(STDERR_FILENO,
+			"minishell: %s: No such file or directory\n", file);
+	else if (fd < 0 && mini_is_dir(file))
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Is a directory\n", file);
+	else if (fd < 0 && access(file, R_OK))
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: Permission denied\n", file);
+	redir_node->input_fd = fd;
 }
