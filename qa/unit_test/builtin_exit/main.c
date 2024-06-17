@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/03 16:13:21 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:29:42 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int main(int argc, char *argv[], char *envp[])
 	t_token *arg;
 	int		i;
 
+	mini_ctrl_signal(&mini);
+	mini_ctrl_signal(&mini);
 	mini.env_list = NULL;
 	mini.status = 0;
 	mini_getenv(&mini);
