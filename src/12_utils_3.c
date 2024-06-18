@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   12_utils_5.c                                       :+:      :+:    :+:   */
+/*   12_utils_3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:49:08 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 14:09:59 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:08:55 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/builtins.h"
 
-void	mini_exec_builtin(t_token *token_lst, t_mini *mini)
+void	mini_exec_builtin(t_token *token_lst,
+		t_mini *mini, t_cmd *cmd_exec_node)
 {
 	char	*cmd;
 	t_token	*arg;
+	int		stdin_backup;
+	int		stdout_backup;
 
+	if (cmd_exec_node->input_fd < 0 || cmd_exec_node->output_fd < 0)
+		return ;
+	mini_backup_builtin_stdin(&stdin_backup, &stdout_backup);
+	mini_set_builtin_fd(mini, cmd_exec_node);
 	cmd = token_lst->token;
 	arg = token_lst->next;
-	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
-		mini->status = mini_export(arg, &mini->env_list);
-	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
-		mini->status = mini_echo(arg);
-	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
-		mini->status = mini_pwd(arg, &mini->env_list);
-	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
-		mini->status = mini_cd(arg, &mini->env_list);
-	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
-		mini->status = mini_env(arg, &mini->env_list);
-	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
-		mini->status = mini_unset(arg, &mini->env_list);
-	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
-		mini_exit(arg, mini->status);
+	mini_call_to_builtin(mini, cmd, arg);
+	mini_restore_builtin_fd(&stdin_backup, &stdout_backup);
 }
 
 int	mini_is_simple_cmd(t_cmd *cmd_exec_node)

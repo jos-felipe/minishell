@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/18 11:28:58 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:08:07 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,12 +285,19 @@ void		mini_close_pipe_node_fd(t_cmd *cmd_exec_node);
 void		mini_close_pipes(t_mini *mini, t_cmd *current);
 
 // 12_utils_3.c
-void		mini_exec_builtin(t_token *token_lst, t_mini *mini);
+void		mini_exec_builtin(t_token *token_lst,
+				t_mini *mini, t_cmd *cmd_exec_node);
 int			mini_is_simple_cmd(t_cmd *cmd_exec_node);
 t_token		*mini_exec_interface(char **cmd_exec);
 int			mini_is_builtin(t_token *token_lst);
 int			mini_is_builtin(t_token *token_lst);
 int			mini_cmd_selection(t_token *token_lst, t_mini *mini);
+
+// 12_utils_4.c
+void		mini_call_to_builtin(t_mini *mini, char *cmd, t_token *arg);
+void		mini_backup_builtin_stdin(int *stdin_backup, int *stdout_backup);
+void		mini_set_builtin_fd(t_mini *mini, t_cmd *cmd_exec_node);
+void		mini_restore_builtin_fd(int *stdin_backup, int *stdout_backup);
 
 // 13_mini_remake_environ.c
 void		mini_remake_environ(t_mini *mini);

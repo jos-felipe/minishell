@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 14:10:44 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:33:22 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	mini_execve(t_mini *mini)
 		token_lst = mini_exec_interface(cmd_exec_node->cmd_exec);
 		is_builtin = mini_is_builtin(token_lst);
 		if (is_simple_cmd && is_builtin)
-			mini_exec_builtin(token_lst, mini);
+			mini_exec_builtin(token_lst, mini, cmd_exec_node);
 		else
 			mini_exec_fork(mini, cmd_exec_node, token_lst);
 		cmd_exec_node = cmd_exec_node->next;
