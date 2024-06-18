@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/18 13:08:07 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:47:05 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,8 @@ void		mini_match_cmd_exec_word(char *token, t_cmd *cmd_exec_node, int i);
 
 // 10_get_cmd_path.c
 void		mini_get_cmd_exec_path(t_mini *mini);
-char		*mini_get_cmd_path(t_cmd *cmd_exec_node);
+char		*mini_get_cmd_path(t_mini *mini, t_cmd *cmd_exec_node);
+char		*mini_search_in_envlist(t_mini *mini, char *key);
 
 // 11_open_pipes.c
 void		mini_open_pipes(t_mini *mini);

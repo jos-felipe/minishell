@@ -6,11 +6,12 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:31:18 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/18 13:06:53 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:48:15 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include "../include/builtins.h"
 
 void	mini_call_to_builtin(t_mini *mini, char *cmd, t_token *arg)
 {
