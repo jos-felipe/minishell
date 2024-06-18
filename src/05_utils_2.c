@@ -6,11 +6,13 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 11:38:07 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 18:56:34 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:54:02 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	mini_has_syntax_error(t_mini *mini, t_token *token_list);
 
 void	mini_print_sintax_error_message(int state)
 {
@@ -93,17 +95,24 @@ void	mini_check_sintax(t_mini *mini, t_token *token_list)
 				return ;
 			}
 		}
-		if (mini_pipe_syntax(token_list)
-			|| mini_consecutive_op_syntax(token_list)
-			|| mini_pipe_space_pipe_syntax(token_list))
-		{
-			mini_set_syntax_error(mini);
+		if (mini_has_syntax_error(mini, token_list))
 			return ;
-		}
 		token_list = token_list->next;
 	}
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);
 	close(stdin_backup);
 	close(stdout_backup);
+}
+
+int	mini_has_syntax_error(t_mini *mini, t_token *token_list)
+{
+	if (mini_pipe_syntax(token_list)
+		|| mini_consecutive_op_syntax(token_list)
+		|| mini_pipe_space_pipe_syntax(token_list))
+	{
+		mini_set_syntax_error(mini);
+		return (1);
+	}
+	return (0);
 }
