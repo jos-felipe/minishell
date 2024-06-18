@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   12_utils_3.c                                       :+:      :+:    :+:   */
+/*   12_utils_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:50:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 14:06:09 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:37:08 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/builtins.h"
+
+static int	mini_is_path_unseted(t_mini *mini);
 
 void	mini_manage_execve_fd(t_cmd *cmd_exec_node)
 {
@@ -52,7 +54,7 @@ void	mini_exit_if_fd_neg(t_cmd *cmd_exec_node)
 void	command_not_found_handler(t_mini *mini, t_cmd *cmd_exec_node)
 {
 	if (ft_strchr(cmd_exec_node->cmd_path, '/')
-		|| cmd_exec_node->cmd_path[0] == '.')
+		|| cmd_exec_node->cmd_path[0] == '.' || mini_is_path_unseted(mini))
 		get_captalized_errors(mini, cmd_exec_node);
 	else
 	{
@@ -85,4 +87,18 @@ void	get_captalized_errors(t_mini *mini, t_cmd *cmd_exec_node)
 	ft_printf_fd(2, "%s: %s: %s\n", "minishell",
 		cmd_exec_node->cmd_path, error_msg);
 	mini->status = status;
+}
+
+static int	mini_is_path_unseted(t_mini *mini)
+{
+	t_dict	*cur;
+
+	cur = mini->env_list;
+	while (cur)
+	{
+		if (!ft_strncmp(cur->key, "PATH", ft_strlen(cur->key) + 4))
+			return (0);
+		cur = cur->next;
+	}
+	return (1);
 }
