@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/17 14:21:08 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:28:58 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,8 @@ int			mini_is_error_state(int num);
 // 05_utils_2.c
 void		mini_print_sintax_error_message(int state);
 void		mini_cut_string(t_mini *mini, t_dfa *dfa);
+void		mini_set_syntax_error(t_mini *mini);
+
 void		mini_check_sintax(t_mini *mini, t_token *token_list);
 void		mini_check_consecutive_op_sintax(t_mini *mini, t_token *token_list);
 void		mini_check_pipe_space_pipe_sintax(t_mini *mini, \
@@ -182,6 +184,14 @@ void		debug_print_list(t_token **head); // FOR DEBUG ONLY
 // 05_utils_5.c
 int			mini_was_quoted(int state);
 void		mini_handle_export_arg(t_mini *mini);
+
+// 05_utils_6.c
+void		mini_check_sintax(t_mini *mini, t_token *token_list);
+
+// 05_utils_7.c
+void		mini_init_hd_signal(t_mini *mini,
+				int *stdin_backup, int *stdout_backup);
+void		mini_finish_hd_signal(int *stdin_backup, int *stdout_backup);
 
 // 06_parser.c
 void		mini_parser(t_mini *mini);
@@ -275,12 +285,12 @@ void		mini_close_pipe_node_fd(t_cmd *cmd_exec_node);
 void		mini_close_pipes(t_mini *mini, t_cmd *current);
 
 // 12_utils_3.c
-void	mini_exec_builtin(t_token *token_lst, t_mini *mini);
-int		mini_is_simple_cmd(t_cmd *cmd_exec_node);
-t_token	*mini_exec_interface(char **cmd_exec);
-int		mini_is_builtin(t_token *token_lst);
-int		mini_is_builtin(t_token *token_lst);
-int		mini_cmd_selection(t_token *token_lst, t_mini *mini);
+void		mini_exec_builtin(t_token *token_lst, t_mini *mini);
+int			mini_is_simple_cmd(t_cmd *cmd_exec_node);
+t_token		*mini_exec_interface(char **cmd_exec);
+int			mini_is_builtin(t_token *token_lst);
+int			mini_is_builtin(t_token *token_lst);
+int			mini_cmd_selection(t_token *token_lst, t_mini *mini);
 
 // 13_mini_remake_environ.c
 void		mini_remake_environ(t_mini *mini);

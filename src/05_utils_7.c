@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_ctrl_signal.c                                   :+:      :+:    :+:   */
+/*   05_utils_7.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/05 16:42:04 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/18 11:56:31 by gfantoni         ###   ########.fr       */
+/*   Created: 2024/06/18 11:18:42 by gfantoni          #+#    #+#             */
+/*   Updated: 2024/06/18 11:40:12 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	mini_ctrl_signal(t_mini *mini)
+void	mini_init_hd_signal(t_mini *mini, int *stdin_backup, int *stdout_backup)
 {
-	struct sigaction	int_action;
-	struct sigaction	quit_action;
+	*stdin_backup = dup(STDIN_FILENO);
+	*stdout_backup = dup(STDOUT_FILENO);
+	mini->int_action.sa_handler = sig_handler_heredoc;
+	sigaction(SIGINT, &mini->int_action, NULL);
+}
 
-	int_action.sa_handler = sig_handler;
-	sigemptyset(&int_action.sa_mask);
-	int_action.sa_flags = 0;
-	sigaction(SIGINT, &int_action, NULL);
-	quit_action.sa_handler = SIG_IGN;
-	quit_action.sa_flags = 0;
-	sigemptyset(&quit_action.sa_mask);
-	sigaction(SIGQUIT, &quit_action, NULL);
-	mini->int_action = int_action;
-	mini->quit_action = quit_action;
+void	mini_finish_hd_signal(int *stdin_backup, int *stdout_backup)
+{
+	dup2(*stdin_backup, STDIN_FILENO);
+	dup2(*stdout_backup, STDOUT_FILENO);
+	close(*stdin_backup);
+	close(*stdout_backup);
 }

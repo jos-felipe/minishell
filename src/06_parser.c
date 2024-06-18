@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   06_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:29:13 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:41:12 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,18 @@ void	mini_parser(t_mini *mini)
 		mini->commands = (t_token **)ft_calloc(sizeof(t_token *), nbr_cmds + 1);
 		ft_collect_mem(mini->commands);
 		mini_fill_cmd_array(mini);
-		//debug_print_array_list(mini); // FOR DEBUG ONLY
 	}
 }
 
 int	mini_count_nbr_pipes(t_token *token_list)
 {
-	t_token *temp;
+	t_token	*temp;
 	int		nbr_pipes;
 
 	temp = token_list;
 	nbr_pipes = 0;
 	while (temp)
 	{
-		// if (temp->token[0] == '|')
 		if (!ft_strncmp(temp->token, "|", 2))
 			nbr_pipes++;
 		temp = temp->next;
@@ -44,10 +42,10 @@ int	mini_count_nbr_pipes(t_token *token_list)
 	return (nbr_pipes);
 }
 
-void	mini_fill_cmd_array(t_mini  *mini)
+void	mini_fill_cmd_array(t_mini *mini)
 {
 	t_token	*current;
-	t_token *new;
+	t_token	*new;
 	char	*token;
 	int		i;
 

@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 09:16:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/05/21 13:06:29 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:52:12 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,22 @@ char	*mini_sub_token_join(t_sub_token *sub_token_lst)
 		sub_token_lst = sub_token_lst->next;
 	}
 	return (str);
+}
+
+char	*mini_get_dollar_sign(t_mini *mini, char *sub_token)
+{
+	char	*status;
+	char	*status_joined;
+
+	status = ft_itoa(mini->status);
+	ft_collect_mem(status);
+	if (sub_token[2] != '\0')
+	{
+		sub_token++;
+		sub_token++;
+		status_joined = ft_strjoin(status, sub_token);
+		ft_collect_mem(status_joined);
+		return (status_joined);
+	}
+	return (status);
 }
