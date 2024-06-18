@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   07_utils_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:39:32 by josfelip          #+#    #+#             */
-/*   Updated: 2024/04/11 16:35:42 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:52:22 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	mini_sub_tokenizier(char *str, t_sub_token **sub_token_lst, int start, int state)
+void	mini_sub_tokenizier(char *str,
+			t_sub_token **sub_token_lst, int start, int state)
 {
 	int		i;
 	char	*value;
@@ -33,22 +34,23 @@ void	mini_sub_tokenizier(char *str, t_sub_token **sub_token_lst, int start, int 
 				i = i - 2;
 			value = ft_substr(str, start, (i - start) + 1);
 			ft_collect_mem(value);
-			mini_sub_token_lstadd_back(sub_token_lst, mini_sub_token_lstnew(value));
+			mini_sub_token_lstadd_back(sub_token_lst,
+				mini_sub_token_lstnew(value));
 			state = 0;
 		}
 		i++;
 	}
-	
 }
 
 int	mini_exp_get_next_state(int state, int column)
 {
-	static int truth_table[4][3] = {
-									{1,   3,   666},
-									{1,   2,   100},
-									{200, 200, 100},
-									{1,   300, 100}
-								  };
+	static int	truth_table[4][3] = {
+	{001, 003, 666},
+	{001, 002, 100},
+	{200, 200, 100},
+	{001, 300, 100}
+	};
+
 	return (truth_table[state][column]);
 }
 
@@ -58,17 +60,17 @@ int	mini_exp_get_column(char c)
 		return (1);
 	if (c == '\0')
 		return (2);
-	return (0); // word
+	return (0);
 }
 
-int is_one_back_state(int state)
+int	is_one_back_state(int state)
 {
 	if (state == 100)
 		return (1);
 	return (0);
 }
 
-int is_two_back_state(int state)
+int	is_two_back_state(int state)
 {
 	if (state == 200)
 		return (1);
