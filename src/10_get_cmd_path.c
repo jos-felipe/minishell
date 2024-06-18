@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:27:24 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/18 14:50:29 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:45:00 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*mini_get_cmd_path(t_mini *mini, t_cmd *cmd_exec_node)
 
 char	*mini_search_in_envlist(t_mini *mini, char *key)
 {
-	char 	*value;
+	char	*value;
 	t_dict	*cur;
 
 	value = NULL;
