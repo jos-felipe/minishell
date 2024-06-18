@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 10:11:27 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 13:29:38 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:21:32 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	mini_build_cmd_exec(t_mini *mini)
 	token_node = mini->commands[i];
 	cmd_exec_node = mini->cmd_exec_list;
 	while (token_node)
-	{	
+	{
 		mini_count_cmd_exec_words(token_node, cmd_exec_node);
 		if (cmd_exec_node->nbr_of_words)
 			mini_unite_cmd_exec_words(token_node, cmd_exec_node);
