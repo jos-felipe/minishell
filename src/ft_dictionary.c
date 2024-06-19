@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:26:06 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/17 12:27:13 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:04:08 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	ft_dict_insert(t_dict **dict, char **var)
 {
-	if (var[1])
+	if (1)
 	{
 		if (!ft_dict_update(*dict, var))
 			ft_dictadd_back(dict, ft_dictnew(var));
