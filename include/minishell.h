@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/19 11:18:35 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:57:29 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_token
 	enum e_token_gender		gender;
 	enum e_token_specie		specie;
 	int						was_quoted;
+	int						was_squoted;
 	struct s_token			*next;
 	struct s_token			*prev;
 }	t_token;
@@ -183,6 +184,7 @@ void		debug_print_list(t_token **head); // FOR DEBUG ONLY
 
 // 05_utils_5.c
 int			mini_was_quoted(int state);
+int			mini_was_squoted(int state);
 void		mini_handle_export_arg(t_mini *mini);
 
 // 05_utils_6.c

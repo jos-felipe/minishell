@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:29:13 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/18 11:41:12 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:58:57 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ t_token	*mini_t_token_dup(t_token *t)
 	new_node->token = t->token;
 	new_node->gender = t->gender;
 	new_node->specie = t->specie;
+	new_node->was_quoted = t->was_quoted;
+	new_node->was_squoted = t->was_squoted;
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	ft_collect_mem(new_node);
