@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:34:02 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/17 12:19:17 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:11:05 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static void	mini_printenv(t_dict *dict)
 	{
 		if (cur->value)
 			ft_printf("%s=%s\n", cur->key, cur->value);
-		else
-			ft_printf("%s\n", cur->key);
 		cur = cur->next;
 	}
 }
