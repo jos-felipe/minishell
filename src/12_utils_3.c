@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:49:08 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/19 16:41:13 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:51:34 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,19 @@ int	mini_is_builtin(t_token *token_lst)
 	if (!token_lst)
 		return (is_builtin);
 	cmd = token_lst->token;
-	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+	if (!ft_strncmp(cmd, "export", ft_strlen(cmd) + 6))
 		is_builtin = 1;
-	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd) + 4))
 		is_builtin = 1;
-	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd) + 3))
 		is_builtin = 1;
-	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd) + 2))
 		is_builtin = 1;
-	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd) + 3))
 		is_builtin = 1;
-	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd) + 5))
 		is_builtin = 1;
-	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd) + 4))
 		is_builtin = 1;
 	return (is_builtin);
 }
@@ -85,19 +85,19 @@ int	mini_cmd_selection(t_token *token_lst, t_mini *mini)
 	cmd = token_lst->token;
 	arg = token_lst->next;
 	executed = 1;
-	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+	if (!ft_strncmp(cmd, "export", ft_strlen(cmd) + 6))
 		mini->status = mini_export(arg, &mini->env_list);
-	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd) + 4))
 		mini->status = mini_echo(arg);
-	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd) + 3))
 		mini->status = mini_pwd();
-	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd) + 2))
 		mini->status = mini_cd(arg, &mini->env_list);
-	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd) + 3))
 		mini->status = mini_env(arg, &mini->env_list);
-	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd) + 5))
 		mini->status = mini_unset(arg, &mini->env_list);
-	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd) + 4))
 		mini_exit(arg, mini->status);
 	else
 		executed = 0;
