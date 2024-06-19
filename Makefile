@@ -6,7 +6,7 @@
 #    By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:03:46 by josfelip          #+#    #+#              #
-#    Updated: 2024/06/19 11:01:38 by josfelip         ###   ########.fr        #
+#    Updated: 2024/06/19 12:02:24 by josfelip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,12 @@ COLOR_LIMITER = "\033[0m"
 
 # Paths definitions
 HEADER_PATH = ./include/
-HEADER_FILE = $(shell find $(HEADER_PATH) -name "*.h" | cut -d '/' -f3)
+HEADER_FILE = builtins.h dictionary.h libftplus.h mini_get_cmd_path.h minishell.h trashman_env.h trashman.h
 HEADER = $(addprefix $(HEADER_PATH), $(HEADER_FILE))
 OBJ_PATH = ./obj/
 DEBUG_OBJ_PATH = ./obj_debug/
 SOURCES_PATH = ./src/
-SOURCES = $(shell find $(SOURCES_PATH) -name "*.c" | cut -d '/' -f3)
+SOURCES = 00_utils.c 02_ctrl_signal.c 02_utils.c 03_utils.c 05_tokenizer.c 05_utils_1.c 05_utils_2.c 05_utils_3.c 05_utils_4.c 05_utils_5.c 05_utils_6.c 05_utils_7.c 06_parser.c 06_utils.c 07_expansion.c 07_utils_1.c 07_utils_2.c 07_utils_3.c 07_utils_4.c 08_redirect.c 08_utils_1.c 08_utils_2.c 09_execute.c 10_get_cmd_path.c 11_open_pipes.c 12_mini_execve.c 12_utils_1.c 12_utils_2.c 12_utils_3.c 12_utils_4.c 13_remake_environ.c 14_split_expansion.c 15_heredoc.c 15_utils_1.c 93_builtin_exit.c 94_builtin_env.c 95_builtin_cd.c 96_builtin_pwd.c 97_builtin_unset.c 97_utils_1.c 98_builtin_export.c 98_utils_1.c 99_builtin_echo.c ft_dictionary.c ft_dictionary_utils.c ft_substr_mem.c ft_trashman.c ft_trashman_env.c
 MANDATORY_SOURCES = $(addprefix $(SOURCES_PATH), $(SOURCES))
 
 ifdef WITH_DEBUG
