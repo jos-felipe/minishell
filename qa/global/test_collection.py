@@ -69,6 +69,10 @@ def test_collection():
 	output_ref_list.append(f"{user}\n")
 	output_exit_code.append("0\n")
 
+	input_list.append("echo \'$USER\'")
+	output_ref_list.append(f"$USER\n")
+	output_exit_code.append("0\n")
+
 	input_list.append("echo $?USER")
 	output_ref_list.append("0USER\n")
 	output_exit_code.append("0\n")
