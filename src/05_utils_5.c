@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:28:04 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/18 11:24:41 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:55:35 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ static char	*mini_join_export_arg(char *token, char *token_next);
 int	mini_was_quoted(int state)
 {
 	if (state == 107 || state == 108)
+		return (1);
+	return (0);
+}
+
+int	mini_was_squoted(int state)
+{
+	if (state == 108)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:46 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/18 11:52:02 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:00:30 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	mini_token_expansion(t_mini *mini, int i)
 	token_node = mini->commands[i];
 	while (token_node)
 	{
-		if (ft_strchr(token_node->token, '$'))
+		if (ft_strchr(token_node->token, '$') && !token_node->was_squoted)
 		{
 			token_node->token = mini_sep_exp_join(mini, token_node->token);
 			mini_find_space(mini, i);
