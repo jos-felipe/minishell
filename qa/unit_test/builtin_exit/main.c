@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:09:14 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 10:29:42 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:40:32 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	unit_cmd_selection(t_token *token_lst, t_mini *mini)
 	else if (!ft_strncmp(cmd, "echo", 4))
 		mini_echo(arg);
 	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
-		mini_pwd(arg, &mini->env_list);
+		mini_pwd();
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
 		mini_cd(arg, &mini->env_list);
 	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
