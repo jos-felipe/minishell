@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 10:52:24 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/18 14:47:05 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:18:35 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,7 +297,7 @@ int			mini_cmd_selection(t_token *token_lst, t_mini *mini);
 // 12_utils_4.c
 void		mini_call_to_builtin(t_mini *mini, char *cmd, t_token *arg);
 void		mini_backup_builtin_stdin(int *stdin_backup, int *stdout_backup);
-void		mini_set_builtin_fd(t_mini *mini, t_cmd *cmd_exec_node);
+void		mini_set_builtin_fd(t_cmd *cmd_exec_node);
 void		mini_restore_builtin_fd(int *stdin_backup, int *stdout_backup);
 
 // 13_mini_remake_environ.c
@@ -317,15 +317,11 @@ char		*mini_hd_expansion(char *line);
 // 95_builtin_cd.c
 int			mini_cd(t_token *arg, t_dict **env_list);
 
-// 96_builtin_pwd.c
-int			mini_pwd(t_token *arg, t_dict **env_list);
-
 // 97_builtin_unset.c
 int			mini_unset(t_token *arg, t_dict **env_list);
 
 // 97_utils_1.c
-int			mini_valid_identifier(char *str, t_dict **env_list, \
-int start, int state);
+int			mini_valid_identifier(char *str, int state);
 
 // 98_builtin_export.c
 int			mini_export(t_token *arg, t_dict **env_list);

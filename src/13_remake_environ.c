@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   13_remake_environ.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 18:42:16 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 14:52:42 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:25:01 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 static int	mini_get_env_list_size(t_dict *env_list);
-static int	mini_get_env_line_size(char *var, char *value);
 
 void	mini_remake_environ(t_mini *mini)
 {
@@ -52,14 +51,4 @@ static int	mini_get_env_list_size(t_dict *env_list)
 		env_list = env_list->next;
 	}
 	return (i);
-}
-
-static int	mini_get_env_line_size(char *var, char *value)
-{
-	int	var_size;
-	int	value_size;
-
-	var_size = ft_strlen(var);
-	value_size = ft_strlen(value);
-	return (var_size + value_size + 1);
 }

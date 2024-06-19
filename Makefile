@@ -6,7 +6,7 @@
 #    By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:03:46 by josfelip          #+#    #+#              #
-#    Updated: 2024/06/03 12:35:00 by josfelip         ###   ########.fr        #
+#    Updated: 2024/06/19 11:01:38 by josfelip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,12 +64,12 @@ $(NAME): $(OBJECTS) $(OBJ_PATH)main.o
 
 $(OBJ_PATH)%.o: $(SOURCES_PATH)%.c $(HEADER)
 	@echo $(GREEN)[Compiling]$(COLOR_LIMITER) $(WHITE)$(notdir $(<))...$(COLOR_LIMITER)
-	$(CC) -c $(DFLAGS) $< -o $@ -I $(HEADER_PATH)
+	$(CC) -c $(CFLAGS) $< -o $@ -I $(HEADER_PATH)
 	@echo " "
 
 $(OBJ_PATH)main.o: main.c $(HEADER)
 	@echo $(GREEN)[Compiling]$(COLOR_LIMITER) $(WHITE)$(notdir $(<))...$(COLOR_LIMITER)
-	$(CC) -c $(DFLAGS) $< -o $@ -I $(HEADER_PATH)
+	$(CC) -c $(CFLAGS) $< -o $@ -I $(HEADER_PATH)
 	@echo " "
 
 clean:

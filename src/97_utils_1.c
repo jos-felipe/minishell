@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:22:08 by josfelip          #+#    #+#             */
-/*   Updated: 2024/06/17 12:22:10 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:17:06 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define ERROR 200
 
-int	mini_valid_identifier(char *str, t_dict **env_list, int start, int state)
+int	mini_valid_identifier(char *str, int state)
 {
 	size_t	i;
 
