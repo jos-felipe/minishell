@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   12_utils_3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 13:49:08 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/18 13:08:55 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:13:24 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	mini_exec_builtin(t_token *token_lst,
 	if (cmd_exec_node->input_fd < 0 || cmd_exec_node->output_fd < 0)
 		return ;
 	mini_backup_builtin_stdin(&stdin_backup, &stdout_backup);
-	mini_set_builtin_fd(mini, cmd_exec_node);
+	mini_set_builtin_fd(cmd_exec_node);
 	cmd = token_lst->token;
 	arg = token_lst->next;
 	mini_call_to_builtin(mini, cmd, arg);
@@ -90,7 +90,7 @@ int	mini_cmd_selection(t_token *token_lst, t_mini *mini)
 	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
 		mini->status = mini_echo(arg);
 	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
-		mini->status = mini_pwd(arg, &mini->env_list);
+		mini->status = mini_pwd();
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
 		mini->status = mini_cd(arg, &mini->env_list);
 	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   12_utils_4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:31:18 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/18 14:48:15 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:14:15 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	mini_call_to_builtin(t_mini *mini, char *cmd, t_token *arg)
 	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
 		mini->status = mini_echo(arg);
 	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
-		mini->status = mini_pwd(arg, &mini->env_list);
+		mini->status = mini_pwd();
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
 		mini->status = mini_cd(arg, &mini->env_list);
 	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
@@ -37,7 +37,7 @@ void	mini_backup_builtin_stdin(int *stdin_backup, int *stdout_backup)
 	*stdout_backup = dup(STDOUT_FILENO);
 }
 
-void	mini_set_builtin_fd(t_mini *mini, t_cmd *cmd_exec_node)
+void	mini_set_builtin_fd(t_cmd *cmd_exec_node)
 {
 	if (cmd_exec_node->input_fd > 0)
 	{

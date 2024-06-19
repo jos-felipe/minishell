@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   12_mini_execve.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 13:23:06 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/18 12:33:22 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:26:40 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	mini_exec_fork(t_mini *mini,
 void	mini_execve_child(t_mini *mini,
 	t_cmd *cmd_exec_node, t_token *token_node)
 {
-	t_token	*token_lst;
-
 	mini->int_action.sa_handler = SIG_DFL;
 	sigaction(SIGINT, &mini->int_action, NULL);
 	mini->quit_action.sa_handler = SIG_DFL;
@@ -75,7 +73,6 @@ void	mini_execve_child(t_mini *mini,
 void	mini_wait_childs(t_mini *mini)
 {
 	int		status;
-	int		signal;
 	t_cmd	*cmd_exec_node;
 
 	status = 0;
