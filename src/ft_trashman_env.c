@@ -6,7 +6,7 @@
 /*   By: josfelip <josfelip@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:44:33 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/17 12:27:50 by josfelip         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:34:14 by josfelip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ t_list	**ft_get_mem_address_env(void)
 
 void	ft_collect_mem_env(void *content)
 {
-	t_list	**ptr;
-
 	ft_lstadd_back(ft_get_mem_address_env(), ft_lstnew(content));
-	ptr = ft_get_mem_address_env();
 }
 
 void	ft_free_trashman_env(t_list **lst_memory)
