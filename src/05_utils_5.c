@@ -6,7 +6,7 @@
 /*   By: gfantoni <gfantoni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:28:04 by gfantoni          #+#    #+#             */
-/*   Updated: 2024/06/19 17:55:35 by gfantoni         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:43:28 by gfantoni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,12 @@ static int	mini_last_char_is_equal(char *token)
 {
 	size_t	len;
 
-	len = ft_strlen(token);
-	if (token[len - 1] == '=')
-		return (1);
+	if (token && token[0] != '\0')
+	{
+		len = ft_strlen(token);
+		if (token[len - 1] == '=')
+			return (1);
+	}
 	return (0);
 }
 

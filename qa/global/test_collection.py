@@ -98,6 +98,9 @@ def test_collection():
 	output_ref_list.append("minishell: ERR: command not found\n")
 	output_exit_code.append("127\n")
 
+	input_list.append("\"\"")
+	output_ref_list.append("minishell: : command not found\n")
+	output_exit_code.append("127\n")
 	# input_list.append("echo a | ERR b | echo c")
 	# output_ref_list.append(f"minishell: ERR: command not found\nc\n")
 	# output_exit_code.append("0\n")
