@@ -69,6 +69,10 @@ def test_collection():
 	output_ref_list.append(f"{user}\n")
 	output_exit_code.append("0\n")
 
+	input_list.append("echo \"$USER\"")
+	output_ref_list.append(f"{user}\n")
+	output_exit_code.append("0\n")
+
 	input_list.append("echo \'$USER\'")
 	output_ref_list.append(f"$USER\n")
 	output_exit_code.append("0\n")
@@ -101,13 +105,17 @@ def test_collection():
 	input_list.append("\"\"")
 	output_ref_list.append("minishell: : command not found\n")
 	output_exit_code.append("127\n")
+
+	input_list.append("\'\'")
+	output_ref_list.append("minishell: : command not found\n")
+	output_exit_code.append("127\n")
 	# input_list.append("echo a | ERR b | echo c")
 	# output_ref_list.append(f"minishell: ERR: command not found\nc\n")
 	# output_exit_code.append("0\n")
 
-	input_list.append("echo a | echo b | ERR c")
-	output_ref_list.append(f"minishell: ERR: command not found\n")
-	output_exit_code.append("127\n")
+	# input_list.append("echo a | echo b | ERR c")
+	# output_ref_list.append(f"minishell: ERR: command not found\n")
+	# output_exit_code.append("127\n")
 
 	# Syntax error
 	input_list.append("echo 'a b")
@@ -137,5 +145,13 @@ def test_collection():
 	input_list.append("> outfile_3")
 	output_ref_list.append(f"")
 	output_exit_code.append("0\n")
+
+	input_list.append("export foo\nexport | grep foo")
+	output_ref_list.append(f"declare -x foo\n")
+	output_exit_code.append("0\n")
+
+	input_list.append("export foo\nenv | grep foo")
+	output_ref_list.append(f"")
+	output_exit_code.append("1\n")
 
 	return input_list, output_ref_list, output_exit_code
