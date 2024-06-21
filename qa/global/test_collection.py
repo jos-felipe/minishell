@@ -146,4 +146,12 @@ def test_collection():
 	output_ref_list.append(f"")
 	output_exit_code.append("0\n")
 
+	input_list.append("export foo\nexport | grep foo")
+	output_ref_list.append(f"declare -x foo\n")
+	output_exit_code.append("0\n")
+
+	input_list.append("export foo\nenv | grep foo")
+	output_ref_list.append(f"")
+	output_exit_code.append("1\n")
+
 	return input_list, output_ref_list, output_exit_code
